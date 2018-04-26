@@ -15,8 +15,8 @@
     "3523"
   ],
   "marketplaceName": {
-    "de":"Exportformat-Tutorial",
-    "en":"Export format tutorial"
+    "de":"Exportformat-Motorradbekleidung.net",
+    "en":"Export format Motorradbekleidung.net"
   },
   "require": [
     "ElasticExport"
@@ -28,6 +28,6 @@
     "plugin", 
     "export", 
     "format", 
-    "tutorial"
+    "Motorradbekleidung.net"
   ]
 }
