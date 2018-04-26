@@ -218,7 +218,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			'gender',
             'price',
             'shipping',
-			//'availability',
+			'availability',
 			'delivery_period',
 			'offered_amount',			
 
@@ -267,7 +267,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			'gender'          => $this->elasticExportPropertyHelper->getProperty($variation, 'gender', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
 			'price'           => $priceList['price'],
 			'dlv_cost'        => $this->getShippingCost($variation),
-			//'availability'      => 
+			'availability'    => $this->elasticExportHelper->getAvailability($variation, $settings, false),
 			'delivery_period' => $this->elasticExportHelper->getAvailability($variation, $settings, false),
             'offered_amount'  => $this->elasticExportStockHelper->getStock($variation),			
 
