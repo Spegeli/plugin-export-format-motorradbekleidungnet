@@ -1,6 +1,6 @@
 <?php
 
-namespace PluginExportFormatMotorradbekleidungNET\ResultField;
+namespace PluginExportFormatTutorial\ResultField;
 
 use Plenty\Modules\Cloud\ElasticSearch\Lib\Source\Mutator\BuiltIn\LanguageMutator;
 use Plenty\Modules\DataExchange\Contracts\ResultFields;
@@ -12,7 +12,7 @@ use Plenty\Modules\Helper\Models\KeyValue;
 
 /**
  * Class ExportFormatResultFields
- * @package PluginExportFormatMotorradbekleidungNET\ResultField
+ * @package PluginExportFormatTutorial\ResultField
  */
 class ExportFormatResultFields extends ResultFields
 {

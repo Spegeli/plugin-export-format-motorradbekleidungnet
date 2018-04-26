@@ -1,13 +1,13 @@
 <?php
 
-namespace PluginExportFormatMotorradbekleidungNET;
+namespace PluginExportFormatTutorial;
 
 use Plenty\Modules\DataExchange\Services\ExportPresetContainer;
 use Plenty\Plugin\ServiceProvider;
 
 /**
  * Class ExportFormatServiceProvider
- * @package PluginExportFormatMotorradbekleidungNET
+ * @package PluginExportFormatTutorial
  */
 class ExportFormatServiceProvider extends ServiceProvider
 {
@@ -27,9 +27,9 @@ class ExportFormatServiceProvider extends ServiceProvider
     public function boot(ExportPresetContainer $container)
     {
         $container->add(
-            'MotorradbekleidungNET-Plugin',
-            'PluginExportFormatMotorradbekleidungNET\ResultField\ExportFormatResultFields',
-            'PluginExportFormatMotorradbekleidungNET\Generator\ExportFormatGenerator',
+            'ExportFormat',
+            'PluginExportFormatTutorial\ResultField\ExportFormatResultFields',
+            'PluginExportFormatTutorial\Generator\ExportFormatGenerator',
             '',
             true,
 			true,
