@@ -273,10 +273,10 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			
             // optional
             'oem_product_number' => $variation['data']['variation']['model'],			
-			'master_name'        => strlen($attributes) ? '' : $this->elasticExportHelper->getMutatedName($variation, $settings, 256),
+			'master_name'        => strlen($attributes) ? $this->elasticExportHelper->getMutatedName($variation, $settings, 256) : '',
 			//'variant_name',
 			//'driving_style',
-			'weight'             => number_format($variation['data']['variation']['weightKG'] / 1000, 2), //Muss in KG angegeben werden
+			'weight'             => number_format($variation['data']['variation']['weightG'] / 1000, 2), //Muss in KG angegeben werden
 			//'currency',
 			//'condition',			
 			
