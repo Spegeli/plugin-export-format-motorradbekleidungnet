@@ -1,6 +1,6 @@
 <?php
 
-namespace PluginExportFormatMotorradbekleidungNET\Generator;
+namespace PluginExportFormatTutorial\Generator;
 
 use ElasticExport\Helper\ElasticExportCoreHelper;
 use ElasticExport\Helper\ElasticExportPriceHelper;
@@ -14,7 +14,7 @@ use Plenty\Plugin\Log\Loggable;
 
 /**
  * Class ExportFormatGenerator
- * @package PluginExportFormatMotorradbekleidungNET\Generator
+ * @package PluginExportFormatTutorial\Generator
  */
 class ExportFormatGenerator extends CSVPluginGenerator
 {
@@ -123,7 +123,7 @@ class ExportFormatGenerator extends CSVPluginGenerator
 						}
 						catch(\Throwable $exception)
 						{
-							$this->getLogger('PluginExportFormatMotorradbekleidungNET')->logException($exception);
+							$this->getLogger('PluginExportFormatTutorial')->logException($exception);
 						}
 						
 						$lines++;
