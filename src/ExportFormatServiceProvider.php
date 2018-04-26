@@ -27,7 +27,7 @@ class ExportFormatServiceProvider extends ServiceProvider
     public function boot(ExportPresetContainer $container)
     {
         $container->add(
-            'ExportFormat',
+            'MotorradbekleidungNET-Plugin',
             'PluginExportFormatTutorial\ResultField\ExportFormatResultFields',
             'PluginExportFormatTutorial\Generator\ExportFormatGenerator',
             '',
