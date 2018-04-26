@@ -249,7 +249,6 @@ class MotorradbekleidungNET extends CSVPluginGenerator
     {
         // Get and set the price and rrp
         $priceList = $this->getPriceList($variation, $settings);
-        $priceList = $this->getPriceList($variation, $settings);
 
         // Get the images only for valid variations
         $imageList = $this->getAdditionalImages($this->getImageList($variation, $settings));
@@ -277,7 +276,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			'master_name'        => $this->elasticExportHelper->getMutatedName($variation, $settings, 256),
 			//'variant_name',
 			//'driving_style',
-			'weight'             => $variation['data']['variation']['weightG'],
+			'weight'             => number_format($variation['data']['variation']['weightKG'] / 1000, 2), //Muss in KG angegeben werden
 			//'currency',
 			//'condition',			
 			
