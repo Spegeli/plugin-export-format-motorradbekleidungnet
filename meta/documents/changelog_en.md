@@ -1,6 +1,6 @@
-# Release Notes for PluginExportFormatTutorial
+# Release Notes for Elastic Export Motorradbekleidung.net
 
-## v1.0.0 (2018-01-12)
-
+## v1.0.0 (2018-01-01)
+ 
 ### Added
-- initial version
+- Added initial plugin files

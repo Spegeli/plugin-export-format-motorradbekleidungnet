@@ -1,12 +1,14 @@
 ![plentymarkets Logo](http://www.plentymarkets.eu/layout/pm/images/logo/plentymarkets-logo.jpg)
 
-# Plugin export format tutorial for plentymarkets 7
+# ElasticExportMotorradbekleidungNET Plugin for plentymarkets 7
 
-This is a export format tutorial plugin developed by plentymarkets. Use this tutorial as an example to integrate a export format in plentymarkets for the elastic export.
+This is the ElasticExportMotorradbekleidungNET plugin for plentymarkets 7 which extends the list of possible export formats.
+The elastic export is used to create export formats for price search engines, price comparison portals, markets and affiliate service providers.
+For further information about export formats see our [online manual](https://www.plentymarkets.co.uk/manual/data-exchange/data-formats/).
 
 ## Requirements
 
-This is a plugin for [plentymarkets 7](https://www.plentymarkets.com). The elastic export plugin is needed to run this plugin.
+This is a plugin for [plentymarkets 7](https://www.plentymarkets.com).
 
 ## Installing
 

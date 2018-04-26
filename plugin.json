@@ -1,27 +1,20 @@
 {
   "name": "ElasticExportMotorradbekleidungNET",
+  "description": "This plugin adds the format MotorradbekleidungNET to the Elastic Export.",
   "namespace": "ElasticExportMotorradbekleidungNET",
+  "author": "Spegeli",
   "type": "export",
-  "version": "1.0.2",
+  "authorIcon": "icon_author_xs.png",
+  "serviceProvider": "ElasticExportMotorradbekleidungNET\\ElasticExportMotorradbekleidungNETServiceProvider",
   "license": "GNU AFFERO GENERAL PUBLIC LICENSE Version 3, 19 November 2007",
   "pluginIcon": "icon_plugin_md.png",
   "price": 0.00,
-  "description": "This plugin adds the format MotorradbekleidungNET to the Elastic Export.",
   "shortDescription": {
     "de": "Die Integration des Datenformats MotorradbekleidungNET-Plugin ermöglicht die Artikeldatenübertragung zum Verkaufsportal motorradbekleidung.net über den elastischen Export.",
     "en": "The integration of the data format MotorradbekleidungNET-Plugin enables the transfer of item data to the sales portal motorradbekleidung.net via the elastic export."
   },
-  "categories": [
-    "3523"
-  ],
-  "marketplaceName": {
-    "de": "motorradbekleidung.net",
-    "en": "motorradbekleidung.net"
-  },
-  "require": [
-    "ElasticExport"
-  ],
-  "author": "Spegeli",
-  "authorIcon": "icon_author_xs.png",
-  "serviceProvider": "ElasticExportMotorradbekleidungNET\\ElasticExportMotorradbekleidungNETServiceProvider"
+  "categories": ["3523"],
+  "version": "1.0.3",
+  "require": ["ElasticExport"],
+  "marketplaceName": "motorradbekleidung.net"
 }

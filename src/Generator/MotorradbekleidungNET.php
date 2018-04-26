@@ -20,11 +20,11 @@ use Plenty\Plugin\Log\Loggable;
  */
 class MotorradbekleidungNET extends CSVPluginGenerator
 {
-	use Loggable;
+    use Loggable;
 
     const DELIMITER = "\t"; // TAB
 
-    const MOTORRADBEKLEIDUNG_NET = 100.00;
+    const MOTORRADBEKLEIDUNG_NET = 112.00;
 
     /**
      * @var ElasticExportCoreHelper
@@ -70,7 +70,9 @@ class MotorradbekleidungNET extends CSVPluginGenerator
      * MotorradbekleidungNET constructor.
      * @param ArrayHelper $arrayHelper
      */
-    public function __construct(ArrayHelper $arrayHelper)
+    public function __construct(
+        ArrayHelper $arrayHelper
+    )
     {
         $this->arrayHelper = $arrayHelper;
     }
@@ -247,6 +249,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
     {
         // Get and set the price and rrp
         $priceList = $this->getPriceList($variation, $settings);
+        $priceList = $this->getPriceList($variation, $settings);
 
         // Get the images only for valid variations
         $imageList = $this->getAdditionalImages($this->getImageList($variation, $settings));
@@ -261,7 +264,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
             'desc'            => $this->elasticExportHelper->getMutatedDescription($variation, $settings),			
             'images'          => $imageList,			
 			'shop_cat'        => $this->elasticExportHelper->getCategory((int)$variation['data']['defaultCategories'][0]['id'], $settings->get('lang'), $settings->get('plentyId')),
-			'gender'        => $this->elasticExportPropertyHelper->getProperty($variation, 'gender', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
+			'gender'          => $this->elasticExportPropertyHelper->getProperty($variation, 'gender', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
 			'price'           => $priceList['price'],
 			'dlv_cost'        => $this->getShippingCost($variation),
 			//'availability'      => 
@@ -280,7 +283,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			
 			
 			//partially
-			'size',              => $this->elasticExportPropertyHelper->getProperty($variation, 'size', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
+			'size'               => $this->elasticExportPropertyHelper->getProperty($variation, 'size', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
 			'colour'             => $this->elasticExportPropertyHelper->getProperty($variation, 'color', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
 			'material'           => $this->elasticExportPropertyHelper->getProperty($variation, 'material', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
 			

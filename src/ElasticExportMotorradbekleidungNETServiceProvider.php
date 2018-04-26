@@ -13,27 +13,28 @@ use Plenty\Log\Services\ReferenceContainer;
 class ElasticExportMotorradbekleidungNETServiceProvider extends ServiceProvider
 {
     /**
-     * Abstract function for registering the service provider.
+     * Function definition for registering the service provider.
      */
     public function register()
     {
 
     }
 
-    /**
-     * Adds the export format to the export container.
-     *
-     * @param ExportPresetContainer $container
-     */
-    public function boot(ExportPresetContainer $container)
-    {
-        $container->add(
-            'MotorradbekleidungNET-Plugin',
-            'ElasticExportMotorradbekleidungNET\ResultField\MotorradbekleidungNET',
-            'ElasticExportMotorradbekleidungNET\Generator\MotorradbekleidungNET',
-            '',
-            true,
+	/**
+	 * @param ExportPresetContainer $exportPresetContainer
+	 */
+	public function boot(ExportPresetContainer $exportPresetContainer)
+	{
+
+		//Adds the export format to the export container.
+		$exportPresetContainer->add(
+			'MotorradbekleidungNET-Plugin',
+			'ElasticExportMotorradbekleidungNET\ResultField\MotorradbekleidungNET',
+			'ElasticExportMotorradbekleidungNET\Generator\MotorradbekleidungNET',
+			'',
+			true,
 			true
-        );
-    }
+		);
+	}
+
 }

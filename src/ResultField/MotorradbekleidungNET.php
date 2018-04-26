@@ -14,8 +14,6 @@ use Plenty\Modules\Item\Search\Mutators\SkuMutator;
 use ElasticExport\DataProvider\ResultFieldDataProvider;
 use Plenty\Plugin\Log\Loggable;
 
-
-
 /**
  * Class MotorradbekleidungNET
  * @package ElasticExportMotorradbekleidungNET\ResultField
@@ -23,8 +21,8 @@ use Plenty\Plugin\Log\Loggable;
 class MotorradbekleidungNET extends ResultFields
 {
 	use Loggable;
-	
-    const MOTORRADBEKLEIDUNG_NET = 100.00;
+
+    const MOTORRADBEKLEIDUNG_NET = 112.00;
 
     /**
      * @var ArrayHelper
@@ -33,6 +31,7 @@ class MotorradbekleidungNET extends ResultFields
 
     /**
      * MotorradbekleidungNET constructor.
+     * 
      * @param ArrayHelper $arrayHelper
      */
     public function __construct(ArrayHelper $arrayHelper)
@@ -41,34 +40,38 @@ class MotorradbekleidungNET extends ResultFields
     }
 
     /**
-     * Creates the fields set to be retrieved from ElasticSearch.
+     * Generate result fields.
      *
      * @param  array $formatSettings = []
      * @return array
      */
     public function generateResultFields(array $formatSettings = []):array
     {
-        /** @var KeyValue $settings */
         $settings = $this->arrayHelper->buildMapFromObjectList($formatSettings, 'key', 'value');
-        $reference = $settings->get('referrerId') ? $settings->get('referrerId') : self::MOTORRADBEKLEIDUNG_NET;
 
         $this->setOrderByList(['item.id', ElasticSearch::SORTING_ORDER_ASC]);
 
-        // Mutators
-        /** @var ImageMutator $imageMutator */
+        $reference = $settings->get('referrerId') ? $settings->get('referrerId') : self::MOTORRADBEKLEIDUNG_NET;
+
+        //Mutator
+        /**
+         * @var ImageMutator $imageMutator
+         */
         $imageMutator = pluginApp(ImageMutator::class);
         if($imageMutator instanceof ImageMutator)
         {
             $imageMutator->addMarket($reference);
         }
 
-		/** @var KeyMutator */
-		$keyMutator = pluginApp(KeyMutator::class);
-		if($keyMutator instanceof KeyMutator)
-		{
-			$keyMutator->setKeyList($this->getKeyList());
-			$keyMutator->setNestedKeyList($this->getNestedKeyList());
-		}
+        /**
+         * @var KeyMutator $keyMutator
+         */
+        $keyMutator = pluginApp(KeyMutator::class);
+        if($keyMutator instanceof KeyMutator)
+        {
+            $keyMutator->setKeyList($this->getKeyList());
+            $keyMutator->setNestedKeyList($this->getNestedKeyList());
+        }
 
         /**
          * @var LanguageMutator $languageMutator
@@ -133,11 +136,11 @@ class MotorradbekleidungNET extends ResultFields
         return $fields;
     }
 
-	/**
-     * Returns predefined keys to make sure that they will be available in the feed.
-     * 
-	 * @return array
-	 */
+    /**
+     * Returns the list of keys.
+     *
+     * @return array
+     */
     private function getKeyList()
     {
         $keyList = [
@@ -158,11 +161,11 @@ class MotorradbekleidungNET extends ResultFields
         return $keyList;
     }
 
-	/**
-     * Returns the predefined nested keys to make sure that they will be available in the feed.
-     * 
-	 * @return array
-	 */
+    /**
+     * Returns the list of nested keys.
+     *
+     * @return mixed
+     */
     private function getNestedKeyList()
     {
         $nestedKeyList['keys'] = [
