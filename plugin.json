@@ -1,15 +1,15 @@
 {
-  "name": "PluginExportFormatTutorial",
+  "name": "ElasticExportMotorradbekleidungNET",
   "namespace": "PluginExportFormatTutorial",
   "type": "export",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "GNU AFFERO GENERAL PUBLIC LICENSE Version 3, 19 November 2007",
   "pluginIcon": "icon_plugin_md.png",
   "price": 0.00,
-  "description": "This plugin adds the format ExportFormat to the Elastic Export.",
+  "description": "This plugin adds the format MotorradbekleidungNET-Plugin to the Elastic Export.",
   "shortDescription": {
-    "de": "Ein einfaches Exportformat-Plugin.",
-    "en": "A basic export format plugin."
+    "de": "Ein einfaches MotorradbekleidungNET-Plugin.",
+    "en": "A basic MotorradbekleidungNET plugin."
   },
   "categories": [
     "3523"
@@ -21,7 +21,7 @@
   "require": [
     "ElasticExport"
   ],
-  "author": "plentymarkets GmbH",
+  "author": "Spegeli",
   "authorIcon": "icon_author_xs.png",
   "serviceProvider": "PluginExportFormatTutorial\\ExportFormatServiceProvider",
   "keywords": [
