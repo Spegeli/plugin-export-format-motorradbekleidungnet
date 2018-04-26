@@ -70,21 +70,26 @@ class ExportFormatGenerator extends CSVPluginGenerator
 
 		// add header
 		$this->addCSVContent([
-            'VariationID',
-            'VariationNo',
-            'Model',
-            'Name',
-            'Description',
-            'Image',
-            'Brand',
-            'Barcode',
-            'Currency',
-            'ShippingCosts',
-            'RRP',
-            'Price',
-            'BasePrice',
-            'BasePriceUnit',
-            'Link'
+            'sku',
+            'master_sku',
+            'gtin',
+            'oem_product_number',
+            'name',
+            //'master_name',
+            //'variant_name',
+            'manufacturer',
+            'description',
+            'image_url',
+            //'category',
+			//'size',
+			//'colour',
+			//'material',
+			//'gender',
+            'price',
+            'shipping',
+			'availability',
+			//'delivery_period',
+			//'offered_amount'
 		]);
 
 		if($elasticSearch instanceof VariationElasticSearchScrollRepositoryContract)
@@ -172,21 +177,26 @@ class ExportFormatGenerator extends CSVPluginGenerator
 		}
 
 		$data = [
-			'VariationID' => $variation['id'],
-			'VariationNo' => $variation['data']['variation']['number'],
-			'Model' => $variation['data']['variation']['model'],
-			'Name' => $this->elasticExportCoreHelper->getMutatedName($variation, $settings, 256),
-			'Description' => $this->elasticExportCoreHelper->getMutatedDescription($variation, $settings, 256),
-			'Image' => $this->elasticExportCoreHelper->getImageListInOrder($variation, $settings, 1, ElasticExportCoreHelper::ALL_IMAGES),
-			'Brand' => $this->elasticExportCoreHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
-			'Barcode' => $this->elasticExportCoreHelper->getBarcodeByType($variation, $settings->get('barcode')),
-			'Currency' => $priceList['currency'],
-			'ShippingCosts' => $deliveryCost,
-			'RRP' => $rrp,
-			'Price' => $price,
-			'BasePrice' => $this->elasticExportPriceHelper->getBasePrice($variation, $priceList['price'], $settings->get('lang'), '/', false, false, $priceList['currency']),
-			'BasePriceUnit' => $basePriceList['lot'],
-			'Link' => $this->elasticExportCoreHelper->getMutatedUrl($variation, $settings),
+            'sku' => $variation['id'],
+            'master_sku' => $variation['data']['item']['id'],
+            'gtin' => $this->elasticExportCoreHelper->getBarcodeByType($variation, $settings->get('barcode')),
+            'oem_product_number' => $variation['data']['variation']['model'],
+            'name' => $this->elasticExportCoreHelper->getMutatedName($variation, $settings, 256),
+            //'master_name' => $this->elasticExportCoreHelper->getMutatedName($variation, $settings, 256),
+            //'variant_name',
+            'manufacturer' => $this->elasticExportCoreHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
+            'description' => $this->elasticExportCoreHelper->getMutatedDescription($variation, $settings, 256),
+            'image_url' => $this->elasticExportCoreHelper->getImageListInOrder($variation, $settings, 1, ElasticExportCoreHelper::ALL_IMAGES),
+            //'category',
+			//'size',
+			//'colour',
+			//'material',
+			//'gender',
+            'price' => $price,
+            'shipping' => $deliveryCost,
+			'availability' => $variation['data']['variation']['availability']
+			//'delivery_period',
+			//'offered_amount'
 		];
 
 		$this->addCSVContent(array_values($data));
