@@ -220,7 +220,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
             'shipping',
 			//'availability',
 			'delivery_period',
-			'offered_amount'			
+			'offered_amount',			
 
             // optional
             'oem_product_number',
