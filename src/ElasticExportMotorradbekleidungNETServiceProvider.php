@@ -1,15 +1,16 @@
 <?php
 
-namespace PluginExportFormatTutorial;
+namespace ElasticExportMotorradbekleidungNET;
 
 use Plenty\Modules\DataExchange\Services\ExportPresetContainer;
 use Plenty\Plugin\ServiceProvider;
+use Plenty\Log\Services\ReferenceContainer;
 
 /**
- * Class ExportFormatServiceProvider
- * @package PluginExportFormatTutorial
+ * Class ElasticExportMotorradbekleidungNETServiceProvider
+ * @package ElasticExportMotorradbekleidungNET
  */
-class ExportFormatServiceProvider extends ServiceProvider
+class ElasticExportMotorradbekleidungNETServiceProvider extends ServiceProvider
 {
     /**
      * Abstract function for registering the service provider.
@@ -28,12 +29,11 @@ class ExportFormatServiceProvider extends ServiceProvider
     {
         $container->add(
             'MotorradbekleidungNET-Plugin',
-            'PluginExportFormatTutorial\ResultField\ExportFormatResultFields',
-            'PluginExportFormatTutorial\Generator\ExportFormatGenerator',
+            'ElasticExportMotorradbekleidungNET\ResultField\MotorradbekleidungNET',
+            'ElasticExportMotorradbekleidungNET\Generator\MotorradbekleidungNET',
             '',
             true,
-			true,
-            'item'
+			true
         );
     }
 }
