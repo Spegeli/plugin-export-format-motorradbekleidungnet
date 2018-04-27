@@ -177,6 +177,13 @@ class MotorradbekleidungNET extends CSVPluginGenerator
                         {
                             continue;
                         }	
+
+                        // Skip non-main variations that do not have attributes
+                        $attributessizevalue = $this->getAttributeSizeValue($variation, $settings);
+                        if(strlen($attributessizevalue) <= 0 && $variation['variation']['isMain'] === false)
+                        {
+                            continue;
+                        }
 						
                         try
                         {
@@ -191,7 +198,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
                             }
 
                             // New line printed in the CSV file
-                            $this->buildRow($variation, $settings, $attributes, $attributesvaluecombi, $attributescolorvalue);
+                            $this->buildRow($variation, $settings, $attributes, $attributesvaluecombi, $attributescolorvalue, $attributessizevalue);
                         }
                         catch(\Throwable $throwable)
                         {
@@ -259,8 +266,9 @@ class MotorradbekleidungNET extends CSVPluginGenerator
      * @param array $attributes
 	 * @param array $attributesvaluecombi
 	 * @param array $attributescolorvalue
+	 * @param array $attributessizevalue
      */
-    private function buildRow($variation, KeyValue $settings, $attributes, $attributesvaluecombi, $attributescolorvalue)
+    private function buildRow($variation, KeyValue $settings, $attributes, $attributesvaluecombi, $attributescolorvalue, $attributessizevalue)
     {
         // Get and set the price and rrp
         $priceList = $this->getPriceList($variation, $settings);
@@ -297,7 +305,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			
 			
 			//partially
-			'size'               => $this->elasticExportPropertyHelper->getProperty($variation, 'size', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
+			'size'               => strlen($attributessizevalue) ? $attributessizevalue : '',
 			'colour'             => strlen($attributescolorvalue) ? $attributescolorvalue : '',
 			'material'           => $this->elasticExportPropertyHelper->getProperty($variation, 'material', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
 			
@@ -373,7 +381,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
     }
 
 	/**
-     * Get attribute and value combination for a variation.
+     * Get attribute color value for a variation.
      *
      * @param $variation
      * @param KeyValue $settings
@@ -386,9 +394,31 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 		$attributeName = $this->elasticExportHelper->getAttributeName($variation, $settings, ',');
         $attributeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
 
-        if(strlen($attributeName))
+        if(strlen($attributeName) && strpos($attributeName, 'Farbe'))
         {
-            $attributes = $attributeName;
+            $attributes = $attributeValue;
+        }
+
+        return $attributes;
+    }
+
+	/**
+     * Get attribute color value for a variation.
+     *
+     * @param $variation
+     * @param KeyValue $settings
+     * @return string
+     */
+    private function getAttributeSizeValue($variation, KeyValue $settings):string
+    {
+        $attributes = '';
+
+		$attributeName = $this->elasticExportHelper->getAttributeName($variation, $settings, ',');
+        $attributeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
+
+        if(strlen($attributeName) && strpos($attributeName, 'Größe'))
+        {
+            $attributes = $attributeValue;
         }
 
         return $attributes;
