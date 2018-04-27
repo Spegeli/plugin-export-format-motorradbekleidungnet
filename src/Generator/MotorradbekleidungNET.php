@@ -235,6 +235,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
             'oem_product_number',
 			'master_name',
 			'variant_name',
+			//long_description, //Nicht benötigt da	"description" schon die lange beschreibung ist	
 			//'driving_style',
 			'weight',
 			//'currency',
@@ -278,7 +279,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			'gender'          => $this->elasticExportPropertyHelper->getProperty($variation, 'gender', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')), //Muss noch angelegt werden
 			'price'           => $priceList['price'],
 			'shipping'        => $this->getShippingCost($variation),
-			'availability'    => $this->elasticExportHelper->getAvailability($variation, $settings, false),
+			'availability'    => $this->elasticExportHelper->getAvailability($variation, $settings, false), //Evl. andere Bezeichung
 			'delivery_period' => $this->elasticExportHelper->getAvailability($variation, $settings, false),
             'offered_amount'  => $this->elasticExportStockHelper->getStock($variation),			
 
@@ -287,11 +288,12 @@ class MotorradbekleidungNET extends CSVPluginGenerator
             'oem_product_number' => $variation['data']['variation']['model'],			
 			'master_name'        => strlen($attributes) ? $this->elasticExportHelper->getMutatedName($variation, $settings, 256) : '',
 			'variant_name'       => strlen($attributesvaluecombi) ? $attributesvaluecombi : '',
+			//long_description,  //Nicht benötigt da	"description" schon die lange beschreibung ist	
 			//'driving_style',
 			'weight'             => number_format($variation['data']['variation']['weightG'] / 1000, 2),
-			//'currency',
-			//'condition',			
-			
+			//'currency',        //Aktuell wird nur EUR angeboten
+			//'condition',	     //Aktuell wird nur Neuware angeboten
+							
 			
 			//partially
 			'size'               => strlen($attributessizevalue) ? $attributessizevalue : '',
