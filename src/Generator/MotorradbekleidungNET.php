@@ -170,6 +170,13 @@ class MotorradbekleidungNET extends CSVPluginGenerator
                         {
                             continue;
                         }						
+
+                        // Skip non-main variations that do not have attributes
+                        $attributescolorvalue = $this->getAttributeColorValue($variation, $settings);
+                        if(strlen($attributescolorvalue) <= 0 && $variation['variation']['isMain'] === false)
+                        {
+                            continue;
+                        }	
 						
                         try
                         {
@@ -184,7 +191,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
                             }
 
                             // New line printed in the CSV file
-                            $this->buildRow($variation, $settings, $attributes, $attributesvaluecombi);
+                            $this->buildRow($variation, $settings, $attributes, $attributesvaluecombi, $attributescolorvalue);
                         }
                         catch(\Throwable $throwable)
                         {
@@ -251,8 +258,9 @@ class MotorradbekleidungNET extends CSVPluginGenerator
      * @param KeyValue $settings
      * @param array $attributes
 	 * @param array $attributesvaluecombi
+	 * @param array $attributescolorvalue
      */
-    private function buildRow($variation, KeyValue $settings, $attributes, $attributesvaluecombi)
+    private function buildRow($variation, KeyValue $settings, $attributes, $attributesvaluecombi, $attributescolorvalue)
     {
         // Get and set the price and rrp
         $priceList = $this->getPriceList($variation, $settings);
@@ -267,12 +275,12 @@ class MotorradbekleidungNET extends CSVPluginGenerator
             'gtin'            => $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode')),			
 			'name'            => $this->elasticExportHelper->getMutatedName($variation, $settings) . (strlen($attributes) ? ', ' . $attributes : ''),			
             'manufacturer'    => $this->elasticExportHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
-            'desc'            => $this->elasticExportHelper->getMutatedDescription($variation, $settings),			
-            'images'          => $imageList,			
-			'shop_cat'        => $this->elasticExportHelper->getCategory((int)$variation['data']['defaultCategories'][0]['id'], $settings->get('lang'), $settings->get('plentyId')),
+            'description'     => $this->elasticExportHelper->getMutatedDescription($variation, $settings),			
+            'image_url'       => $imageList,			
+			'category'        => $this->elasticExportHelper->getCategory((int)$variation['data']['defaultCategories'][0]['id'], $settings->get('lang'), $settings->get('plentyId')),
 			'gender'          => $this->elasticExportPropertyHelper->getProperty($variation, 'gender', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
 			'price'           => $priceList['price'],
-			'dlv_cost'        => $this->getShippingCost($variation),
+			'shipping'        => $this->getShippingCost($variation),
 			'availability'    => $this->elasticExportHelper->getAvailability($variation, $settings, false),
 			'delivery_period' => $this->elasticExportHelper->getAvailability($variation, $settings, false),
             'offered_amount'  => $this->elasticExportStockHelper->getStock($variation),			
@@ -290,8 +298,9 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			
 			//partially
 			'size'               => $this->elasticExportPropertyHelper->getProperty($variation, 'size', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
-			'colour'             => $this->elasticExportPropertyHelper->getProperty($variation, 'color', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
+			'colour'             => strlen($attributescolorvalue) ? $attributescolorvalue : '',
 			'material'           => $this->elasticExportPropertyHelper->getProperty($variation, 'material', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
+			
 			
 			/*
             * 'promo_text'    => $this->elasticExportPropertyHelper->getProperty($variation, 'promo_text', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
@@ -342,7 +351,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
         return $attributes;
     }
 
-	    /**
+	/**
      * Get attribute and value combination for a variation.
      *
      * @param $variation
@@ -358,6 +367,28 @@ class MotorradbekleidungNET extends CSVPluginGenerator
         if(strlen($attributeValue))
         {
             $attributes = $attributeValue;
+        }
+
+        return $attributes;
+    }
+
+	/**
+     * Get attribute and value combination for a variation.
+     *
+     * @param $variation
+     * @param KeyValue $settings
+     * @return string
+     */
+    private function getAttributeColorValue($variation, KeyValue $settings):string
+    {
+        $attributes = '';
+
+		$attributeName = $this->elasticExportHelper->getAttributeName($variation, $settings, ',');
+        $attributeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
+
+        if(strlen($attributeName))
+        {
+            $attributes = $attributeName;
         }
 
         return $attributes;
