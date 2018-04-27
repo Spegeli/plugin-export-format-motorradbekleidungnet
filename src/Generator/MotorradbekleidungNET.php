@@ -159,12 +159,18 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 
                         // Skip non-main variations that do not have attributes
                         $attributes = $this->getAttributeNameValueCombination($variation, $settings);
-
                         if(strlen($attributes) <= 0 && $variation['variation']['isMain'] === false)
                         {
                             continue;
                         }
 
+                        // Skip non-main variations that do not have attributes
+                        $attributesvaluecombi = $this->getAttributeValueCombination($variation, $settings);
+                        if(strlen($attributesvaluecombi) <= 0 && $variation['variation']['isMain'] === false)
+                        {
+                            continue;
+                        }						
+						
                         try
                         {
                             // Set the caches if we have the first variation or when we have the first variation of an item
@@ -178,7 +184,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
                             }
 
                             // New line printed in the CSV file
-                            $this->buildRow($variation, $settings, $attributes);
+                            $this->buildRow($variation, $settings, $attributes, $attributesvaluecombi);
                         }
                         catch(\Throwable $throwable)
                         {
@@ -225,7 +231,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
             // optional
             'oem_product_number',
 			'master_name',
-			//'variant_name',
+			'variant_name',
 			//'driving_style',
 			'weight',
 			//'currency',
@@ -244,8 +250,9 @@ class MotorradbekleidungNET extends CSVPluginGenerator
      * @param array $variation
      * @param KeyValue $settings
      * @param array $attributes
+	 * @param array $attributesvaluecombi
      */
-    private function buildRow($variation, KeyValue $settings, $attributes)
+    private function buildRow($variation, KeyValue $settings, $attributes, $attributesvaluecombi)
     {
         // Get and set the price and rrp
         $priceList = $this->getPriceList($variation, $settings);
@@ -274,9 +281,9 @@ class MotorradbekleidungNET extends CSVPluginGenerator
             // optional
             'oem_product_number' => $variation['data']['variation']['model'],			
 			'master_name'        => strlen($attributes) ? $this->elasticExportHelper->getMutatedName($variation, $settings, 256) : '',
-			//'variant_name',
+			'variant_name'       => strlen($attributesvaluecombi) ? $attributesvaluecombi : '',
 			//'driving_style',
-			'weight'             => number_format($variation['data']['variation']['weightG'] / 1000, 2), //Muss in KG angegeben werden
+			'weight'             => number_format($variation['data']['variation']['weightG'] / 1000, 2),
 			//'currency',
 			//'condition',			
 			
@@ -335,6 +342,27 @@ class MotorradbekleidungNET extends CSVPluginGenerator
         return $attributes;
     }
 
+	    /**
+     * Get attribute and value combination for a variation.
+     *
+     * @param $variation
+     * @param KeyValue $settings
+     * @return string
+     */
+    private function getAttributeValueCombination($variation, KeyValue $settings):string
+    {
+        $attributes = '';
+
+        $attributeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
+
+        if(strlen($attributeValue))
+        {
+            $attributes = $attributeValue;
+        }
+
+        return $attributes;
+    }
+	
     /**
      * Get the price list.
      *
