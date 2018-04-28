@@ -4,17 +4,39 @@
     "key"       : "settings.set_marketid",
     "label"     : "Herkunft-ID",
     "type"      : "text"
+  },  
+  {
+    "tab"       : "Farbe / Größe / Material Einstellungen",
+    "key"       : "settings.size_aom",
+    "label"     : "Größe - Attribute oder Merkmale?",
+    "type"      : "dropdown",
+    "possibleValues": {
+        "0" : "Attribute",
+        "1" : "Merkmale",
+    },
+    "default"   : "Attribute"
   },
   {
-    "tab"       : "Attribute Einstellungen",
-    "key"       : "attribute_settings.size_name",
-    "label"     : "Size Attribut Name",
+    "tab"       : "Farbe / Größe / Material Einstellungen",
+    "key"       : "settings.size_names",
+    "label"     : "Farbe - Attribute / Merkmale Name",
     "type"      : "text"
   },
   {
-    "tab"       : "Attribute Einstellungen",
-    "key"       : "attribute_settings.color_name",
-    "label"     : "Color Attribut Name",
+   "tab"       : "Farbe / Größe / Material Einstellungen",
+   "key"       : "settings.color_aom",
+   "label"     : "Farbe - Attribute oder Merkmale?",
+   "type"      : "dropdown",
+   "possibleValues": {
+       "0" : "Attribute",
+       "1" : "Merkmale",
+   },
+   "default"   : "Attribute"
+  },
+  {
+    "tab"       : "Farbe / Größe / Material Einstellungen",
+    "key"       : "settings.color_names",
+    "label"     : "Farbe - Attribute / Merkmale Name",
     "type"      : "text"
   }  
 ]
