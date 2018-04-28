@@ -296,7 +296,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			'variant_name'       => strlen($attributesvaluecombi) ? $attributesvaluecombi : '',
 			//long_description,  //Nicht benötigt da "description" schon die lange beschreibung ist	
 			//'driving_style',   //Merkmal mit Style anlegen
-            'srp'                => $priceList['oldPrice']			
+            'srp'                => $priceList['oldPrice'],		
 			'weight'             => number_format($variation['data']['variation']['weightG'] / 1000, 2),
 			//'currency',        //Aktuell wird nur EUR angeboten
 			//'condition',	     //Aktuell wird nur Neuware angeboten

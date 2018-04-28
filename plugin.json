@@ -1,23 +1,26 @@
 {
-  "name": "ElasticExportMotorradbekleidungNET",
-  "namespace": "ElasticExportMotorradbekleidungNET",
-  "type": "export",  
-  "serviceProvider": "ElasticExportMotorradbekleidungNET\\ElasticExportMotorradbekleidungNETServiceProvider",
-  "version": "1.0.6",
-  "license": "GNU AFFERO GENERAL PUBLIC LICENSE Version 3, 19 November 2007",
-  "pluginIcon": "icon_plugin_md.png",
-  "price": 0.00,
-  "description": "This plugin adds the format Motorradbekleidung.net to the Elastic Export.",  
-  "shortDescription": {
-    "de": "Übertragung der Artikeldaten zum Online-Marktplatz Motorradbekleidung.net über den elastischen Export.",
-    "en": "Item export to the online market Motorradbekleidung.net via the elastic export."
-  },
-  "categories": ["3523"],  
-  "author": "Spegeli",  
-  "authorIcon": "icon_author_xs.png",
-  "marketplaceName": {
-    "de":"Motorradbekleidung.net",
-    "en":"Motorradbekleidung.net"
-  },
-   "require": ["ElasticExport"] 
+    "name"              : "ElasticExportMotorradbekleidungNET",
+    "marketplaceName"   : {"de":"Motorradbekleidung.net","en":"Motorradbekleidung.net"},
+    "namespace"         : "ElasticExportMotorradbekleidungNET",
+    "type"              : "export",
+    "version"           : "1.0.7",
+    "license"           : "GNU AFFERO GENERAL PUBLIC LICENSE Version 3, 19 November 2007",
+    "isClosedSource"    : "True",
+    "pluginIcon"        : "icon_plugin_md.png",
+    "price"             : 25.00,
+    "description"       : "This plugin adds the format Motorradbekleidung.net to the Elastic Export.",
+    "shortDescription"  : {"de":"Übertragung der Artikeldaten zum Online-Marktplatz Motorradbekleidung.net über den elastischen Export.","en":"Item export to the online market Motorradbekleidung.net via the elastic export."},
+    "categories"        : ["3523"],
+    "keywords"          : ["plugins", "export", "motorradbekleidung.net"],
+    "author"            : "Spegeli",
+    "authorIcon"        : "icon_author_xs.png",
+    "email"             : "andreas.spegel@me.com",
+    "phone"             : "Your phone number",
+    "serviceProvider"   : "ElasticExportMotorradbekleidungNET\\ElasticExportMotorradbekleidungNETServiceProvider",
+    "containers"        : [],
+    "dataProviders"     : [],
+    "javaScriptFiles"   : [],
+    "require"           : [],
+    "dependencies"      : [],
+    "runOnBuild"        : []
 }
