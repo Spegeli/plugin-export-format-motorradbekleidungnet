@@ -12,6 +12,10 @@ use Plenty\Modules\Helper\Services\ArrayHelper;
 use Plenty\Modules\DataExchange\Models\FormatSetting;
 use Plenty\Modules\Helper\Models\KeyValue;
 use Plenty\Modules\Item\Search\Contracts\VariationElasticSearchScrollRepositoryContract;
+use Plenty\Modules\Item\VariationSku\Contracts\VariationSkuRepositoryContract;
+use Plenty\Modules\Item\VariationSku\Models\VariationSku;
+use Plenty\Modules\Market\Helper\Contracts\MarketPropertyHelperRepositoryContract;
+use Plenty\Plugin\ConfigRepository;
 use Plenty\Plugin\Log\Loggable;
 
 /**
@@ -24,7 +28,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 
     const DELIMITER = "\t"; // TAB
 
-    const MOTORRADBEKLEIDUNG_NET = 112.00;
+    const MOTORRADBEKLEIDUNG_NET = 13.00;
 
     /**
      * @var ElasticExportCoreHelper
@@ -65,16 +69,37 @@ class MotorradbekleidungNET extends CSVPluginGenerator
      * @var FiltrationService
      */
     private $filtrationService;
+
+	/**
+	 * @var VariationSkuRepositoryContract
+	 */
+	private $variationSkuRepository;
+
+	/**
+	 * @var string
+	 */
+	private $parentSku = '';
+	
+	/**
+	 * @var ConfigRepository
+	 */
+	private $configRepository;	
 	
     /**
      * MotorradbekleidungNET constructor.
      * @param ArrayHelper $arrayHelper
+	 * @param VariationSkuRepositoryContract $variationSkuRepository	 
+	 * @param ConfigRepository $configRepository	 
      */
     public function __construct(
-        ArrayHelper $arrayHelper
+        ArrayHelper $arrayHelper, 
+		VariationSkuRepositoryContract $variationSkuRepository,
+		ConfigRepository $configRepository
     )
     {
         $this->arrayHelper = $arrayHelper;
+		$this->variationSkuRepository = $variationSkuRepository;
+		$this->configRepository = $configRepository;
     }
 
     /**
@@ -262,14 +287,22 @@ class MotorradbekleidungNET extends CSVPluginGenerator
     {
         // Get and set the price and rrp
         $priceList = $this->getPriceList($variation, $settings);
-
+        
+		$this->parentSku = ''
+	    $skuData = $this->setSku($variation, $settings);
+	    if(is_null($skuData))
+	    {
+		    return;
+	    }		
+		$this->parentSku = $skuData->parentSku;
+		
         // Get the images only for valid variations
         $imageList = $this->getAdditionalImages($this->getImageList($variation, $settings));
 
         $data = [
             // mandatory
-            'sku'             => $this->elasticExportHelper->generateSku($variation['id'], self::MOTORRADBEKLEIDUNG_NET, 0, (string)$variation['data']['skus'][0]['sku']),
-			'master_sku'      => $variation['data']['item']['id'],
+            'sku'             => $skuData->sku,
+			'master_sku'      => $skuData->parentSku,
             'gtin'            => $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode')),			
 			'name'            => $this->elasticExportHelper->getMutatedName($variation, $settings) . (strlen($attributes) ? ', ' . $attributes : ''),			
             'manufacturer'    => $this->elasticExportHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
@@ -385,6 +418,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 		$attributeName = $this->elasticExportHelper->getAttributeName($variation, $settings, ',');
         $attributeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
 
+		$configname = $this->configRepository->get('ElasticExportMotorradbekleidungNET.attribute_settings.color_name');
         if(strlen($attributeName) && strpos($attributeName, 'Farbe') !== false)
         {
             $attributes = $attributeValue;
@@ -403,10 +437,11 @@ class MotorradbekleidungNET extends CSVPluginGenerator
     private function getAttributeSizeValue($variation, KeyValue $settings):string
     {
         $attributes = '';
-
+        
 		$attributeName = $this->elasticExportHelper->getAttributeName($variation, $settings, ',');
         $attributeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
-
+        
+		$configname = $this->configRepository->get('ElasticExportMotorradbekleidungNET.attribute_settings.size_name');
         if(strlen($attributeName) && strpos($attributeName, 'Größe') !== false )
         {
             $attributes = $attributeValue;
@@ -554,5 +589,81 @@ class MotorradbekleidungNET extends CSVPluginGenerator
             }
         }
     }
+	
+	/**
+	 * @param $variation
+	 * @param $settings
+	 * @return array|null|VariationSku
+	 */
+	private function setSku($variation, $settings)
+	{
+		$parentSku = null;
+
+		if(strlen($this->parentSku))
+		{
+			$parentSku = $this->parentSku;
+		}
+
+		$parentPrefix = $this->configRepository->get('ElasticExportRakutenDE.sku_settings.parent_prefix');
+		$parentSuffix = $this->configRepository->get('ElasticExportRakutenDE.sku_settings.parent_suffix');
+
+		$skuDataList = $this->variationSkuRepository->search([
+			'variationId' => $variation['id'],
+			'marketId' => self::MOTORRADBEKLEIDUNG_NET
+		]);
+
+		if(count($skuDataList))
+		{
+			foreach($skuDataList as $skuData)
+			{
+				if(strlen($skuData->sku) == 0)
+				{
+					$skuData->sku = $variation['id'];
+				}
+
+				if(strlen($skuData->parentSku) == 0)
+				{
+					if(!is_null($parentSku))
+					{
+						$skuData->parentSku = $parentSku;
+					}
+					else
+					{
+						$skuData->parentSku = $parentPrefix . $variation['data']['item']['id'] . $parentSuffix;
+					}
+				}
+
+				$skuData->exportedAt = date("Y-m-d H:i:s");
+
+				$skuData = $this->variationSkuRepository->update($skuData->toArray(), $skuData->id);
+
+				return $skuData;
+
+				break;
+			}
+		}
+		else
+		{
+			if(is_null($parentSku))
+			{
+				$parentSku = $parentPrefix . $variation['data']['item']['id'] . $parentSuffix;
+			}
+
+			$skuData = [
+				'variationId' => $variation['id'],
+				'marketId' => self::MOTORRADBEKLEIDUNG_NET,
+				'initialSku' => $variation['id'],
+				'sku' => $variation['id'],
+				'parentSku' => $parentSku,
+				'createdAt' => date("Y-m-d H:i:s"),
+				'exportedAt' => date("Y-m-d H:i:s")
+			];
+			$skuData = $this->variationSkuRepository->create($skuData);
+
+			return $skuData;
+		}
+
+		return null;
+	}	
 }
 

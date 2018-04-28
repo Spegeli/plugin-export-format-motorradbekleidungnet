@@ -1,0 +1,33 @@
+[
+  {
+    "tab"       : "Einstellungen",
+    "key"       : "settings.set_origin",
+    "label"     : "Herkunft-ID",
+    "type"      : "text"
+  },
+  {
+    "tab"       : "SKU Einstellungen",
+    "key"       : "sku_settings.parent_prefix",
+    "label"     : "Parent Prefix",
+    "type"      : "text", 
+    "default"   : "P_"	
+  },
+  {
+    "tab"       : "SKU Einstellungen",
+    "key"       : "sku_settings.parent_suffix",
+    "label"     : "Parent Suffix",
+    "type"      : "text"
+  },
+  {
+    "tab"       : "Attribute Einstellungen",
+    "key"       : "attribute_settings.size_name",
+    "label"     : "Size Attribut Name",
+    "type"      : "text"
+  },
+  {
+    "tab"       : "Attribute Einstellungen",
+    "key"       : "attribute_settings.color_name",
+    "label"     : "Color Attribut Name",
+    "type"      : "text"
+  }  
+]
