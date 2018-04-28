@@ -285,10 +285,28 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 		
         // Get the images only for valid variations
         $imageList = $this->getAdditionalImages($this->getImageList($variation, $settings));
+
+        
+		/*
+		if($variation['data']['skus']['parentSku'] != null) {
+			$parentSku = $variation['data']['skus']['parentSku'];
+		} else {
+			$parentSku = $this->elasticExportHelper->generateSkuWithParent($variation, self::MOTORRADBEKLEIDUNG_NET, 0, $variation['id'], $variation['data']['item']['id']);
+		}
+		*/
+		if($variation['data']['skus']['sku'] != null)
+        {
+            $sku = $variation['data']['skus']['sku'];
+        }
+        else
+        {
+            $sku = $this->elasticExportHelper->generateSku($variation, self::MOTORRADBEKLEIDUNG_NET, 0, $variation['id']);
+        }
+					
 		
         $data = [
             // mandatory
-            'sku'             => '',
+            'sku'             => $sku,
 			'master_sku'      => '',
             'gtin'            => $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode')),			
 			'name'            => $this->elasticExportHelper->getMutatedName($variation, $settings) . (strlen($attributes) ? ', ' . $attributes : ''),			
