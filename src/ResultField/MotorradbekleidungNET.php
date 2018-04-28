@@ -22,8 +22,6 @@ class MotorradbekleidungNET extends ResultFields
 {
 	use Loggable;
 
-    const MOTORRADBEKLEIDUNG_NET = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_origin');
-
     /**
      * @var ArrayHelper
      */
@@ -49,8 +47,9 @@ class MotorradbekleidungNET extends ResultFields
     {
         $settings = $this->arrayHelper->buildMapFromObjectList($formatSettings, 'key', 'value');
         $this->setOrderByList(['item.id', ElasticSearch::SORTING_ORDER_ASC]);
-
-        $reference = $settings->get('referrerId') ? $settings->get('referrerId') : self::MOTORRADBEKLEIDUNG_NET;
+        $marketID = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_marketid');
+		
+        $reference = $settings->get('referrerId') ? $settings->get('referrerId') : $marketID;
 
         //Mutator
         /**

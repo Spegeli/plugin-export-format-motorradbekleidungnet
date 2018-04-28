@@ -27,8 +27,6 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 
     const DELIMITER = "\t"; // TAB
 
-    const MOTORRADBEKLEIDUNG_NET = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_origin');
-
     /**
      * @var ElasticExportCoreHelper
      */
@@ -119,7 +117,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
         $this->filtrationService = pluginApp(FiltrationService::class, [$settings, $filter]);
         
         $this->elasticExportStockHelper->setAdditionalStockInformation($settings);
-
+		
         // Delimiter accepted are TAB or PIPE
         $this->setDelimiter(self::DELIMITER);
 
@@ -283,19 +281,20 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 		
         // Get the images only for valid variations
         $imageList = $this->getAdditionalImages($this->getImageList($variation, $settings));
+		$marketID = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_marketid');
 		
         $data = [
             // mandatory
-            'sku'             => $this->elasticExportHelper->generateSku($variation['id'], self::MOTORRADBEKLEIDUNG_NET, 0, (string)$variation['data']['skus'][0]['sku']),
+            'sku'             => $this->elasticExportHelper->generateSku($variation['id'], $marketID, 0, (string)$variation['data']['skus'][0]['sku']),
 			//'master_sku'      => 'P_' . $variation['data']['item']['id'],
-			'master_sku'      => self::MOTORRADBEKLEIDUNG_NET,
+			'master_sku'      => $marketID,
             'gtin'            => $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode')),			
 			'name'            => $this->elasticExportHelper->getMutatedName($variation, $settings) . (strlen($attributes) ? ', ' . $attributes : ''),			
             'manufacturer'    => $this->elasticExportHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
             'description'     => $this->elasticExportHelper->getMutatedDescription($variation, $settings),			
             'image_url'       => $imageList,			
 			'category'        => $this->elasticExportHelper->getCategory((int)$variation['data']['defaultCategories'][0]['id'], $settings->get('lang'), $settings->get('plentyId')),
-			'gender'          => $this->elasticExportPropertyHelper->getProperty($variation, 'gender', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')), //Muss noch angelegt werden
+			'gender'          => $this->elasticExportPropertyHelper->getProperty($variation, 'gender', $marketID, $settings->get('lang')), //Muss noch angelegt werden
 			'price'           => $priceList['price'],
 			'shipping'        => $this->getShippingCost($variation),
 			'availability'    => $this->elasticExportHelper->getAvailability($variation, $settings, false), //Evl. andere Bezeichung
@@ -317,30 +316,30 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			//partially
 			'size'               => strlen($attributessizevalue) ? $attributessizevalue : '',
 			'colour'             => strlen($attributescolorvalue) ? $attributescolorvalue : '',
-			'material'           => $this->elasticExportPropertyHelper->getProperty($variation, 'material', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')), //Muss noch angelegt werden
+			'material'           => $this->elasticExportPropertyHelper->getProperty($variation, 'material', $marketID, $settings->get('lang')), //Muss noch angelegt werden
 			
 			
 			/*
-            * 'promo_text'    => $this->elasticExportPropertyHelper->getProperty($variation, 'promo_text', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
-            * 'voucher_text'  => $this->elasticExportPropertyHelper->getProperty($variation, 'voucher_text', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
-            * 'eec'           => $this->elasticExportPropertyHelper->getProperty($variation, 'eec', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
-            * 'light_socket'  => $this->elasticExportPropertyHelper->getProperty($variation, 'light_socket', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
-            * 'wet_grip'      => $this->elasticExportPropertyHelper->getProperty($variation, 'wet_grip', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
-            * 'fuel'          => $this->elasticExportPropertyHelper->getProperty($variation, 'fuel', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
-            * 'rolling_noise' => $this->elasticExportPropertyHelper->getProperty($variation, 'rolling_noise', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
-            * 'hsn_tsn'       => $this->elasticExportPropertyHelper->getProperty($variation, 'hsn_tsn', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
-            * 'dia'           => $this->elasticExportPropertyHelper->getProperty($variation, 'dia', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
-            * 'bc'            => $this->elasticExportPropertyHelper->getProperty($variation, 'bc', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
-            * 'sph_pwr'       => $this->elasticExportPropertyHelper->getProperty($variation, 'sph_pwr', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
-            * 'cyl'           => $this->elasticExportPropertyHelper->getProperty($variation, 'cyl', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
-            * 'axis'          => $this->elasticExportPropertyHelper->getProperty($variation, 'axis', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
-            * 'class'         => $this->elasticExportPropertyHelper->getProperty($variation, 'class', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
-            * 'features'      => $this->elasticExportPropertyHelper->getProperty($variation, 'features', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
-            * 'style'         => $this->elasticExportPropertyHelper->getProperty($variation, 'style', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
+            * 'promo_text'    => $this->elasticExportPropertyHelper->getProperty($variation, 'promo_text', $marketID, $settings->get('lang')),
+            * 'voucher_text'  => $this->elasticExportPropertyHelper->getProperty($variation, 'voucher_text', $marketID, $settings->get('lang')),
+            * 'eec'           => $this->elasticExportPropertyHelper->getProperty($variation, 'eec', $marketID, $settings->get('lang')),
+            * 'light_socket'  => $this->elasticExportPropertyHelper->getProperty($variation, 'light_socket', $marketID, $settings->get('lang')),
+            * 'wet_grip'      => $this->elasticExportPropertyHelper->getProperty($variation, 'wet_grip', $marketID, $settings->get('lang')),
+            * 'fuel'          => $this->elasticExportPropertyHelper->getProperty($variation, 'fuel', $marketID, $settings->get('lang')),
+            * 'rolling_noise' => $this->elasticExportPropertyHelper->getProperty($variation, 'rolling_noise', $marketID, $settings->get('lang')),
+            * 'hsn_tsn'       => $this->elasticExportPropertyHelper->getProperty($variation, 'hsn_tsn', $marketID, $settings->get('lang')),
+            * 'dia'           => $this->elasticExportPropertyHelper->getProperty($variation, 'dia', $marketID, $settings->get('lang')),
+            * 'bc'            => $this->elasticExportPropertyHelper->getProperty($variation, 'bc', $marketID, $settings->get('lang')),
+            * 'sph_pwr'       => $this->elasticExportPropertyHelper->getProperty($variation, 'sph_pwr', $marketID, $settings->get('lang')),
+            * 'cyl'           => $this->elasticExportPropertyHelper->getProperty($variation, 'cyl', $marketID, $settings->get('lang')),
+            * 'axis'          => $this->elasticExportPropertyHelper->getProperty($variation, 'axis', $marketID, $settings->get('lang')),
+            * 'class'         => $this->elasticExportPropertyHelper->getProperty($variation, 'class', $marketID, $settings->get('lang')),
+            * 'features'      => $this->elasticExportPropertyHelper->getProperty($variation, 'features', $marketID, $settings->get('lang')),
+            * 'style'         => $this->elasticExportPropertyHelper->getProperty($variation, 'style', $marketID, $settings->get('lang')),
             * 'old_price'     => $priceList['oldPrice'],
             * 'ppu'           => $this->elasticExportPriceHelper->getBasePrice($variation, (float)$priceList['price'], $settings->get('lang')),
             * 'link'          => $this->elasticExportHelper->getMutatedUrl($variation, $settings, true, false),
-            * 'pzn'           => $this->elasticExportPropertyHelper->getProperty($variation, 'pzn', self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang')),
+            * 'pzn'           => $this->elasticExportPropertyHelper->getProperty($variation, 'pzn', $marketID, $settings->get('lang')),
 			*/
         ];
 
@@ -527,7 +526,8 @@ class MotorradbekleidungNET extends CSVPluginGenerator
      */
     public function isPropertySet($variation, string $property, $settings):int
     {
-        $itemPropertyList = $this->elasticExportPropertyHelper->getItemPropertyList($variation, self::MOTORRADBEKLEIDUNG_NET, $settings->get('lang'));
+		$marketID = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_marketid');
+        $itemPropertyList = $this->elasticExportPropertyHelper->getItemPropertyList($variation, $marketID, $settings->get('lang'));
 
         if(array_key_exists($property, $itemPropertyList))
         {

@@ -1,7 +1,7 @@
 [
   {
     "tab"       : "Einstellungen",
-    "key"       : "settings.set_origin",
+    "key"       : "settings.set_marketid",
     "label"     : "Herkunft-ID",
     "type"      : "text"
   },
