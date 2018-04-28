@@ -289,20 +289,14 @@ class MotorradbekleidungNET extends CSVPluginGenerator
         $priceList = $this->getPriceList($variation, $settings);
         
 	    $skuData = $this->setSku($variation, $settings);
-		/*
-	    if(is_null($skuData))
-	    {
-		    return;
-	    }		
-		*/
 		
         // Get the images only for valid variations
         $imageList = $this->getAdditionalImages($this->getImageList($variation, $settings));
 
         $data = [
             // mandatory
-            'sku'             => '',
-			'master_sku'      => '',
+            'sku'             => $priceList['price'],
+			'master_sku'      => $priceList['price'],
             'gtin'            => $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode')),			
 			'name'            => $this->elasticExportHelper->getMutatedName($variation, $settings) . (strlen($attributes) ? ', ' . $attributes : ''),			
             'manufacturer'    => $this->elasticExportHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
