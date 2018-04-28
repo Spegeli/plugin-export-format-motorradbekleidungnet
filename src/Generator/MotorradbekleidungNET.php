@@ -288,17 +288,11 @@ class MotorradbekleidungNET extends CSVPluginGenerator
         // Get and set the price and rrp
         $priceList = $this->getPriceList($variation, $settings);
         
-		$skuData = $this->setSku($variation, $settings);
-		
-		/*
-		$this->parentSku = '';
 	    $skuData = $this->setSku($variation, $settings);
 	    if(is_null($skuData))
 	    {
 		    return;
 	    }		
-		$this->parentSku = $skuData->parentSku;
-		*/
 		
         // Get the images only for valid variations
         $imageList = $this->getAdditionalImages($this->getImageList($variation, $settings));
@@ -306,7 +300,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
         $data = [
             // mandatory
             'sku'             => $this->elasticExportHelper->generateSku($variation['id'], self::MOTORRADBEKLEIDUNG_NET, 0, (string)$variation['data']['skus'][0]['sku']),
-			'master_sku'      => $variation['data']['item']['id'],
+			'master_sku'      => $skuData->parentSku,
             'gtin'            => $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode')),			
 			'name'            => $this->elasticExportHelper->getMutatedName($variation, $settings) . (strlen($attributes) ? ', ' . $attributes : ''),			
             'manufacturer'    => $this->elasticExportHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
