@@ -288,7 +288,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
         // Get and set the price and rrp
         $priceList = $this->getPriceList($variation, $settings);
         
-		$this->parentSku = ''
+		$this->parentSku = '';
 	    $skuData = $this->setSku($variation, $settings);
 	    if(is_null($skuData))
 	    {
