@@ -421,7 +421,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
         $attributeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
 
 		$configname = $this->configRepository->get('ElasticExportMotorradbekleidungNET.attribute_settings.color_name');
-        if(strlen($attributeName) && strpos($attributeName, $configname) !== false)
+        if(strlen($attributeName) && preg_match("/\b(".$configname.")\b/i", $attributeName))
         {
             $attributes = $attributeValue;
         }
@@ -444,7 +444,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
         $attributeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
         
 		$configname = $this->configRepository->get('ElasticExportMotorradbekleidungNET.attribute_settings.size_name');
-        if(strlen($attributeName) && strpos($attributeName, $configname) !== false )
+        if(strlen($attributeName) && preg_match("/\b(".$configname.")\b/i", $attributeName))
         {
             $attributes = $attributeValue;
         }
