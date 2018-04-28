@@ -8,35 +8,35 @@
     {
         "tab"       : "Einstellungen",
         "key"       : "settings.size_aom",
-        "label"     : "Größe",
+        "label"     : "Größe - Attribute oder Merkmale benutzen?",
         "type"      : "dropdown",
         "possibleValues": {
             "0" : "Attribute",
-            "1" : "Merkmale",
+            "1" : "Merkmale"
         },
         "default"   : "Attribute"
     },
     {
         "tab"       : "Einstellungen",
         "key"       : "settings.size_names",
-        "label"     : "Größe",
+        "label"     : "Größe - Attribute bzw. Merkmal Namen",
         "type"      : "text"
     },
     {
         "tab"       : "Einstellungen",
         "key"       : "settings.color_aom",
-        "label"     : "Farbe",
+        "label"     : "Farbe - Attribute oder Merkmale benutzen?",
         "type"      : "dropdown",
         "possibleValues": {
             "0" : "Attribute",
-            "1" : "Merkmale",
+            "1" : "Merkmale"
         },
         "default"   : "Attribute"
     },
     {
         "tab"       : "Einstellungen",
         "key"       : "settings.color_names",
-        "label"     : "Farbe",
+        "label"     : "Farbe - Attribute bzw. Merkmal Namen",
         "type"      : "text"
     }
 ]
