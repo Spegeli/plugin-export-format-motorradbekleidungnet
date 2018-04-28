@@ -19,7 +19,7 @@
     {
         "tab"       : "Einstellungen",
         "key"       : "settings.size_names",
-        "label"     : "Größe - Attribute bzw. Merkmal Namen",
+        "label"     : "Größe - Attribute bzw. Merkmal Namen (mehrfach eingabe durch | trennung möglich)",
         "type"      : "text"
     },
     {
@@ -36,7 +36,7 @@
     {
         "tab"       : "Einstellungen",
         "key"       : "settings.color_names",
-        "label"     : "Farbe - Attribute bzw. Merkmal Namen",
+        "label"     : "Farbe - Attribute bzw. Merkmal Namen (mehrfach eingabe durch | trennung möglich)",
         "type"      : "text"
     }
 ]

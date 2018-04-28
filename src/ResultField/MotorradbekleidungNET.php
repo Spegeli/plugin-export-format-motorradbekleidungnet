@@ -12,6 +12,7 @@ use Plenty\Modules\Item\Search\Mutators\KeyMutator;
 use Plenty\Modules\Item\Search\Mutators\DefaultCategoryMutator;
 use Plenty\Modules\Item\Search\Mutators\SkuMutator;
 use ElasticExport\DataProvider\ResultFieldDataProvider;
+use Plenty\Plugin\ConfigRepository;
 use Plenty\Plugin\Log\Loggable;
 
 /**
@@ -21,22 +22,29 @@ use Plenty\Plugin\Log\Loggable;
 class MotorradbekleidungNET extends ResultFields
 {
 	use Loggable;
-
-    const MOTORRADBEKLEIDUNG_NET = 13.00;
 	
     /**
      * @var ArrayHelper
      */
     private $arrayHelper;
 
+	/**
+	 * @var ConfigRepository
+	 */
+	private $configRepository;		
+	
     /**
      * MotorradbekleidungNET constructor.
-     * 
      * @param ArrayHelper $arrayHelper
+	 * @param ConfigRepository $configRepository	 
      */
-    public function __construct(ArrayHelper $arrayHelper)
+    public function __construct(
+        ArrayHelper $arrayHelper, 
+		ConfigRepository $configRepository
+    )
     {
         $this->arrayHelper = $arrayHelper;
+		$this->configRepository = $configRepository;
     }
 
     /**
@@ -50,7 +58,8 @@ class MotorradbekleidungNET extends ResultFields
         $settings = $this->arrayHelper->buildMapFromObjectList($formatSettings, 'key', 'value');
         $this->setOrderByList(['item.id', ElasticSearch::SORTING_ORDER_ASC]);
 		
-        $reference = $settings->get('referrerId') ? $settings->get('referrerId') : self::MOTORRADBEKLEIDUNG_NET;
+		$marketID = (float)$this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_marketid');
+        $reference = $settings->get('referrerId') ? $settings->get('referrerId') : $marketID;
 
         //Mutator
         /**

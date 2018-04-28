@@ -25,8 +25,6 @@ class MotorradbekleidungNET extends CSVPluginGenerator
     use Loggable;
 
     const DELIMITER = "\t"; // TAB
-
-    const MOTORRADBEKLEIDUNG_NET = 13.00;
 	
     /**
      * @var ElasticExportCoreHelper
