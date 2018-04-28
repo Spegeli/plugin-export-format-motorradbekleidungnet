@@ -12,7 +12,6 @@ use Plenty\Modules\Helper\Services\ArrayHelper;
 use Plenty\Modules\DataExchange\Models\FormatSetting;
 use Plenty\Modules\Helper\Models\KeyValue;
 use Plenty\Modules\Item\Search\Contracts\VariationElasticSearchScrollRepositoryContract;
-use Plenty\Modules\Item\VariationSku\Contracts\VariationSkuRepositoryContract;
 use Plenty\Modules\Item\VariationSku\Models\VariationSku;
 use Plenty\Plugin\ConfigRepository;
 use Plenty\Plugin\Log\Loggable;
@@ -27,6 +26,8 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 
     const DELIMITER = "\t"; // TAB
 
+    const MOTORRADBEKLEIDUNG_NET = 13.00;
+	
     /**
      * @var ElasticExportCoreHelper
      */
@@ -66,16 +67,6 @@ class MotorradbekleidungNET extends CSVPluginGenerator
      * @var FiltrationService
      */
     private $filtrationService;
-
-	/**
-	 * @var VariationSkuRepositoryContract
-	 */
-	private $variationSkuRepository;
-
-	/**
-	 * @var string
-	 */
-	private $parentSku = '';
 	
 	/**
 	 * @var ConfigRepository
@@ -85,17 +76,14 @@ class MotorradbekleidungNET extends CSVPluginGenerator
     /**
      * MotorradbekleidungNET constructor.
      * @param ArrayHelper $arrayHelper
-	 * @param VariationSkuRepositoryContract $variationSkuRepository	 
 	 * @param ConfigRepository $configRepository	 
      */
     public function __construct(
         ArrayHelper $arrayHelper, 
-		VariationSkuRepositoryContract $variationSkuRepository,
 		ConfigRepository $configRepository
     )
     {
         $this->arrayHelper = $arrayHelper;
-		$this->variationSkuRepository = $variationSkuRepository;
 		$this->configRepository = $configRepository;
     }
 
@@ -286,8 +274,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
         $data = [
             // mandatory
             'sku'             => $this->elasticExportHelper->generateSku($variation['id'], $marketID, 0, (string)$variation['data']['skus'][0]['sku']),
-			//'master_sku'      => 'P_' . $variation['data']['item']['id'],
-			'master_sku'      => $marketID,
+			'master_sku'      => 'P_' . $variation['data']['item']['id'],
             'gtin'            => $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode')),			
 			'name'            => $this->elasticExportHelper->getMutatedName($variation, $settings) . (strlen($attributes) ? ', ' . $attributes : ''),			
             'manufacturer'    => $this->elasticExportHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
