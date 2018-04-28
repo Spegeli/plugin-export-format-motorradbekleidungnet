@@ -303,8 +303,8 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 
         $data = [
             // mandatory
-            'sku'             => '' /*$skuData->sku*/,
-			'master_sku'      => '' /*$skuData->parentSku*/,
+            'sku'             => $this->elasticExportHelper->generateSku($variation['id'], self::MOTORRADBEKLEIDUNG_NET, 0, (string)$variation['data']['skus'][0]['sku']),
+			'master_sku'      => $variation['data']['item']['id'],
             'gtin'            => $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode')),			
 			'name'            => $this->elasticExportHelper->getMutatedName($variation, $settings) . (strlen($attributes) ? ', ' . $attributes : ''),			
             'manufacturer'    => $this->elasticExportHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
@@ -420,7 +420,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 		$attributeName = $this->elasticExportHelper->getAttributeName($variation, $settings, ',');
         $attributeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
 
-		$configname = $this->configRepository->get('ElasticExportMotorradbekleidungNET.attribute_settings.color_name');
+		//$configname = $this->configRepository->get('ElasticExportMotorradbekleidungNET.attribute_settings.color_name');
         if(strlen($attributeName) && strpos($attributeName, 'Farbe') !== false)
         {
             $attributes = $attributeValue;
@@ -443,7 +443,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 		$attributeName = $this->elasticExportHelper->getAttributeName($variation, $settings, ',');
         $attributeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
         
-		$configname = $this->configRepository->get('ElasticExportMotorradbekleidungNET.attribute_settings.size_name');
+		//$configname = $this->configRepository->get('ElasticExportMotorradbekleidungNET.attribute_settings.size_name');
         if(strlen($attributeName) && strpos($attributeName, 'Größe') !== false )
         {
             $attributes = $attributeValue;
