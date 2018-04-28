@@ -280,34 +280,14 @@ class MotorradbekleidungNET extends CSVPluginGenerator
     {
         // Get and set the price and rrp
         $priceList = $this->getPriceList($variation, $settings);
-        
-	    //$skuData = $this->setSku($variation, $settings);
 		
         // Get the images only for valid variations
         $imageList = $this->getAdditionalImages($this->getImageList($variation, $settings));
-
-        
-		/*
-		if($variation['data']['skus']['parentSku'] != null) {
-			$parentSku = $variation['data']['skus']['parentSku'];
-		} else {
-			$parentSku = $this->elasticExportHelper->generateSkuWithParent($variation, self::MOTORRADBEKLEIDUNG_NET, 0, $variation['id'], $variation['data']['item']['id']);
-		}
-		*/
-		if($variation['data']['skus']['sku'] != null)
-        {
-            $sku = $variation['data']['skus']['sku'];
-        }
-        else
-        {
-            $sku = $this->elasticExportHelper->generateSku($variation, self::MOTORRADBEKLEIDUNG_NET, 0, $variation['id']);
-        }
-					
 		
         $data = [
             // mandatory
-            'sku'             => $sku,
-			'master_sku'      => '',
+            'sku'             => $this->elasticExportHelper->generateSku($variation['id'], self::MOTORRADBEKLEIDUNG_NET, 0, (string)$variation['data']['skus'][0]['sku']),
+			'master_sku'      => 'P_' . $variation['data']['item']['id'],
             'gtin'            => $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode')),			
 			'name'            => $this->elasticExportHelper->getMutatedName($variation, $settings) . (strlen($attributes) ? ', ' . $attributes : ''),			
             'manufacturer'    => $this->elasticExportHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
@@ -594,81 +574,5 @@ class MotorradbekleidungNET extends CSVPluginGenerator
             }
         }
     }
-	
-	/**
-	 * @param $variation
-	 * @param $settings
-	 * @return array|null|VariationSku
-	 */
-	private function setSku($variation, $settings)
-	{
-		$parentSku = null;
-
-		if(strlen($this->parentSku))
-		{
-			$parentSku = $this->parentSku;
-		}
-
-		$parentPrefix = $this->configRepository->get('ElasticExportMotorradbekleidungNET.sku_settings.parent_prefix');
-		$parentSuffix = $this->configRepository->get('ElasticExportMotorradbekleidungNET.sku_settings.parent_suffix');
-
-		$skuDataList = $this->variationSkuRepository->search([
-			'variationId' => $variation['id'],
-			'marketId' => self::MOTORRADBEKLEIDUNG_NET
-		]);
-
-		if(count($skuDataList))
-		{
-			foreach($skuDataList as $skuData)
-			{
-				if(strlen($skuData->sku) == 0)
-				{
-					$skuData->sku = $variation['id'];
-				}
-
-				if(strlen($skuData->parentSku) == 0)
-				{
-					if(!is_null($parentSku))
-					{
-						$skuData->parentSku = $parentSku;
-					}
-					else
-					{
-						$skuData->parentSku = $parentPrefix . $variation['data']['item']['id'] . $parentSuffix;
-					}
-				}
-
-				$skuData->exportedAt = date("Y-m-d H:i:s");
-
-				$skuData = $this->variationSkuRepository->update($skuData->toArray(), $skuData->id);
-
-				return $skuData;
-
-				break;
-			}
-		}
-		else
-		{
-			if(is_null($parentSku))
-			{
-				$parentSku = $parentPrefix . $variation['data']['item']['id'] . $parentSuffix;
-			}
-
-			$skuData = [
-				'variationId' => $variation['id'],
-				'marketId' => self::MOTORRADBEKLEIDUNG_NET,
-				'initialSku' => $variation['id'],
-				'sku' => $variation['id'],
-				'parentSku' => $parentSku,
-				'createdAt' => date("Y-m-d H:i:s"),
-				'exportedAt' => date("Y-m-d H:i:s")
-			];
-			$skuData = $this->variationSkuRepository->create($skuData);
-
-			return $skuData;
-		}
-
-		return null;
-	}	
 }
 
