@@ -604,8 +604,8 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			$parentSku = $this->parentSku;
 		}
 
-		$parentPrefix = $this->configRepository->get('ElasticExportRakutenDE.sku_settings.parent_prefix');
-		$parentSuffix = $this->configRepository->get('ElasticExportRakutenDE.sku_settings.parent_suffix');
+		$parentPrefix = $this->configRepository->get('ElasticExportMotorradbekleidungNET.sku_settings.parent_prefix');
+		$parentSuffix = $this->configRepository->get('ElasticExportMotorradbekleidungNET.sku_settings.parent_suffix');
 
 		$skuDataList = $this->variationSkuRepository->search([
 			'variationId' => $variation['id'],
