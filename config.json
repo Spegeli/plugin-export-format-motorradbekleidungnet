@@ -38,5 +38,22 @@
         "key"       : "settings.color_names",
         "label"     : "Farbe - Attribute bzw. Merkmal Namen (mehrfach eingabe durch | trennung möglich)",
         "type"      : "text"
-    }
+    },
+    {
+        "tab"       : "Einstellungen",
+        "key"       : "settings.material_aom",
+        "label"     : "Material - Attribute oder Merkmale benutzen?",
+        "type"      : "dropdown",
+        "possibleValues": {
+            "0" : "Attribute",
+            "1" : "Merkmale"
+        },
+        "default"   : "Attribute"
+    },
+    {
+        "tab"       : "Einstellungen",
+        "key"       : "settings.material_names",
+        "label"     : "Material - Attribute bzw. Merkmal Namen (mehrfach eingabe durch | trennung möglich)",
+        "type"      : "text"
+    }	
 ]

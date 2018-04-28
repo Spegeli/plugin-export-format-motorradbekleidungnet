@@ -238,7 +238,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			'master_name',
 			'variant_name',
 			//long_description, //Nicht benötigt da	"description" schon die lange beschreibung ist	
-			//'driving_style',
+			//'driving_style',  //Merkmal mit Style anlegen
 			'srp',
 			'weight',
 			//'currency',      //Aktuell wird nur EUR angeboten
