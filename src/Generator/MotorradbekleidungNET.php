@@ -301,7 +301,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 
         $data = [
             // mandatory
-            'sku'             => $this->elasticExportHelper->generateSku($variation['id'], self::MOTORRADBEKLEIDUNG_NET, 0, (string)$variation['data']['skus'][0]['sku']),
+            'sku'             => '',
 			'master_sku'      => '',
             'gtin'            => $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode')),			
 			'name'            => $this->elasticExportHelper->getMutatedName($variation, $settings) . (strlen($attributes) ? ', ' . $attributes : ''),			
