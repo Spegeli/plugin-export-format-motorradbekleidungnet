@@ -14,7 +14,6 @@ use Plenty\Modules\Helper\Models\KeyValue;
 use Plenty\Modules\Item\Search\Contracts\VariationElasticSearchScrollRepositoryContract;
 use Plenty\Modules\Item\VariationSku\Contracts\VariationSkuRepositoryContract;
 use Plenty\Modules\Item\VariationSku\Models\VariationSku;
-use Plenty\Modules\Market\Helper\Contracts\MarketPropertyHelperRepositoryContract;
 use Plenty\Plugin\ConfigRepository;
 use Plenty\Plugin\Log\Loggable;
 
@@ -189,13 +188,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
                             continue;
                         }
 
-                        // Skip non-main variations that do not have attributes
                         $attributesvaluecombi = $this->getAttributeValueCombination($variation, $settings);
-                        if(strlen($attributesvaluecombi) <= 0 && $variation['variation']['isMain'] === false)
-                        {
-                            continue;
-                        }						
-
                         $attributescolorvalue = $this->getAttributeColorValue($variation, $settings);
                         $attributessizevalue = $this->getAttributeSizeValue($variation, $settings);
 						
@@ -288,7 +281,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
         // Get and set the price and rrp
         $priceList = $this->getPriceList($variation, $settings);
         
-	    $skuData = $this->setSku($variation, $settings);
+	    //$skuData = $this->setSku($variation, $settings);
 		
         // Get the images only for valid variations
         $imageList = $this->getAdditionalImages($this->getImageList($variation, $settings));
