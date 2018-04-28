@@ -22,7 +22,7 @@ class MotorradbekleidungNET extends ResultFields
 {
 	use Loggable;
 
-    const MOTORRADBEKLEIDUNG_NET = 112.00;
+    const MOTORRADBEKLEIDUNG_NET = 13.00;
 
     /**
      * @var ArrayHelper
@@ -48,7 +48,6 @@ class MotorradbekleidungNET extends ResultFields
     public function generateResultFields(array $formatSettings = []):array
     {
         $settings = $this->arrayHelper->buildMapFromObjectList($formatSettings, 'key', 'value');
-
         $this->setOrderByList(['item.id', ElasticSearch::SORTING_ORDER_ASC]);
 
         $reference = $settings->get('referrerId') ? $settings->get('referrerId') : self::MOTORRADBEKLEIDUNG_NET;
@@ -77,7 +76,7 @@ class MotorradbekleidungNET extends ResultFields
          * @var LanguageMutator $languageMutator
          */
         $languageMutator = pluginApp(LanguageMutator::class, [[$settings->get('lang')]]);
-
+		
         /**
          * @var SkuMutator $skuMutator
          */
