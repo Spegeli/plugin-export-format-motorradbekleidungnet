@@ -22,7 +22,7 @@ class MotorradbekleidungNET extends ResultFields
 {
 	use Loggable;
 
-    const MOTORRADBEKLEIDUNG_NET = 13.00;
+    const MOTORRADBEKLEIDUNG_NET = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_origin');
 
     /**
      * @var ArrayHelper

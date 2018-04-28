@@ -27,7 +27,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 
     const DELIMITER = "\t"; // TAB
 
-    const MOTORRADBEKLEIDUNG_NET = 13.00;
+    const MOTORRADBEKLEIDUNG_NET = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_origin');
 
     /**
      * @var ElasticExportCoreHelper
@@ -287,7 +287,8 @@ class MotorradbekleidungNET extends CSVPluginGenerator
         $data = [
             // mandatory
             'sku'             => $this->elasticExportHelper->generateSku($variation['id'], self::MOTORRADBEKLEIDUNG_NET, 0, (string)$variation['data']['skus'][0]['sku']),
-			'master_sku'      => 'P_' . $variation['data']['item']['id'],
+			//'master_sku'      => 'P_' . $variation['data']['item']['id'],
+			'master_sku'      => self::MOTORRADBEKLEIDUNG_NET,
             'gtin'            => $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode')),			
 			'name'            => $this->elasticExportHelper->getMutatedName($variation, $settings) . (strlen($attributes) ? ', ' . $attributes : ''),			
             'manufacturer'    => $this->elasticExportHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
