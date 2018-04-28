@@ -269,7 +269,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 		
         // Get the images only for valid variations
         $imageList = $this->getAdditionalImages($this->getImageList($variation, $settings));
-		$marketID = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_marketid');
+		$marketID = (float)$this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_marketid');
 		
         $data = [
             // mandatory
@@ -513,7 +513,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
      */
     public function isPropertySet($variation, string $property, $settings):int
     {
-		$marketID = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_marketid');
+		$marketID = (float)$this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_marketid');
         $itemPropertyList = $this->elasticExportPropertyHelper->getItemPropertyList($variation, $marketID, $settings->get('lang'));
 
         if(array_key_exists($property, $itemPropertyList))
