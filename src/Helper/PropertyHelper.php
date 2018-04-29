@@ -159,14 +159,14 @@ class PropertyHelper
 
                     if($property['property']['valueType'] == self::PROPERTY_TYPE_EMPTY)
                     {
-                        $list[(] = $propertyMarketReference->externalComponent;
+                        $list[] = $propertyMarketReference->externalComponent;
                     }
 
                     if($property['property']['valueType'] == self::PROPERTY_TYPE_INT)
                     {
                         if(!is_null($property['valueInt']))
                         {
-                            $list[(] = $property['valueInt'];
+                            $list[] = $property['valueInt'];
                         }
                     }
 
