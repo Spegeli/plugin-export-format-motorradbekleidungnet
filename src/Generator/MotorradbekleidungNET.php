@@ -425,6 +425,9 @@ class MotorradbekleidungNET extends CSVPluginGenerator
             }
 		} elseif ($config_material_aom == 1 && strlen($config_material_names)) {
 			$config_material_names_array = explode('|', $config_material_names);
+			foreach ($config_material_names_array as $materialname) {
+				//
+			}
 		}	
 		return $material_result;			
     }	
