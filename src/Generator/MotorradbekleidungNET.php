@@ -173,8 +173,9 @@ class MotorradbekleidungNET extends CSVPluginGenerator
                         }
 
                         $attributesvaluecombi = $this->getAttributeValueCombination($variation, $settings);
-                        $attributescolorvalue = $this->getAttributeColorValue($variation, $settings);
-                        $attributessizevalue = $this->getAttributeSizeValue($variation, $settings);
+                        $colorvalue = $this->getColorValue($variation, $settings);
+                        $sizevalue = $this->getSizeValue($variation, $settings);
+						$materialvalue = $this->getMaterialValue($variation, $settings);
 						
                         try
                         {
@@ -189,7 +190,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
                             }
 
                             // New line printed in the CSV file
-                            $this->buildRow($variation, $settings, $attributes, $attributesvaluecombi, $attributescolorvalue, $attributessizevalue);
+                            $this->buildRow($variation, $settings, $attributes, $attributesvaluecombi, $colorvalue, $sizevalue, $materialvalue);
                         }
                         catch(\Throwable $throwable)
                         {
@@ -258,10 +259,11 @@ class MotorradbekleidungNET extends CSVPluginGenerator
      * @param KeyValue $settings
      * @param array $attributes
 	 * @param array $attributesvaluecombi
-	 * @param array $attributescolorvalue
-	 * @param array $attributessizevalue
+	 * @param array $colorvalue
+	 * @param array $sizevalue
+	 * @param array $materialvalue
      */
-    private function buildRow($variation, KeyValue $settings, $attributes, $attributesvaluecombi, $attributescolorvalue, $attributessizevalue)
+    private function buildRow($variation, KeyValue $settings, $attributes, $attributesvaluecombi, $colorvalue, $sizevalue, $materialvalue)
     {
         // Get and set the price and rrp
         $priceList = $this->getPriceList($variation, $settings);
@@ -301,9 +303,9 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 	
 			
 			//partially
-			'size'               => strlen($attributessizevalue) ? $attributessizevalue : '',
-			'colour'             => strlen($attributescolorvalue) ? $attributescolorvalue : '',
-			'material'           => $this->elasticExportPropertyHelper->getProperty($variation, 'material', $marketID, $settings->get('lang')), //Muss noch angelegt werden
+			'size'               => strlen($sizevalue) ? $sizevalue : '',
+			'colour'             => strlen($colorvalue) ? $colorvalue : '',
+			'material'           => strlen($materialvalue) ? $materialvalue : '',
         ];
 
         $this->addCSVContent(array_values($data));
@@ -359,20 +361,22 @@ class MotorradbekleidungNET extends CSVPluginGenerator
      * @param KeyValue $settings
      * @return string
      */
-    private function getAttributeColorValue($variation, KeyValue $settings):string
+    private function getColorValue($variation, KeyValue $settings):string
     {
-        $attributes = '';
-
-		$attributeName = $this->elasticExportHelper->getAttributeName($variation, $settings, ',');
-        $attributeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
-
-		$configname = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.color_names');
-        if(strlen($attributeName) && preg_match("/\b(".$configname.")\b/i", $attributeName))
-        {
-            $attributes = $attributeValue;
-        }
-
-        return $attributes;
+		$config_aom = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.color_aom');
+        $config_names = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.color_names');		
+		if ($config_aom == "Attribute") {
+			$attributes = '';
+			$attributeName = $this->elasticExportHelper->getAttributeName($variation, $settings);
+			$attributeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
+			if(strlen($attributeName) && preg_match("/\b(".$config_names.")\b/i", $attributeName))
+			{
+				$attributes = $attributeValue;
+			}
+			return $attributes;
+		} elseif ($config_aom == "Merkmale")  {
+			$this->elasticExportPropertyHelper->getProperty($variation, 'size', $marketID, $settings->get('lang')),
+		}				
     }
 
 	/**
@@ -382,21 +386,48 @@ class MotorradbekleidungNET extends CSVPluginGenerator
      * @param KeyValue $settings
      * @return string
      */
-    private function getAttributeSizeValue($variation, KeyValue $settings):string
+    private function getSizeValue($variation, KeyValue $settings):string
     {
-        $attributes = '';
-        
-		$attributeName = $this->elasticExportHelper->getAttributeName($variation, $settings, ',');
-        $attributeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
-        
-		$configname = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.size_names');
-        if(strlen($attributeName) && preg_match("/\b(".$configname.")\b/i", $attributeName))
-        {
-            $attributes = $attributeValue;
-        }
-
-        return $attributes;
+		$config_aom = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.size_aom');	
+		$config_names = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.size_names');		
+		if ($config_aom == "Attribute") {
+			$attributes = '';  
+			$attributeName = $this->elasticExportHelper->getAttributeName($variation, $settings);
+			$attributeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');		
+			if(strlen($attributeName) && preg_match("/\b(".$config_names.")\b/i", $attributeName))
+			{
+				$attributes = $attributeValue;
+			}
+			return $attributes;
+		} elseif ($config_aom == "Merkmale")  {
+			$this->elasticExportPropertyHelper->getProperty($variation, 'size', $marketID, $settings->get('lang')),
+		}			
     }
+	
+	/**
+     * Get material value for a variation.
+     *
+     * @param $variation
+     * @param KeyValue $settings
+     * @return string
+     */
+    private function getMaterialValue($variation, KeyValue $settings):string
+    {
+		$config_aom = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.material_aom');
+		$config_names = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.material_names');		
+		if ($config_aom == "Attribute") {
+            $attributes = '';
+		    $attributeName = $this->elasticExportHelper->getAttributeName($variation, $settings);
+            $attributeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
+            if(strlen($attributeName) && preg_match("/\b(".$config_names.")\b/i", $attributeName))
+            {
+                $attributes = $attributeValue;
+            }
+			return $attributes;		
+		} elseif ($config_aom == "Merkmale")  {
+			$this->elasticExportPropertyHelper->getProperty($variation, 'material', $marketID, $settings->get('lang')),
+		}			
+    }	
 	
     /**
      * Get the price list.
