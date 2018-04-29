@@ -434,7 +434,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 		} elseif ($config_material_aom == 1 && strlen($config_material_names)) {
 			$config_material_names_array = explode('|', $config_material_names);
 			foreach ($config_material_names_array as $materialname) {
-				$propertyMaterialValue = $this->elasticExportPropertyHelper->getProperty($variation, $materialname, (float)$this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_marketid'), $settings->get('lang'));
+				$propertyMaterialValue = $this->propertyHelper->getProperty($variation, $materialname);
 				if(strlen($propertyMaterialValue)) {
 				    $material_result = $propertyMaterialValue;
 					break;

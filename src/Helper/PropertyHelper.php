@@ -2,7 +2,6 @@
 
 namespace ElasticExportMotorradbekleidungNET\Helper;
 
-use Plenty\Modules\Item\Property\Contracts\PropertyMarketReferenceRepositoryContract;
 use Plenty\Modules\Item\Property\Contracts\PropertyNameRepositoryContract;
 use Plenty\Modules\Item\Property\Models\PropertyName;
 use Plenty\Plugin\Log\Loggable;
@@ -20,10 +19,6 @@ class PropertyHelper
     const PROPERTY_TYPE_INT = 'int';
     const PROPERTY_TYPE_FLOAT = 'float';
 
-    const PROPERTY_IDEALO_CHECKOUT_APPROVED    = 'CheckoutApproved';
-    const PROPERTY_IDEALO_SPEDITION     = 'FulfillmentType:Spedition';
-    const PROPERTY_IDEALO_PAKETDIENST   = 'FulfillmentType:Paketdienst';
-
     /**
      * @var array
      */
@@ -40,44 +35,14 @@ class PropertyHelper
     private $propertyNameRepository;
 
     /**
-     * @var PropertyMarketReferenceRepositoryContract
-     */
-    private $propertyMarketReferenceRepository;
-
-    /**
      * PropertyHelper constructor.
      *
      * @param PropertyNameRepositoryContract $propertyNameRepository
-     * @param PropertyMarketReferenceRepositoryContract $propertyMarketReferenceRepository
      */
     public function __construct(
-        PropertyNameRepositoryContract $propertyNameRepository,
-        PropertyMarketReferenceRepositoryContract $propertyMarketReferenceRepository)
+        PropertyNameRepositoryContract $propertyNameRepository)
     {
         $this->propertyNameRepository = $propertyNameRepository;
-        $this->propertyMarketReferenceRepository = $propertyMarketReferenceRepository;
-    }
-
-    /**
-     * Set checkoutApproved if either property or market availability is set.
-     *
-     * @param $variation
-     * @return string
-     */
-    public function getCheckoutApproved($variation):string
-    {
-        $checkoutApproved = 'false';
-
-        $propertyIsSet = $this->getProperty($variation, self::PROPERTY_IDEALO_CHECKOUT_APPROVED) === true;
-
-        $marketAvailabilityIsSet = in_array(self::IDEALO_DE_DIREKTKAUF, $variation['data']['ids']['markets']);
-
-        if ($propertyIsSet || $marketAvailabilityIsSet)
-        {
-            $checkoutApproved = 'true';
-        }
-
-        return $checkoutApproved;
     }
 
     /**
@@ -99,13 +64,10 @@ class PropertyHelper
                     $property['property']['valueType'] != 'empty')
                 {
                     $propertyName = $this->propertyNameRepository->findOne($property['property']['id'], 'de');
-                    $propertyMarketReference = $this->propertyMarketReferenceRepository->findOne($property['property']['id'], self::IDEALO_DE);
 
                     // Skip properties which do not have the Component Id set
                     if(!($propertyName instanceof PropertyName) ||
-                        is_null($propertyName) ||
-                        is_null($propertyMarketReference) ||
-                        $propertyMarketReference->componentId != 1)
+                        is_null($propertyName))
                     {
                         continue;
                     }
@@ -147,16 +109,7 @@ class PropertyHelper
 
         if(array_key_exists($property, $itemPropertyList))
         {
-            if ($property == self::PROPERTY_IDEALO_CHECKOUT_APPROVED   ||
-                $property == self::PROPERTY_IDEALO_SPEDITION    ||
-                $property == self::PROPERTY_IDEALO_PAKETDIENST)
-            {
-                return true;
-            }
-            else
-            {
-                return $itemPropertyList[$property];
-            }
+            return $itemPropertyList[$property];
         }
 
         return '';
@@ -180,18 +133,10 @@ class PropertyHelper
                     $property['property']['valueType'] != 'file')
                 {
                     $propertyName = $this->propertyNameRepository->findOne($property['property']['id'], 'de');
-                    $propertyMarketReference = $this->propertyMarketReferenceRepository->findOne($property['property']['id'], self::IDEALO_DE);
-                    
-                    if(is_null($propertyMarketReference))
-                    {
-                        $propertyMarketReference = $this->propertyMarketReferenceRepository->findOne($property['property']['id'], self::IDEALO_DE_DIREKTKAUF);
-                    }
 
                     // Skip properties which do not have the External Component set up
                     if(!($propertyName instanceof PropertyName) ||
-                        is_null($propertyName) ||
-                        is_null($propertyMarketReference) ||
-                        $propertyMarketReference->externalComponent == '0')
+                        is_null($propertyName))
                     {
                         continue;
                     }
@@ -200,7 +145,7 @@ class PropertyHelper
                     {
                         if(is_array($property['texts']))
                         {
-                            $list[(string)$propertyMarketReference->externalComponent] = $property['texts'][0]['value'];
+                            $list[] = $property['texts'][0]['value'];
                         }
                     }
 
@@ -208,20 +153,20 @@ class PropertyHelper
                     {
                         if(is_array($property['selection']))
                         {
-                            $list[(string)$propertyMarketReference->externalComponent] = $property['selection'][0]['name'];
+                            $list[] = $property['selection'][0]['name'];
                         }
                     }
 
                     if($property['property']['valueType'] == self::PROPERTY_TYPE_EMPTY)
                     {
-                        $list[(string)$propertyMarketReference->externalComponent] = $propertyMarketReference->externalComponent;
+                        $list[(] = $propertyMarketReference->externalComponent;
                     }
 
                     if($property['property']['valueType'] == self::PROPERTY_TYPE_INT)
                     {
                         if(!is_null($property['valueInt']))
                         {
-                            $list[(string)$propertyMarketReference->externalComponent] = $property['valueInt'];
+                            $list[(] = $property['valueInt'];
                         }
                     }
 
@@ -229,7 +174,7 @@ class PropertyHelper
                     {
                         if(!is_null($property['valueFloat']))
                         {
-                            $list[(string)$propertyMarketReference->externalComponent] = $property['valueFloat'];
+                            $list[] = $property['valueFloat'];
                         }
                     }
 
