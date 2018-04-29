@@ -157,10 +157,12 @@ class PropertyHelper
                         }
                     }
 
+					/*
                     if($property['property']['valueType'] == self::PROPERTY_TYPE_EMPTY)
                     {
                         $list[] = $propertyMarketReference->externalComponent;
                     }
+					*/
 
                     if($property['property']['valueType'] == self::PROPERTY_TYPE_INT)
                     {
@@ -183,7 +185,7 @@ class PropertyHelper
 
             $this->itemPropertyCache[$variation['data']['item']['id']] = $list;
 
-            $this->getLogger(__METHOD__)->debug('ElasticExportMotorradbekleidungNET::item.variationPropertyList', [
+            $this->getLogger(__METHOD__)->debug('ElasticExportMotorradbekleidungNET::log.variationPropertyList', [
                 'ItemId'        => $variation['data']['item']['id'],
                 'VariationId'   => $variation['id'],
                 'PropertyList'  => count($list) > 0 ? $list : 'no properties'
