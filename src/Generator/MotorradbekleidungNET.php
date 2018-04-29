@@ -375,7 +375,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			}
 			return $attributes;
 		} elseif ($config_aom == "1")  {
-			$this->elasticExportPropertyHelper->getProperty($variation, 'size', $marketID, $settings->get('lang')),
+			//$this->elasticExportPropertyHelper->getProperty($variation, 'size', $marketID, $settings->get('lang')),
 		}				
     }
 
@@ -400,7 +400,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			}
 			return $attributes;
 		} elseif ($config_aom == "1")  {
-			$this->elasticExportPropertyHelper->getProperty($variation, 'size', $marketID, $settings->get('lang')),
+			//$this->elasticExportPropertyHelper->getProperty($variation, 'size', $marketID, $settings->get('lang')),
 		}			
     }
 	
@@ -425,7 +425,16 @@ class MotorradbekleidungNET extends CSVPluginGenerator
             }
 			return $attributes;		
 		} elseif ($config_aom == "1")  {
-			$this->elasticExportPropertyHelper->getProperty($variation, 'material', $marketID, $settings->get('lang')),
+			$propertys = ''
+			$array = explode('|', $config_names);
+			foreach ($array as $name) {
+			    $propertyValue = $this->elasticExportPropertyHelper->getProperty($variation, $name, $marketID, $settings->get('lang')),
+			    if(strlen($propertyValue) {
+				    $propertys = $propertyValue;
+					break;
+			    }
+			}
+			return $propertys;	
 		}			
     }	
 	
