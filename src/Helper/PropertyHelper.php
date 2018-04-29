@@ -10,9 +10,6 @@ class PropertyHelper
 {
     use Loggable;
 
-    const IDEALO_DE = 13.00;
-    const IDEALO_DE_DIREKTKAUF = 13;
-
     const PROPERTY_TYPE_TEXT = 'text';
     const PROPERTY_TYPE_SELECTION = 'selection';
     const PROPERTY_TYPE_EMPTY = 'empty';
@@ -145,7 +142,7 @@ class PropertyHelper
                     {
                         if(is_array($property['texts']))
                         {
-                            $list[] = $property['texts'][0]['value'];
+                            $list[$propertyName] = $property['texts'][0]['value'];
                         }
                     }
 
@@ -153,14 +150,14 @@ class PropertyHelper
                     {
                         if(is_array($property['selection']))
                         {
-                            $list[] = $property['selection'][0]['name'];
+                            $list[$propertyName] = $property['selection'][0]['name'];
                         }
                     }
 
 					/*
                     if($property['property']['valueType'] == self::PROPERTY_TYPE_EMPTY)
                     {
-                        $list[] = $propertyMarketReference->externalComponent;
+                        $list[$propertyName] = $propertyMarketReference->externalComponent;
                     }
 					*/
 
@@ -168,7 +165,7 @@ class PropertyHelper
                     {
                         if(!is_null($property['valueInt']))
                         {
-                            $list[] = $property['valueInt'];
+                            $list[$propertyName] = $property['valueInt'];
                         }
                     }
 
@@ -176,7 +173,7 @@ class PropertyHelper
                     {
                         if(!is_null($property['valueFloat']))
                         {
-                            $list[] = $property['valueFloat'];
+                            $list[$propertyName] = $property['valueFloat'];
                         }
                     }
 
