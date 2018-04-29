@@ -375,7 +375,17 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			}
 			return $attributes;
 		} elseif ($config_aom == "1")  {
-			//$this->elasticExportPropertyHelper->getProperty($variation, 'size', $marketID, $settings->get('lang')),
+			$marketID = (float)$this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_marketid');
+			$propertys = '';
+			$array = explode('|', $config_names);
+			foreach ($array as $name) {
+			    $propertyValue = $this->elasticExportPropertyHelper->getProperty($variation, $name, $marketID, $settings->get('lang'));
+			    if(strlen($propertyValue) {
+				    $propertys = $propertyValue;
+					break;
+			    }
+			}
+			return $propertys;	
 		}				
     }
 
@@ -400,7 +410,17 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			}
 			return $attributes;
 		} elseif ($config_aom == "1")  {
-			//$this->elasticExportPropertyHelper->getProperty($variation, 'size', $marketID, $settings->get('lang')),
+			$marketID = (float)$this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_marketid');
+			$propertys = '';
+			$array = explode('|', $config_names);
+			foreach ($array as $name) {
+			    $propertyValue = $this->elasticExportPropertyHelper->getProperty($variation, $name, $marketID, $settings->get('lang'));
+			    if(strlen($propertyValue) {
+				    $propertys = $propertyValue;
+					break;
+			    }
+			}
+			return $propertys;	
 		}			
     }
 	
@@ -426,10 +446,10 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			return $attributes;		
 		} elseif ($config_aom == "1")  {
 			$marketID = (float)$this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_marketid');
-			$propertys = ''
+			$propertys = '';
 			$array = explode('|', $config_names);
 			foreach ($array as $name) {
-			    $propertyValue = $this->elasticExportPropertyHelper->getProperty($variation, $name, $marketID, $settings->get('lang')),
+			    $propertyValue = $this->elasticExportPropertyHelper->getProperty($variation, $name, $marketID, $settings->get('lang'));
 			    if(strlen($propertyValue) {
 				    $propertys = $propertyValue;
 					break;
