@@ -374,7 +374,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 				$attributes = $attributeValue;
 			}
 			return $attributes;
-		} elseif ($config_aom == "1")  {
+		} elseif ($config_aom == "1") {
 			//
 		}				
     }
@@ -399,7 +399,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 				$attributes = $attributeValue;
 			}
 			return $attributes;
-		} elseif ($config_aom == "1")  {
+		} elseif ($config_aom == "1") {
 			//
 		}			
     }
@@ -425,6 +425,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
             }
 			return $attributes;		
 		} elseif ($config_aom == "1") {
+			/*
 			$propertys = '';
 			$config_names_array = explode('|', $config_names);
 			foreach ($config_names_array as $name) {
@@ -435,6 +436,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			    }
 			}
 			return $propertys;	
+			*/
 		}			
     }	
 	
