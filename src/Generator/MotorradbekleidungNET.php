@@ -7,6 +7,7 @@ use ElasticExport\Helper\ElasticExportPriceHelper;
 use ElasticExport\Helper\ElasticExportStockHelper;
 use ElasticExport\Helper\ElasticExportPropertyHelper;
 use ElasticExport\Services\FiltrationService;
+use ElasticExportMotorradbekleidungNET\Helper\PropertyHelper;
 use Plenty\Modules\DataExchange\Contracts\CSVPluginGenerator;
 use Plenty\Modules\Helper\Services\ArrayHelper;
 use Plenty\Modules\DataExchange\Models\FormatSetting;
@@ -45,6 +46,11 @@ class MotorradbekleidungNET extends CSVPluginGenerator
      * @var ArrayHelper
      */
     private $arrayHelper;
+
+    /**
+     * @var PropertyHelper
+     */
+    private $propertyHelper;
 	
     /**
      * @var ElasticExportPropertyHelper
@@ -78,10 +84,12 @@ class MotorradbekleidungNET extends CSVPluginGenerator
      */
     public function __construct(
         ArrayHelper $arrayHelper, 
+		PropertyHelper $propertyHelper,
 		ConfigRepository $configRepository
     )
     {
         $this->arrayHelper = $arrayHelper;
+		$this->propertyHelper = $propertyHelper;
 		$this->configRepository = $configRepository;
     }
 
@@ -515,27 +523,6 @@ class MotorradbekleidungNET extends CSVPluginGenerator
         }
 
         return $imageListString;
-    }
-
-    /**
-     * Get if property is set.
-     *
-     * @param  array $variation
-     * @param  string $property
-     * @param  KeyValue $settings
-     * @return int
-     */
-    public function isPropertySet($variation, string $property, $settings):int
-    {
-		$marketID = (float)$this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_marketid');
-        $itemPropertyList = $this->elasticExportPropertyHelper->getItemPropertyList($variation, $marketID, $settings->get('lang'));
-
-        if(array_key_exists($property, $itemPropertyList))
-        {
-            return 1;
-        }
-
-        return 0;
     }
 
     /**
