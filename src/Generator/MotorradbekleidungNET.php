@@ -424,18 +424,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
                 $result = $attributeValue;
             }
 		} elseif ($config_aom == 1) {
-			/*
-			$propertys = '';
-			$config_names_array = explode('|', $config_names);
-			foreach ($config_names_array as $name) {
-			    $propertyValue = $this->elasticExportPropertyHelper->getProperty($variation, $name, (float)$this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_marketid'), $settings->get('lang'));
-			    if(strlen($propertyValue) {
-				    $propertys = $propertyValue;
-					break;
-			    }
-			}
-			return $propertys;	
-			*/
+			//
 		}	
 		return $result;			
     }	
