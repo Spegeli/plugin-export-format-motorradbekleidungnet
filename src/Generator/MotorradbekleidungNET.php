@@ -425,6 +425,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
             }
 			return $attributes;		
 		} elseif ($config_aom == "1")  {
+			$marketID = (float)$this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_marketid');
 			$propertys = ''
 			$array = explode('|', $config_names);
 			foreach ($array as $name) {
