@@ -142,7 +142,7 @@ class PropertyHelper
                     {
                         if(is_array($property['texts']))
                         {
-                            $list[$propertyName] = $property['texts'][0]['value'];
+                            $list[] = $property['texts'][0]['value'];
                         }
                     }
 
@@ -150,14 +150,14 @@ class PropertyHelper
                     {
                         if(is_array($property['selection']))
                         {
-                            $list[$propertyName] = $property['selection'][0]['name'];
+                            $list[] = $property['selection'][0]['name'];
                         }
                     }
 
 					/*
                     if($property['property']['valueType'] == self::PROPERTY_TYPE_EMPTY)
                     {
-                        $list[$propertyName] = $propertyMarketReference->externalComponent;
+                        $list[] = $propertyMarketReference->externalComponent;
                     }
 					*/
 
@@ -165,7 +165,7 @@ class PropertyHelper
                     {
                         if(!is_null($property['valueInt']))
                         {
-                            $list[$propertyName] = $property['valueInt'];
+                            $list[] = $property['valueInt'];
                         }
                     }
 
@@ -173,7 +173,7 @@ class PropertyHelper
                     {
                         if(!is_null($property['valueFloat']))
                         {
-                            $list[$propertyName] = $property['valueFloat'];
+                            $list[] = $property['valueFloat'];
                         }
                     }
 
