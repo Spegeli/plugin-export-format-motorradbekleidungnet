@@ -342,16 +342,16 @@ class MotorradbekleidungNET extends CSVPluginGenerator
      */
     private function getAttributeValueCombination($variation, KeyValue $settings):string
     {
-        $attributes = '';
+        $attributesCombi = '';
 
-        $attributeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
+        $attributeCombiValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
 
-        if(strlen($attributeValue))
+        if(strlen($attributeCombiValue))
         {
-            $attributes = $attributeValue;
+            $attributesCombi = $attributeCombiValue;
         }
 
-        return $attributes;
+        return $attributesCombi;
     }
 
 	/**
@@ -363,20 +363,20 @@ class MotorradbekleidungNET extends CSVPluginGenerator
      */
     private function getColorValue($variation, KeyValue $settings):string
     {
-		$config_aom = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.color_aom');
-        $config_names = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.color_names');
-        $result = '';		
-		if ($config_aom == 0) {
-			$attributeName = $this->elasticExportHelper->getAttributeName($variation, $settings);
-			$attributeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
-			if(strlen($attributeName) && preg_match("/\b(".$config_names.")\b/i", $attributeName))
+		$config_color_aom = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.color_aom');
+        $config_color_names = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.color_names');
+        $color_result = '';		
+		if ($config_color_aom == 0 && strlen($config_color_names)) {
+			$attributeColorName = $this->elasticExportHelper->getAttributeName($variation, $settings);
+			$attributeColorValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
+			if(strlen($attributeColorName) && preg_match("/\b(".$config_color_names.")\b/i", $attributeColorName))
 			{
-				$result = $attributeValue;
+				$color_result = $attributeColorValue;
 			}
-		} elseif ($config_aom == 1) {
+		} elseif ($config_color_aom == 1 && strlen($config_color_names)) {
 			//
 		}	
-		return $result;		
+		return $color_result;		
     }
 
 	/**
@@ -388,20 +388,20 @@ class MotorradbekleidungNET extends CSVPluginGenerator
      */
     private function getSizeValue($variation, KeyValue $settings):string
     {
-		$config_aom = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.size_aom');	
-		$config_names = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.size_names');	
-        $result = '';		
-		if ($config_aom == 0) {
-			$attributeName = $this->elasticExportHelper->getAttributeName($variation, $settings);
-			$attributeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');		
-			if(strlen($attributeName) && preg_match("/\b(".$config_names.")\b/i", $attributeName))
+		$config_size_aom = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.size_aom');	
+		$config_size_names = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.size_names');	
+        $size_result = '';		
+		if ($config_size_aom == 0 && strlen($config_size_names)) {
+			$attributeSizeName = $this->elasticExportHelper->getAttributeName($variation, $settings);
+			$attributeSizeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');		
+			if(strlen($attributeSizeName) && preg_match("/\b(".$config_size_names.")\b/i", $attributeSizeName))
 			{
-				$result = $attributeValue;
+				$size_result = $attributeSizeValue;
 			}
-		} elseif ($config_aom == 1) {
+		} elseif ($config_size_aom == 1 && strlen($config_size_names)) {
 			//
 		}	
-		return $result;			
+		return $size_result;			
     }
 	
 	/**
@@ -413,20 +413,20 @@ class MotorradbekleidungNET extends CSVPluginGenerator
      */
     private function getMaterialValue($variation, KeyValue $settings):string
     {
-		$config_aom = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.material_aom');
-		$config_names = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.material_names');	
-        $result = '';		
-		if ($config_aom == 0) {
-		    $attributeName = $this->elasticExportHelper->getAttributeName($variation, $settings);
-            $attributeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
-            if(strlen($attributeName) && preg_match("/\b(".$config_names.")\b/i", $attributeName))
+		$config_material_aom = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.material_aom');
+		$config_material_names = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.material_names');	
+        $material_result = '';		
+		if ($config_material_aom == 0 && strlen($config_material_names)) {
+		    $attributeMaterialName = $this->elasticExportHelper->getAttributeName($variation, $settings);
+            $attributeMaterialValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
+            if(strlen($attributeMaterialName) && preg_match("/\b(".$config_material_names.")\b/i", $attributeMaterialName))
             {
-                $result = $attributeValue;
+                $material_result = $attributeMaterialValue;
             }
-		} elseif ($config_aom == 1) {
+		} elseif ($config_aom == 1 && strlen($config_material_names)) {
 			//
 		}	
-		return $result;			
+		return $material_result;			
     }	
 	
     /**
