@@ -142,8 +142,10 @@ class PropertyHelper
                     {
                         if(is_array($property['texts']))
                         {
-                            //$list[] = $property['texts'][0]['value'];
+							$list[] = $property['texts'];
+                            $list[] = $property['texts'][0]['value'];
 							$list[] = $property['valueTexts'];
+							$list[] = $property['valueTexts'][0]['value'];
                         }
                     }
 
