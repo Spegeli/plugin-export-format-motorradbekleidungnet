@@ -375,17 +375,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			}
 			return $attributes;
 		} elseif ($config_aom == "1")  {
-			$marketID = (float)$this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_marketid');
-			$propertys = '';
-			$array = explode('|', $config_names);
-			foreach ($array as $name) {
-			    $propertyValue = $this->elasticExportPropertyHelper->getProperty($variation, $name, $marketID, $settings->get('lang'));
-			    if(strlen($propertyValue) {
-				    $propertys = $propertyValue;
-					break;
-			    }
-			}
-			return $propertys;	
+			//
 		}				
     }
 
@@ -410,17 +400,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			}
 			return $attributes;
 		} elseif ($config_aom == "1")  {
-			$marketID = (float)$this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_marketid');
-			$propertys = '';
-			$array = explode('|', $config_names);
-			foreach ($array as $name) {
-			    $propertyValue = $this->elasticExportPropertyHelper->getProperty($variation, $name, $marketID, $settings->get('lang'));
-			    if(strlen($propertyValue) {
-				    $propertys = $propertyValue;
-					break;
-			    }
-			}
-			return $propertys;	
+			//
 		}			
     }
 	
@@ -444,12 +424,11 @@ class MotorradbekleidungNET extends CSVPluginGenerator
                 $attributes = $attributeValue;
             }
 			return $attributes;		
-		} elseif ($config_aom == "1")  {
-			$marketID = (float)$this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_marketid');
+		} elseif ($config_aom == "1") {
 			$propertys = '';
-			$array = explode('|', $config_names);
-			foreach ($array as $name) {
-			    $propertyValue = $this->elasticExportPropertyHelper->getProperty($variation, $name, $marketID, $settings->get('lang'));
+			$config_names_array = explode('|', $config_names);
+			foreach ($config_names_array as $name) {
+			    $propertyValue = $this->elasticExportPropertyHelper->getProperty($variation, $name, (float)$this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_marketid'), $settings->get('lang'));
 			    if(strlen($propertyValue) {
 				    $propertys = $propertyValue;
 					break;
