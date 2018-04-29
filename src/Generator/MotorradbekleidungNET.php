@@ -432,6 +432,8 @@ class MotorradbekleidungNET extends CSVPluginGenerator
                 $material_result = $attributeMaterialValue;
             }
 		} elseif ($config_material_aom == 1 && strlen($config_material_names)) {
+			$material_result = $this->propertyHelper->getProperty($variation, $config_material_names);
+			/*
 			$config_material_names_array = explode('|', $config_material_names);
 			foreach ($config_material_names_array as $materialname) {
 				$propertyMaterialValue = $this->propertyHelper->getProperty($variation, $materialname);
@@ -440,6 +442,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 					break;
 			    }
 			}
+			*/
 		}	
 		return $material_result;			
     }	
