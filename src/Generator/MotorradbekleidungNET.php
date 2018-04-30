@@ -382,7 +382,14 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 				$color_result = $attributeColorValue;
 			}
 		} elseif ($config_color_aom == 1 && strlen($config_color_names)) {
-			//
+			$config_color_names_array = explode('|', $config_color_names);
+			foreach ($config_color_names_array as $colorname) {
+				$propertyColorValue = $this->propertyHelper->getProperty($variation, $colorname);
+				if(strlen($propertyColorValue)) {
+				    $color_result = $propertyColorValue;
+					break;
+			    }
+			}
 		}	
 		return $color_result;		
     }
@@ -407,7 +414,14 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 				$size_result = $attributeSizeValue;
 			}
 		} elseif ($config_size_aom == 1 && strlen($config_size_names)) {
-			//
+			$config_size_names_array = explode('|', $config_size_names);
+			foreach ($config_size_names_array as $sizename) {
+				$propertySizeValue = $this->propertyHelper->getProperty($variation, $sizename);
+				if(strlen($propertySizeValue)) {
+				    $size_result = $propertySizeValue;
+					break;
+			    }
+			}
 		}	
 		return $size_result;			
     }
