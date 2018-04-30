@@ -182,7 +182,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 
                         $attributesvaluecombi = $this->getAttributeValueCombination($variation, $settings);
 												
-						$drivingstylevalue = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.drivingstyle_active') ? $this->getDrivingStyleValue($variation, $settings) : '';
+						$drivingstylevalue = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.drivingstyle_active') == true ? $this->getDrivingStyleValue($variation, $settings) : '';
 						$gendervalue = $this->getGenderValue($variation, $settings);
                         $colorvalue = $this->getColorValue($variation, $settings);
                         $sizevalue = $this->getSizeValue($variation, $settings);
