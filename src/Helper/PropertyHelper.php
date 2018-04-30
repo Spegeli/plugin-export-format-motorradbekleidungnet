@@ -143,12 +143,6 @@ class PropertyHelper
                         if(is_array($property['texts']))
                         {
 							$list[''.$propertyName['propertyId'].''] = $property['texts']['value']; //{"propertyId":"5288","lang":"de","name":"Modellname - model_name","description":""}
-							
-							$this->getLogger(__METHOD__)->debug('ElasticExportMotorradbekleidungNET::log.variationDebug', [
-							'ItemId'        => $variation['data']['item']['id'],
-							'VariationId'   => $variation['id'],
-							'PropertyList'  => $list
-							]);
                         }
                     }
 
@@ -156,7 +150,7 @@ class PropertyHelper
                     {
                         if(is_array($property['selection']))
                         {
-                            //$list[$propertyName] = $property['selection']['name'];
+                            $list[''.$propertyName['propertyId'].''] = $property['selection']['name'];
                         }
                     }
 
@@ -171,7 +165,7 @@ class PropertyHelper
                     {
                         if(!is_null($property['valueInt']))
                         {
-                            $list[] = $property['valueInt'];
+                            $list[''.$propertyName['propertyId'].''] = $property['valueInt'];
                         }
                     }
 
@@ -179,7 +173,7 @@ class PropertyHelper
                     {
                         if(!is_null($property['valueFloat']))
                         {
-                            $list[] = $property['valueFloat'];
+                            $list[''.$propertyName['propertyId'].''] = $property['valueFloat'];
                         }
                     }
 
