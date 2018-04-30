@@ -54,7 +54,7 @@ class AttributeHelper
      * @param KeyValue $settings
      * @return string
      */
-    private function getAttributeNameValueCombination($variation, KeyValue $settings):string
+    public function getAttributeNameValueCombination($variation, KeyValue $settings):string
     {
         $attributes = '';
 
@@ -76,7 +76,7 @@ class AttributeHelper
      * @param KeyValue $settings
      * @return string
      */
-    private function getAttributeValueCombination($variation, KeyValue $settings):string
+    public function getAttributeValueCombination($variation, KeyValue $settings):string
     {
         $attributesCombi = '';
 
