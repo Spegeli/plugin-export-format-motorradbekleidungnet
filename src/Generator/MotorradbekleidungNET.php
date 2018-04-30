@@ -7,7 +7,6 @@ use ElasticExport\Helper\ElasticExportPriceHelper;
 use ElasticExport\Helper\ElasticExportStockHelper;
 use ElasticExport\Helper\ElasticExportPropertyHelper;
 use ElasticExport\Services\FiltrationService;
-use ElasticExportMotorradbekleidungNET\Helper\AttributeHelper;
 use ElasticExportMotorradbekleidungNET\Helper\PropertyHelper;
 use Plenty\Modules\DataExchange\Contracts\CSVPluginGenerator;
 use Plenty\Modules\Helper\Services\ArrayHelper;
@@ -34,11 +33,6 @@ class MotorradbekleidungNET extends CSVPluginGenerator
     private $elasticExportHelper;
 
     /**
-     * @var ElasticExportPropertyHelper
-     */
-    private $elasticExportPropertyHelper;	
-	
-    /**
      * @var ElasticExportStockHelper
      */
     private $elasticExportStockHelper;
@@ -54,14 +48,14 @@ class MotorradbekleidungNET extends CSVPluginGenerator
     private $arrayHelper;
 
     /**
-     * @var AttributeHelper
-     */
-    private $attributeHelper;
-	
-    /**
      * @var PropertyHelper
      */
     private $propertyHelper;
+	
+    /**
+     * @var ElasticExportPropertyHelper
+     */
+    private $elasticExportPropertyHelper;
 
     /**
      * @var array
@@ -85,19 +79,16 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 	
     /**
      * MotorradbekleidungNET constructor.
-     * @param AttributeHelper $attributeHelper	 
      * @param ArrayHelper $arrayHelper
 	 * @param ConfigRepository $configRepository	 
      */
     public function __construct(
         ArrayHelper $arrayHelper, 
-		AttributeHelper $attributeHelper,
 		PropertyHelper $propertyHelper,
 		ConfigRepository $configRepository
     )
     {
         $this->arrayHelper = $arrayHelper;
-		$this->attributeHelper = $attributeHelper;
 		$this->propertyHelper = $propertyHelper;
 		$this->configRepository = $configRepository;
     }
@@ -183,13 +174,13 @@ class MotorradbekleidungNET extends CSVPluginGenerator
                         }
 
                         // Skip non-main variations that do not have attributes
-                        $attributes = $this->attributeHelper->getAttributeNameValueCombination($variation, $settings);
+                        $attributes = $this->getAttributeNameValueCombination($variation, $settings);
                         if(strlen($attributes) <= 0 && $variation['variation']['isMain'] === false)
                         {
                             continue;
                         }
 
-                        $attributesvaluecombi = $this->attributeHelper->getAttributeValueCombination($variation, $settings);
+                        $attributesvaluecombi = $this->getAttributeValueCombination($variation, $settings);
                         $colorvalue = $this->getColorValue($variation, $settings);
                         $sizevalue = $this->getSizeValue($variation, $settings);
 						$materialvalue = $this->getMaterialValue($variation, $settings);
@@ -326,6 +317,49 @@ class MotorradbekleidungNET extends CSVPluginGenerator
         ];
 
         $this->addCSVContent(array_values($data));
+    }
+
+    /**
+     * Get attribute and name value combination for a variation.
+     *
+     * @param $variation
+     * @param KeyValue $settings
+     * @return string
+     */
+    private function getAttributeNameValueCombination($variation, KeyValue $settings):string
+    {
+        $attributes = '';
+
+        $attributeName = $this->elasticExportHelper->getAttributeName($variation, $settings, ',');
+        $attributeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
+
+        if(strlen($attributeName) && strlen($attributeValue))
+        {
+            $attributes = $this->elasticExportHelper->getAttributeNameAndValueCombination($attributeName, $attributeValue);
+        }
+
+        return $attributes;
+    }
+
+	/**
+     * Get attribute and value combination for a variation.
+     *
+     * @param $variation
+     * @param KeyValue $settings
+     * @return string
+     */
+    private function getAttributeValueCombination($variation, KeyValue $settings):string
+    {
+        $attributesCombi = '';
+
+        $attributeCombiValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
+
+        if(strlen($attributeCombiValue))
+        {
+            $attributesCombi = $attributeCombiValue;
+        }
+
+        return $attributesCombi;
     }
 
 	/**
