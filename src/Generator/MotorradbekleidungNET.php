@@ -181,6 +181,8 @@ class MotorradbekleidungNET extends CSVPluginGenerator
                         }
 
                         $attributesvaluecombi = $this->getAttributeValueCombination($variation, $settings);
+						$drivingstylevalue = $this->getDrivingStyleValue($variation, $settings);
+						$gendervalue = $this->getGenderValue($variation, $settings);
                         $colorvalue = $this->getColorValue($variation, $settings);
                         $sizevalue = $this->getSizeValue($variation, $settings);
 						$materialvalue = $this->getMaterialValue($variation, $settings);
@@ -198,7 +200,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
                             }
 
                             // New line printed in the CSV file
-                            $this->buildRow($variation, $settings, $attributes, $attributesvaluecombi, $colorvalue, $sizevalue, $materialvalue);
+                            $this->buildRow($variation, $settings, $attributes, $attributesvaluecombi, $gendervalue, $drivingstylevalue, $colorvalue, $sizevalue, $materialvalue);
                         }
                         catch(\Throwable $throwable)
                         {
@@ -247,7 +249,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			'master_name',
 			'variant_name',
 			//long_description, //Nicht benötigt da	"description" schon die lange beschreibung ist	
-			//'driving_style',  //Merkmal mit Style anlegen
+			'driving_style',
 			'srp',
 			'weight',
 			//'currency',      //Aktuell wird nur EUR angeboten
@@ -267,11 +269,13 @@ class MotorradbekleidungNET extends CSVPluginGenerator
      * @param KeyValue $settings
      * @param array $attributes
 	 * @param array $attributesvaluecombi
+	 * @param array $gendervalue
+	 * @param array $drivingstylevalue
 	 * @param array $colorvalue
 	 * @param array $sizevalue
 	 * @param array $materialvalue
      */
-    private function buildRow($variation, KeyValue $settings, $attributes, $attributesvaluecombi, $colorvalue, $sizevalue, $materialvalue)
+    private function buildRow($variation, KeyValue $settings, $attributes, $attributesvaluecombi, $gendervalue, $drivingstylevalue, $colorvalue, $sizevalue, $materialvalue)
     {
         // Get and set the price and rrp
         $priceList = $this->getPriceList($variation, $settings);
@@ -290,7 +294,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
             'description'     => $this->elasticExportHelper->getMutatedDescription($variation, $settings),			
             'image_url'       => $imageList,			
 			'category'        => $this->elasticExportHelper->getCategory((int)$variation['data']['defaultCategories'][0]['id'], $settings->get('lang'), $settings->get('plentyId')),
-			'gender'          => $this->elasticExportPropertyHelper->getProperty($variation, 'gender', $marketID, $settings->get('lang')), //Muss noch angelegt werden
+			'gender'          => strlen($gendervalue) ? $gendervalue : '',
 			'price'           => $priceList['price'],
 			'shipping'        => $this->getShippingCost($variation),
 			'availability'    => $this->elasticExportHelper->getAvailability($variation, $settings, false), //Evl. andere Bezeichung
@@ -303,7 +307,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			'master_name'        => strlen($attributes) ? $this->elasticExportHelper->getMutatedName($variation, $settings, 256) : '',
 			'variant_name'       => strlen($attributesvaluecombi) ? $attributesvaluecombi : '',
 			//long_description,  //Nicht benötigt da "description" schon die lange beschreibung ist	
-			//'driving_style',   //Merkmal mit Style anlegen
+			'driving_style',     => strlen($drivingstylevalue) ? $drivingstylevalue : '',
             'srp'                => $priceList['oldPrice'],		
 			'weight'             => number_format($variation['data']['variation']['weightG'] / 1000, 2),
 			//'currency',        //Aktuell wird nur EUR angeboten
@@ -362,6 +366,70 @@ class MotorradbekleidungNET extends CSVPluginGenerator
         return $attributesCombi;
     }
 
+	/**
+     * Get attribute gender value for a variation.
+     *
+     * @param $variation
+     * @param KeyValue $settings
+     * @return string
+     */
+    private function getGenderValue($variation, KeyValue $settings):string
+    {
+		$config_gender_aom = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.gender_aom');
+        $config_gender_names = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.gender_names');
+        $gender_result = '';		
+		if ($config_gender_aom == 0 && strlen($config_gender_names)) {
+			$attributeGenderName = $this->elasticExportHelper->getAttributeName($variation, $settings);
+			$attributeGenderValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
+			if(strlen($attributeGenderName) && preg_match("/\b(".$config_gender_names.")\b/i", $attributeGenderName))
+			{
+				$gender_result = $attributeGenderValue;
+			}
+		} elseif ($config_gender_aom == 1 && strlen($config_gender_names)) {
+			$config_gender_names_array = explode('|', $config_gender_names);
+			foreach ($config_gender_names_array as $gendername) {
+				$propertyGenderValue = $this->propertyHelper->getProperty($variation, $gendername);
+				if(strlen($propertyGenderValue)) {
+				    $gender_result = $propertyGenderValue;
+					break;
+			    }
+			}
+		}	
+		return $gender_result;		
+    }	
+
+	/**
+     * Get attribute driving_style value for a variation.
+     *
+     * @param $variation
+     * @param KeyValue $settings
+     * @return string
+     */
+    private function getDrivingStyleValue($variation, KeyValue $settings):string
+    {
+		$config_drivingstyle_aom = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.drivingstyle_aom');	
+		$config_drivingstyle_names = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.drivingstyle_names');	
+        $drivingstyle_result = '';		
+		if ($config_drivingstyle_aom == 0 && strlen($config_drivingstyle_names)) {
+			$attributeDrivingStyleName = $this->elasticExportHelper->getAttributeName($variation, $settings);
+			$attributeDrivingStyleValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');		
+			if(strlen($attributeDrivingStyleName) && preg_match("/\b(".$config_drivingstyle_names.")\b/i", $attributeDrivingStyleName))
+			{
+				$drivingstyle_result = $attributeDrivingStyleValue;
+			}
+		} elseif ($config_drivingstyle_aom == 1 && strlen($config_drivingstyle_names)) {
+			$config_drivingstyle_names_array = explode('|', $config_drivingstyle_names);
+			foreach ($config_drivingstyle_names_array as $drivingstylename) {
+				$propertyDrivingStyleValue = $this->propertyHelper->getProperty($variation, $drivingstylename);
+				if(strlen($propertyDrivingStyleValue)) {
+				    $drivingstyle_result = $propertyDrivingStyleValue;
+					break;
+			    }
+			}
+		}	
+		return $drivingstyle_result;			
+    }
+	
 	/**
      * Get attribute color value for a variation.
      *

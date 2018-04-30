@@ -4,7 +4,41 @@
         "key"       : "settings.set_marketid",
         "label"     : "Herkunft-ID",
         "type"      : "text"
-    },  
+    }, 
+    {
+        "tab"       : "Einstellungen",
+        "key"       : "settings.gender_aom",
+        "label"     : "Geschlecht - Attribute oder Merkmale benutzen?",
+        "type"      : "dropdown",
+        "possibleValues": {
+            "0" : "Attribute",
+            "1" : "Merkmale"
+        },
+        "default"   : "Attribute"
+    },
+    {
+        "tab"       : "Einstellungen",
+        "key"       : "settings.gender_names",
+        "label"     : "Geschlecht - Attribute (Namen) bzw. Merkmal (IDs) (mehrfach eingabe durch | trennung möglich)",
+        "type"      : "text"
+    },	
+    {
+        "tab"       : "Einstellungen",
+        "key"       : "settings.drivingstyle_aom",
+        "label"     : "Fahrstil - Attribute oder Merkmale benutzen?",
+        "type"      : "dropdown",
+        "possibleValues": {
+            "0" : "Attribute",
+            "1" : "Merkmale"
+        },
+        "default"   : "Attribute"
+    },
+    {
+        "tab"       : "Einstellungen",
+        "key"       : "settings.drivingstyle_names",
+        "label"     : "Fahrstil - Attribute (Namen) bzw. Merkmal (IDs) (mehrfach eingabe durch | trennung möglich)",
+        "type"      : "text"
+    },	
     {
         "tab"       : "Einstellungen",
         "key"       : "settings.size_aom",
