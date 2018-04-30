@@ -73,7 +73,7 @@ class PropertyHelper
                     {
                         if(is_array($property['texts']))
                         {
-                            $freeText[] = $property['texts'][0]['value'];
+                            $freeText[] = $property['texts']['value'];
                         }
                     }
 
@@ -81,7 +81,7 @@ class PropertyHelper
                     {
                         if(is_array($property['selection']))
                         {
-                            $freeText[] = $property['selection'][0]['name'];
+                            $freeText[] = $property['selection']['name'];
                         }
                     }
                 }
@@ -142,7 +142,13 @@ class PropertyHelper
                     {
                         if(is_array($property['texts']))
                         {
-							$list[$propertyName] = $property['texts']['value'];
+							$list[''.$propertyName.''] = $property['texts']['value'];
+							
+							$this->getLogger(__METHOD__)->debug('ElasticExportMotorradbekleidungNET::log.variationDebug', [
+							'ItemId'        => $variation['data']['item']['id'],
+							'VariationId'   => $variation['id'],
+							'PropertyList'  => $list
+							]);
                         }
                     }
 
@@ -150,7 +156,7 @@ class PropertyHelper
                     {
                         if(is_array($property['selection']))
                         {
-                            $list[$propertyName] = $property['selection']['name'];
+                            //$list[$propertyName] = $property['selection']['name'];
                         }
                     }
 
@@ -165,7 +171,7 @@ class PropertyHelper
                     {
                         if(!is_null($property['valueInt']))
                         {
-                            $list[$propertyName] = $property['valueInt'];
+                            $list[] = $property['valueInt'];
                         }
                     }
 
@@ -173,7 +179,7 @@ class PropertyHelper
                     {
                         if(!is_null($property['valueFloat']))
                         {
-                            $list[$propertyName] = $property['valueFloat'];
+                            $list[] = $property['valueFloat'];
                         }
                     }
 
