@@ -307,7 +307,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			'master_name'        => strlen($attributes) ? $this->elasticExportHelper->getMutatedName($variation, $settings, 256) : '',
 			'variant_name'       => strlen($attributesvaluecombi) ? $attributesvaluecombi : '',
 			//long_description,  //Nicht benötigt da "description" schon die lange beschreibung ist	
-			'driving_style',     => strlen($drivingstylevalue) ? $drivingstylevalue : '',
+			'driving_style'      => strlen($drivingstylevalue) ? $drivingstylevalue : '',
             'srp'                => $priceList['oldPrice'],		
 			'weight'             => number_format($variation['data']['variation']['weightG'] / 1000, 2),
 			//'currency',        //Aktuell wird nur EUR angeboten
