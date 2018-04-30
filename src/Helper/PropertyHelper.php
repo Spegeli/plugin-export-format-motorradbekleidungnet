@@ -142,17 +142,7 @@ class PropertyHelper
                     {
                         if(is_array($property['texts']))
                         {
-							//$list[] = $property['texts'];
 							$list[] = $property['texts']['value'];
-                            //$list[] = $property['texts'][0]['value'];
-							
-							/*
-							$this->getLogger(__METHOD__)->debug('ElasticExportMotorradbekleidungNET::log.variationDebug', [
-							'ItemId'        => $variation['data']['item']['id'],
-							'VariationId'   => $variation['id'],
-							'PropertyList'  => count($property['texts']) > 0 ? $property['texts'] : 'no properties'
-							]);
-							*/
                         }
                     }
 
@@ -160,8 +150,7 @@ class PropertyHelper
                     {
                         if(is_array($property['selection']))
                         {
-                            //$list[] = $property['selection'][0]['name'];
-							//$list[] = $property['propertySelection'];
+                            $list[] = $property['selection']['name'];
                         }
                     }
 
@@ -176,8 +165,7 @@ class PropertyHelper
                     {
                         if(!is_null($property['valueInt']))
                         {
-                            //$list[] = $property['valueInt'];
-							$list[] = 'test 3';
+                            $list[] = $property['valueInt'];
                         }
                     }
 
@@ -185,8 +173,7 @@ class PropertyHelper
                     {
                         if(!is_null($property['valueFloat']))
                         {
-                            //$list[] = $property['valueFloat'];
-							$list[] = 'test 4';
+                            $list[] = $property['valueFloat'];
                         }
                     }
 
