@@ -6,7 +6,7 @@
         "type"      : "text"
     }, 
     {
-        "tab"       : "Einstellungen",
+        "tab"       : "Einstellungen - Geschlecht",
         "key"       : "settings.gender_aom",
         "label"     : "Geschlecht - Attribute oder Merkmale benutzen?",
         "type"      : "dropdown",
@@ -17,13 +17,13 @@
         "default"   : "Attribute"
     },
     {
-        "tab"       : "Einstellungen",
+        "tab"       : "Einstellungen - Geschlecht",
         "key"       : "settings.gender_names",
         "label"     : "Geschlecht - Attribute (Namen) bzw. Merkmal (IDs) (mehrfach eingabe durch | trennung möglich)",
         "type"      : "text"
     },	
     {
-        "tab"       : "Einstellungen",
+        "tab"       : "Einstellungen - Fahrstil",
         "key"       : "settings.drivingstyle_aom",
         "label"     : "Fahrstil - Attribute oder Merkmale benutzen?",
         "type"      : "dropdown",
@@ -34,13 +34,13 @@
         "default"   : "Attribute"
     },
     {
-        "tab"       : "Einstellungen",
+        "tab"       : "Einstellungen - Fahrstil",
         "key"       : "settings.drivingstyle_names",
         "label"     : "Fahrstil - Attribute (Namen) bzw. Merkmal (IDs) (mehrfach eingabe durch | trennung möglich)",
         "type"      : "text"
     },	
     {
-        "tab"       : "Einstellungen",
+        "tab"       : "Einstellungen - Größe",
         "key"       : "settings.size_aom",
         "label"     : "Größe - Attribute oder Merkmale benutzen?",
         "type"      : "dropdown",
@@ -51,13 +51,13 @@
         "default"   : "Attribute"
     },
     {
-        "tab"       : "Einstellungen",
+        "tab"       : "Einstellungen - Größe",
         "key"       : "settings.size_names",
         "label"     : "Größe - Attribute (Namen) bzw. Merkmal (IDs) (mehrfach eingabe durch | trennung möglich)",
         "type"      : "text"
     },
     {
-        "tab"       : "Einstellungen",
+        "tab"       : "Einstellungen - Farbe",
         "key"       : "settings.color_aom",
         "label"     : "Farbe - Attribute oder Merkmale benutzen?",
         "type"      : "dropdown",
@@ -68,13 +68,13 @@
         "default"   : "Attribute"
     },
     {
-        "tab"       : "Einstellungen",
+        "tab"       : "Einstellungen - Farbe",
         "key"       : "settings.color_names",
         "label"     : "Farbe - Attribute (Namen) bzw. Merkmal (IDs) (mehrfach eingabe durch | trennung möglich)",
         "type"      : "text"
     },
     {
-        "tab"       : "Einstellungen",
+        "tab"       : "Einstellungen - Material",
         "key"       : "settings.material_aom",
         "label"     : "Material - Attribute oder Merkmale benutzen?",
         "type"      : "dropdown",
@@ -85,7 +85,7 @@
         "default"   : "Attribute"
     },
     {
-        "tab"       : "Einstellungen",
+        "tab"       : "Einstellungen - Material",
         "key"       : "settings.material_names",
         "label"     : "Material - Attribute (Namen) bzw. Merkmal (IDs) (mehrfach eingabe durch | trennung möglich)",
         "type"      : "text"
