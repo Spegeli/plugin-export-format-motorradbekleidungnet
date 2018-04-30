@@ -7,6 +7,12 @@
     }, 
     {
         "tab"       : "Einstellungen - Geschlecht",
+        "key"       : "settings.gender_active",
+        "label"     : "Aktiv",
+        "type"      : "checkbox"
+    },	
+    {
+        "tab"       : "Einstellungen - Geschlecht",
         "key"       : "settings.gender_aom",
         "label"     : "Geschlecht - Attribute oder Merkmale benutzen?",
         "type"      : "dropdown",
@@ -24,6 +30,12 @@
     },	
     {
         "tab"       : "Einstellungen - Fahrstil",
+        "key"       : "settings.drivingstyle_active",
+        "label"     : "Aktiv",
+        "type"      : "checkbox"
+    },	
+    {
+        "tab"       : "Einstellungen - Fahrstil",
         "key"       : "settings.drivingstyle_aom",
         "label"     : "Fahrstil - Attribute oder Merkmale benutzen?",
         "type"      : "dropdown",
@@ -38,7 +50,13 @@
         "key"       : "settings.drivingstyle_names",
         "label"     : "Fahrstil - Attribute (Namen) bzw. Merkmal (IDs) (mehrfach eingabe durch | trennung möglich)",
         "type"      : "text"
-    },	
+    },
+    {
+        "tab"       : "Einstellungen - Größe",
+        "key"       : "settings.size_active",
+        "label"     : "Aktiv",
+        "type"      : "checkbox"
+    },		
     {
         "tab"       : "Einstellungen - Größe",
         "key"       : "settings.size_aom",
@@ -58,6 +76,12 @@
     },
     {
         "tab"       : "Einstellungen - Farbe",
+        "key"       : "settings.color_active",
+        "label"     : "Aktiv",
+        "type"      : "checkbox"
+    },		
+    {
+        "tab"       : "Einstellungen - Farbe",
         "key"       : "settings.color_aom",
         "label"     : "Farbe - Attribute oder Merkmale benutzen?",
         "type"      : "dropdown",
@@ -73,6 +97,12 @@
         "label"     : "Farbe - Attribute (Namen) bzw. Merkmal (IDs) (mehrfach eingabe durch | trennung möglich)",
         "type"      : "text"
     },
+    {
+        "tab"       : "Einstellungen - Material",
+        "key"       : "settings.material_active",
+        "label"     : "Aktiv",
+        "type"      : "checkbox"
+    },		
     {
         "tab"       : "Einstellungen - Material",
         "key"       : "settings.material_aom",
