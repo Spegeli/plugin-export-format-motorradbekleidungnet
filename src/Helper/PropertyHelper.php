@@ -142,7 +142,7 @@ class PropertyHelper
                     {
                         if(is_array($property['texts']))
                         {
-							$list[] = $property['texts']['value'];
+							$list[$propertyName] = $property['texts']['value'];
                         }
                     }
 
@@ -150,7 +150,7 @@ class PropertyHelper
                     {
                         if(is_array($property['selection']))
                         {
-                            $list[] = $property['selection']['name'];
+                            $list[$propertyName] = $property['selection']['name'];
                         }
                     }
 
@@ -165,7 +165,7 @@ class PropertyHelper
                     {
                         if(!is_null($property['valueInt']))
                         {
-                            $list[] = $property['valueInt'];
+                            $list[$propertyName] = $property['valueInt'];
                         }
                     }
 
@@ -173,7 +173,7 @@ class PropertyHelper
                     {
                         if(!is_null($property['valueFloat']))
                         {
-                            $list[] = $property['valueFloat'];
+                            $list[$propertyName] = $property['valueFloat'];
                         }
                     }
 
