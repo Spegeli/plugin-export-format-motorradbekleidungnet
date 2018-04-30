@@ -144,7 +144,7 @@ class PropertyHelper
                         {
 							//$list[] = $property['texts'];
                             //$list[] = $property['texts'][0]['value'];
-							$list[] = $property['valueTexts'];
+							//$list[] = $property['valueTexts'];
 							$list[] = $property['valueTexts'][0]['value'];
                         }
                     }
@@ -154,7 +154,7 @@ class PropertyHelper
                         if(is_array($property['selection']))
                         {
                             //$list[] = $property['selection'][0]['name'];
-							$list[] = $property['propertySelection'];
+							//$list[] = $property['propertySelection'];
                         }
                     }
 
