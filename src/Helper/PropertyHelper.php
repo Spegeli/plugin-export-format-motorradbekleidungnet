@@ -142,7 +142,7 @@ class PropertyHelper
                     {
                         if(is_array($property['texts']))
                         {
-							$list[''.$propertyName.''] = $property['texts']['value'];
+							$list[''.$propertyName['propertyId'].''] = $property['texts']['value']; //{"propertyId":"5288","lang":"de","name":"Modellname - model_name","description":""}
 							
 							$this->getLogger(__METHOD__)->debug('ElasticExportMotorradbekleidungNET::log.variationDebug', [
 							'ItemId'        => $variation['data']['item']['id'],
