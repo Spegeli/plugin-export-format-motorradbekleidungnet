@@ -143,12 +143,13 @@ class PropertyHelper
                         if(is_array($property['texts']))
                         {
 							$list[] = $property['texts'];
+							$list[] = $property['texts']['value'];
                             $list[] = $property['texts'][0]['value'];
 							
 							$this->getLogger(__METHOD__)->debug('ElasticExportMotorradbekleidungNET::log.variationDebug', [
 							'ItemId'        => $variation['data']['item']['id'],
 							'VariationId'   => $variation['id'],
-							'PropertyList'  => count($list) > 0 ? $list : 'no properties'
+							'PropertyList'  => count($property['texts']) > 0 ? $property['texts'] : 'no properties'
 							]);
                         }
                     }
