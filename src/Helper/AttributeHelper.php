@@ -3,7 +3,7 @@
 namespace ElasticExportMotorradbekleidungNET\Helper;
 
 use ElasticExport\Helper\ElasticExportPropertyHelper;
-use ElasticExportMotorradbekleidungNET\Generator\GoogleShopping;
+use ElasticExportMotorradbekleidungNET\Generator\MotorradbekleidungNET;
 use Plenty\Modules\Helper\Models\KeyValue;
 use Plenty\Modules\Item\Attribute\Contracts\AttributeRepositoryContract;
 use Plenty\Modules\Item\Attribute\Contracts\AttributeValueNameRepositoryContract;
