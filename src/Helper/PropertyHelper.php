@@ -144,6 +144,7 @@ class PropertyHelper
                         {
 							$list[] = $property['texts'];
                             $list[] = $property['texts'][0]['value'];
+							$list[] = $property['valueTexts']['value'];
 							$list[] = $property['valueTexts'];
 							$list[] = $property['valueTexts'][0]['value'];
                         }
