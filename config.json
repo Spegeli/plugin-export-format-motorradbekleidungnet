@@ -2,7 +2,7 @@
     {
         "tab"       : "Einstellungen",
         "key"       : "settings.set_marketid",
-        "label"     : "Herkunft-ID",
+        "label"     : "Herkunft-ID (benötigt für SKU Generierung)",
         "type"      : "text"
     }, 
     {
