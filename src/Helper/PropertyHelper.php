@@ -129,6 +129,7 @@ class PropertyHelper
                 if(!is_null($property['property']['id']) &&
                     $property['property']['valueType'] != 'file')
                 {
+					//{"propertyId":"5288","lang":"de","name":"Modellname - model_name","description":""}
                     $propertyName = $this->propertyNameRepository->findOne($property['property']['id'], 'de');
 
                     // Skip properties which do not have the External Component set up
@@ -142,7 +143,7 @@ class PropertyHelper
                     {
                         if(is_array($property['texts']))
                         {
-							$list[''.$propertyName['propertyId'].''] = $property['texts']['value']; //{"propertyId":"5288","lang":"de","name":"Modellname - model_name","description":""}
+							$list[''.$propertyName['propertyId'].''] = $property['texts']['value']; 
                         }
                     }
 
@@ -154,12 +155,11 @@ class PropertyHelper
                         }
                     }
 
-					/*
                     if($property['property']['valueType'] == self::PROPERTY_TYPE_EMPTY)
                     {
-                        $list[] = $propertyMarketReference->externalComponent;
+                        $list[] = $propertyName['name'];
                     }
-					*/
+					
 
                     if($property['property']['valueType'] == self::PROPERTY_TYPE_INT)
                     {
