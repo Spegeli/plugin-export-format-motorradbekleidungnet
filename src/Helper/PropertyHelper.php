@@ -157,7 +157,7 @@ class PropertyHelper
 
                     if($property['property']['valueType'] == self::PROPERTY_TYPE_EMPTY)
                     {
-                        $list[] = $propertyName['name'];
+                        $list[''.$propertyName['propertyId'].''] = $propertyName['name'];
                     }
 					
 
