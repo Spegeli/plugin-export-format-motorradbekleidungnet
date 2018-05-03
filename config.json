@@ -6,6 +6,17 @@
         "type"      : "text"
     }, 
     {
+        "tab"       : "Einstellungen",
+        "key"       : "settings.barcode_only",
+        "label"     : "Nur Varianten mit Barcode Exportieren?",
+        "type"      : "dropdown",
+        "possibleValues": {
+            "true" : "Ja",
+            "false" : "Nein"
+        },
+        "default"   : "Ja"
+    },	
+    {
         "tab"       : "Einstellungen - Geschlecht",
         "key"       : "settings.gender_active",
         "label"     : "Aktiv",

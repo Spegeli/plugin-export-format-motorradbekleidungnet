@@ -173,6 +173,14 @@ class MotorradbekleidungNET extends CSVPluginGenerator
                             continue;
                         }
 
+						//Skip variations without barcode
+						$barcode_only = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.barcode_only');
+						$barcode = $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode'));
+                        if($barcode_only && strlen($barcode) <= 0)
+                        {
+                            continue;
+                        }						
+						
                         // Skip non-main variations that do not have attributes
                         $attributes = $this->getAttributeNameValueCombination($variation, $settings);
                         if(strlen($attributes) <= 0 && $variation['variation']['isMain'] === false)
