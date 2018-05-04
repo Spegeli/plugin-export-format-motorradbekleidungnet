@@ -88,7 +88,7 @@ class AttributeHelper
                 }
             }
 
-            $this->itemAttributesCache[$variation['data']['item']['id']] = $list;
+            $this->itemAttributesCache[$variation['id']] = $list;
 
             $this->getLogger(__METHOD__)->debug('ElasticExportMotorradbekleidungNET::log.variationAttributeList', [
                 'ItemId'        => $variation['data']['item']['id'],
