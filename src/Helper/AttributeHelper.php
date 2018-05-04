@@ -61,8 +61,20 @@ class AttributeHelper
      */
     private function getItemAttributeList($variation):array
     {
+		
+		$this->getLogger(__METHOD__)->info('Item Attribute Start', [
+		'ItemId'        => $variation['data']['item']['id'],
+		'VariationId'   => $variation['id']
+		]);
+					
         if(!array_key_exists($variation['id'], $this->itemAttributesCache))
         {
+			
+		$this->getLogger(__METHOD__)->info('Item Attribute Nicht in Cache', [
+		'ItemId'        => $variation['data']['item']['id'],
+		'VariationId'   => $variation['id']
+		]);
+		
             $list = array();
 
             foreach($variation['data']['attributes'] as $attribute)
@@ -79,7 +91,7 @@ class AttributeHelper
                         continue;
                     }
 
-					$this->getLogger(__METHOD__)->info('ElasticExportMotorradbekleidungNET::log.variationAttributeList', [
+					$this->getLogger(__METHOD__)->info('Item Attribute Info', [
 					'ItemId'        => $variation['data']['item']['id'],
 					'VariationId'   => $variation['id'],
 					'AttributeList'  => $attributeInfo
