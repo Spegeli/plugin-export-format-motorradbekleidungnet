@@ -393,26 +393,19 @@ class MotorradbekleidungNET extends CSVPluginGenerator
     private function getGenderValue($variation, KeyValue $settings):string
     {
 		$config_gender_aom = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.gender_aom');
-        $config_gender_names = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.gender_names');
+        $config_gender_ids = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.gender_names');
         $gender_result = '';		
-		if ($config_gender_aom == 0 && strlen($config_gender_names)) {
-			$attributeGenderName = $this->elasticExportHelper->getAttributeName($variation, $settings);
-			$attributeGenderValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
-			if(strlen($attributeGenderName) && preg_match("/\b(".$config_gender_names.")\b/i", $attributeGenderName))
-			{
-				$gender_result = $attributeGenderValue;
-			}
-		} elseif ($config_gender_aom == 1 && strlen($config_gender_names)) {
-			$config_gender_names_array = explode('|', $config_gender_names);
-			foreach ($config_gender_names_array as $gendername) {
-				$propertyGenderValue = $this->propertyHelper->getPropertyValue($variation, $gendername);
-				if(strlen($propertyGenderValue)) {
-				    $gender_result = $propertyGenderValue;
+		if (strlen($config_gender_ids)) {
+			$genderIds_array = explode('|', $config_gender_ids);
+			foreach ($genderIds_array as $genderId) {		
+				$genderValue = $config_gender_aom == "0" ? $this->attributeHelper->getAttributeValue($variation, $genderId) : $this->propertyHelper->getPropertyValue($variation, $genderId);
+				if(strlen($genderValue)) {
+				    $gender_result = $genderValue;
 					break;
 			    }
 			}
 		}	
-		return $gender_result;		
+		return $gender_result;			
     }	
 
 	/**
@@ -425,26 +418,19 @@ class MotorradbekleidungNET extends CSVPluginGenerator
     private function getDrivingStyleValue($variation, KeyValue $settings):string
     {
 		$config_drivingstyle_aom = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.drivingstyle_aom');	
-		$config_drivingstyle_names = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.drivingstyle_names');	
+		$config_drivingstyle_ids = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.drivingstyle_names');	
         $drivingstyle_result = '';		
-		if ($config_drivingstyle_aom == 0 && strlen($config_drivingstyle_names)) {
-			$attributeDrivingStyleName = $this->elasticExportHelper->getAttributeName($variation, $settings);
-			$attributeDrivingStyleValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');		
-			if(strlen($attributeDrivingStyleName) && preg_match("/\b(".$config_drivingstyle_names.")\b/i", $attributeDrivingStyleName))
-			{
-				$drivingstyle_result = $attributeDrivingStyleValue;
-			}
-		} elseif ($config_drivingstyle_aom == 1 && strlen($config_drivingstyle_names)) {
-			$config_drivingstyle_names_array = explode('|', $config_drivingstyle_names);
-			foreach ($config_drivingstyle_names_array as $drivingstylename) {
-				$propertyDrivingStyleValue = $this->propertyHelper->getPropertyValue($variation, $drivingstylename);
-				if(strlen($propertyDrivingStyleValue)) {
-				    $drivingstyle_result = $propertyDrivingStyleValue;
+		if (strlen($config_drivingstyle_ids)) {
+			$drivingstyleIds_array = explode('|', $config_drivingstyle_ids);
+			foreach ($drivingstyleIds_array as $drivingstyleId) {		
+				$drivingstyleValue = $config_drivingstyle_aom == "0" ? $this->attributeHelper->getAttributeValue($variation, $drivingstyleId) : $this->propertyHelper->getPropertyValue($variation, $drivingstyleId);
+				if(strlen($drivingstyleValue)) {
+				    $drivingstyle_result = $drivingstyleValue;
 					break;
 			    }
 			}
 		}	
-		return $drivingstyle_result;			
+		return $drivingstyle_result;					
     }
 	
 	/**
@@ -507,26 +493,19 @@ class MotorradbekleidungNET extends CSVPluginGenerator
     private function getMaterialValue($variation, KeyValue $settings):string
     {
 		$config_material_aom = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.material_aom');
-		$config_material_names = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.material_names');	
+		$config_material_ids = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.material_names');	
         $material_result = '';		
-		if ($config_material_aom == 0 && strlen($config_material_names)) {
-		    $attributeMaterialName = $this->elasticExportHelper->getAttributeName($variation, $settings);
-            $attributeMaterialValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
-            if(strlen($attributeMaterialName) && preg_match("/\b(".$config_material_names.")\b/i", $attributeMaterialName))
-            {
-                $material_result = $attributeMaterialValue;
-            }
-		} elseif ($config_material_aom == 1 && strlen($config_material_names)) {
-			$config_material_names_array = explode('|', $config_material_names);
-			foreach ($config_material_names_array as $materialname) {
-				$propertyMaterialValue = $this->propertyHelper->getPropertyValue($variation, $materialname);
-				if(strlen($propertyMaterialValue)) {
-				    $material_result = $propertyMaterialValue;
+		if (strlen($config_material_ids)) {
+			$materialIds_array = explode('|', $config_material_ids);
+			foreach ($materialIds_array as $materialId) {		
+				$materialValue = $config_material_aom == "0" ? $this->attributeHelper->getAttributeValue($variation, $materialId) : $this->propertyHelper->getPropertyValue($variation, $materialId);
+				if(strlen($materialValue)) {
+				    $material_result = $materialValue;
 					break;
 			    }
 			}
 		}	
-		return $material_result;			
+		return $material_result;						
     }	
 	
     /**
