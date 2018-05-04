@@ -8,6 +8,7 @@ use ElasticExport\Helper\ElasticExportStockHelper;
 use ElasticExport\Helper\ElasticExportPropertyHelper;
 use ElasticExport\Services\FiltrationService;
 use ElasticExportMotorradbekleidungNET\Helper\PropertyHelper;
+use ElasticExportMotorradbekleidungNET\Helper\AttributeHelper;
 use Plenty\Modules\DataExchange\Contracts\CSVPluginGenerator;
 use Plenty\Modules\Helper\Services\ArrayHelper;
 use Plenty\Modules\DataExchange\Models\FormatSetting;
@@ -51,6 +52,11 @@ class MotorradbekleidungNET extends CSVPluginGenerator
      * @var PropertyHelper
      */
     private $propertyHelper;
+
+    /**
+     * @var AttributeHelper
+     */
+    private $attributeHelper;
 	
     /**
      * @var ElasticExportPropertyHelper
@@ -85,11 +91,13 @@ class MotorradbekleidungNET extends CSVPluginGenerator
     public function __construct(
         ArrayHelper $arrayHelper, 
 		PropertyHelper $propertyHelper,
+		AttributeHelper $attributeHelper,
 		ConfigRepository $configRepository
     )
     {
         $this->arrayHelper = $arrayHelper;
 		$this->propertyHelper = $propertyHelper;
+		$this->attributeHelper = $attributeHelper;
 		$this->configRepository = $configRepository;
     }
 
@@ -448,6 +456,8 @@ class MotorradbekleidungNET extends CSVPluginGenerator
      */
     private function getColorValue($variation, KeyValue $settings):string
     {
+		$testValue = $this->attributeHelper->getAttributeValue($variation, '16');
+		
 		$config_color_aom = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.color_aom');
         $config_color_names = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.color_names');
         $color_result = '';		
