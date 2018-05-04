@@ -62,7 +62,7 @@ class AttributeHelper
     private function getItemAttributeList($variation):array
     {
 		
-		$this->getLogger(__METHOD__)->notice('Item Attribute Start', [
+		$this->getLogger(__METHOD__)->notice('ElasticExportMotorradbekleidungNET::log.test1', [
 		'ItemId'        => $variation['data']['item']['id'],
 		'VariationId'   => $variation['id']
 		]);
@@ -70,7 +70,7 @@ class AttributeHelper
         if(!array_key_exists($variation['id'], $this->itemAttributesCache))
         {
 			
-		$this->getLogger(__METHOD__)->notice('Item Attribute Nicht in Cache', [
+		$this->getLogger(__METHOD__)->notice('ElasticExportMotorradbekleidungNET::log.test2', [
 		'ItemId'        => $variation['data']['item']['id'],
 		'VariationId'   => $variation['id']
 		]);
@@ -94,7 +94,7 @@ class AttributeHelper
 					//$list[''.$propertyName['propertyId'].''] = $propertyName['name'];
 					
 					
-					$this->getLogger(__METHOD__)->notice('Item Attribute Info', [
+					$this->getLogger(__METHOD__)->notice('ElasticExportMotorradbekleidungNET::log.test3', [
 					'ItemId'        => $variation['data']['item']['id'],
 					'VariationId'   => $variation['id'],
 					'AttributeList'  => $attributeInfo
