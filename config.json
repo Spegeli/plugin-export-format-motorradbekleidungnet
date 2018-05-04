@@ -35,8 +35,8 @@
     },
     {
         "tab"       : "Einstellungen - Geschlecht",
-        "key"       : "settings.gender_names",
-        "label"     : "Geschlecht - Attribute (Namen) bzw. Merkmal (IDs) (mehrfach eingabe durch | trennung möglich)",
+        "key"       : "settings.gender_ids",
+        "label"     : "Geschlecht - Attribut bzw. Merkmal IDs (mehrfach eingabe durch | trennung möglich)",
         "type"      : "text"
     },
     {
@@ -71,8 +71,8 @@
     },
     {
         "tab"       : "Einstellungen - Fahrstil",
-        "key"       : "settings.drivingstyle_names",
-        "label"     : "Fahrstil - Attribute (Namen) bzw. Merkmal (IDs) (mehrfach eingabe durch | trennung möglich)",
+        "key"       : "settings.drivingstyle_ids",
+        "label"     : "Fahrstil - Attribut bzw. Merkmal IDs (mehrfach eingabe durch | trennung möglich)",
         "type"      : "text"
     },
     {
@@ -94,8 +94,8 @@
     },
     {
         "tab"       : "Einstellungen - Größe",
-        "key"       : "settings.size_names",
-        "label"     : "Größe - Attribute (Namen) bzw. Merkmal (IDs) (mehrfach eingabe durch | trennung möglich)",
+        "key"       : "settings.size_ids",
+        "label"     : "Größe - Attribut bzw. Merkmal IDs (mehrfach eingabe durch | trennung möglich)",
         "type"      : "text"
     },
     {
@@ -117,8 +117,8 @@
     },
     {
         "tab"       : "Einstellungen - Farbe",
-        "key"       : "settings.color_names",
-        "label"     : "Farbe - Attribute (Namen) bzw. Merkmal (IDs) (mehrfach eingabe durch | trennung möglich)",
+        "key"       : "settings.color_ids",
+        "label"     : "Farbe - Attribut bzw. Merkmal IDs (mehrfach eingabe durch | trennung möglich)",
         "type"      : "text"
     },
     {
@@ -140,8 +140,8 @@
     },
     {
         "tab"       : "Einstellungen - Material",
-        "key"       : "settings.material_names",
-        "label"     : "Material - Attribute (Namen) bzw. Merkmal (IDs) (mehrfach eingabe durch | trennung möglich)",
+        "key"       : "settings.material_ids",
+        "label"     : "Material - Attribut bzw. Merkmal IDs (mehrfach eingabe durch | trennung möglich)",
         "type"      : "text"
     }	
 ]

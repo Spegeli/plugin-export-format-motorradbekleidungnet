@@ -393,7 +393,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
     private function getGenderValue($variation, KeyValue $settings):string
     {
 		$config_gender_aom = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.gender_aom');
-        $config_gender_ids = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.gender_names');
+        $config_gender_ids = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.gender_ids');
         $gender_result = '';		
 		if (strlen($config_gender_ids)) {
 			$genderIds_array = explode('|', $config_gender_ids);
@@ -418,7 +418,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
     private function getDrivingStyleValue($variation, KeyValue $settings):string
     {
 		$config_drivingstyle_aom = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.drivingstyle_aom');	
-		$config_drivingstyle_ids = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.drivingstyle_names');	
+		$config_drivingstyle_ids = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.drivingstyle_ids');	
         $drivingstyle_result = '';		
 		if (strlen($config_drivingstyle_ids)) {
 			$drivingstyleIds_array = explode('|', $config_drivingstyle_ids);
@@ -443,7 +443,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
     private function getColorValue($variation, KeyValue $settings):string
     {		
 		$config_color_aom = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.color_aom');
-        $config_color_ids = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.color_names');
+        $config_color_ids = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.color_ids');
         $color_result = '';		
 		if (strlen($config_color_ids)) {
 			$colorIds_array = explode('|', $config_color_ids);
@@ -468,7 +468,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
     private function getSizeValue($variation, KeyValue $settings):string
     {
 		$config_size_aom = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.size_aom');	
-		$config_size_ids = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.size_names');	
+		$config_size_ids = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.size_ids');	
         $size_result = '';		
 		if (strlen($config_size_ids)) {
 			$sizeIds_array = explode('|', $config_size_ids);
@@ -493,7 +493,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
     private function getMaterialValue($variation, KeyValue $settings):string
     {
 		$config_material_aom = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.material_aom');
-		$config_material_ids = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.material_names');	
+		$config_material_ids = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.material_ids');	
         $material_result = '';		
 		if (strlen($config_material_ids)) {
 			$materialIds_array = explode('|', $config_material_ids);
