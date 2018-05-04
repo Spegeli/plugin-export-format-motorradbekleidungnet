@@ -67,28 +67,18 @@ class AttributeHelper
 
             foreach($variation['data']['attributes'] as $attribute)
             {
-				
-
-		$this->getLogger(__METHOD__)->notice('ElasticExportMotorradbekleidungNET::log.test4', [
-		'ItemId'        => $variation['data']['item']['id'],
-		'VariationId'   => $variation['id'],
-		'AttributeOutput' => $attribute
-		]);				
-				
                 if(!is_null($attribute['attributeId']))
                 {
-					//{"propertyId":"5288","lang":"de","name":"Modellname - model_name","description":""}
                     $attributeInfo = $this->attributeValueNameRepositoryContract->findOne($attribute['valueId'], 'de');				
 
-                    // Skip properties which do not have the External Component set up
+                    // Skip attributes which do not have the External Component set up
                     if(!($attributeInfo instanceof AttributeValueName) ||
                         is_null($attributeInfo))
                     {
                         continue;
                     }
 
-					//$list[''.$propertyName['propertyId'].''] = $propertyName['name'];
-					
+					$list[''.$attributeInfo['valueId'].''] = $attributeInfo['name'];
 					
 					$this->getLogger(__METHOD__)->notice('ElasticExportMotorradbekleidungNET::log.test3', [
 					'ItemId'        => $variation['data']['item']['id'],

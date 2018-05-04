@@ -143,7 +143,7 @@ class PropertyHelper
                     {
                         if(is_array($property['texts']))
                         {
-							$list[''.$propertyName['propertyId'].''] = $property['texts']['value']; 
+							$list[''.$propertyName['propertyId'].''] = $property['texts']['value'];  //$property['property']['id'] benutzen und die Value über propertyNameRepository gibts da mit Value beziehen?
                         }
                     }
 
