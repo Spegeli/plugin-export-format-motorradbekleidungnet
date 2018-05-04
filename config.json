@@ -38,6 +38,19 @@
         "key"       : "settings.gender_names",
         "label"     : "Geschlecht - Attribute (Namen) bzw. Merkmal (IDs) (mehrfach eingabe durch | trennung möglich)",
         "type"      : "text"
+    },
+    {
+        "tab"       : "Einstellungen - Geschlecht",
+        "key"       : "settings.gender_standard",
+        "label"     : "Geschlecht - Standard wenn kein Geschlecht Gefunden?",
+        "type"      : "dropdown",
+        "possibleValues": {
+            "" : "--- Keine Standard Angaben ---",
+            "male" : "Male",
+			"female" : "Female",
+			"unisex" : "Unisex"
+        },
+        "default"   : ""
     },	
     {
         "tab"       : "Einstellungen - Fahrstil",

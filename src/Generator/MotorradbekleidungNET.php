@@ -303,14 +303,14 @@ class MotorradbekleidungNET extends CSVPluginGenerator
             'description'     => $this->elasticExportHelper->getMutatedDescription($variation, $settings),			
             'image_url'       => $imageList,			
 			'category'        => $this->elasticExportHelper->getCategory((int)$variation['data']['defaultCategories'][0]['id'], $settings->get('lang'), $settings->get('plentyId')),
-			'gender'          => strlen($gendervalue) ? $gendervalue : '',
+			'gender'          => strlen($gendervalue) ? $gendervalue : $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.gender_standard'),
 			'price'           => $priceList['price'],
 			'shipping'        => $this->getShippingCost($variation),
 			'availability'    => $this->elasticExportHelper->getAvailability($variation, $settings, false), //Evl. andere Bezeichung
 			'delivery_period' => $this->elasticExportHelper->getAvailability($variation, $settings, false),
             'offered_amount'  => $this->elasticExportStockHelper->getStock($variation),			
+			 
 
-			
             // optional
             'oem_product_number' => $variation['data']['variation']['model'],			
 			'master_name'        => strlen($attributes) ? $this->elasticExportHelper->getMutatedName($variation, $settings, 256) : '',
