@@ -100,7 +100,7 @@ class PropertyHelper
      * @param  string $property
      * @return string|bool
      */
-    public function getProperty($variation, string $property)
+    public function getPropertyValue($variation, string $property)
     {
         $itemPropertyList = $this->getItemPropertyList($variation);
 

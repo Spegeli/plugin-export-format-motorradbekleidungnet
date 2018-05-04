@@ -181,9 +181,9 @@ class MotorradbekleidungNET extends CSVPluginGenerator
                         }
 						
 						//Skip variations without barcode
-						$barcode_only = (bool)$this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.barcode_only');
+						$barcode_only = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.barcode_only') == "true";
 						$barcode = $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode'));
-                        if($barcode_only == true && empty($barcode))
+                        if($barcode_only && empty($barcode))
                         {
                             continue;
                         }						
@@ -397,7 +397,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 		} elseif ($config_gender_aom == 1 && strlen($config_gender_names)) {
 			$config_gender_names_array = explode('|', $config_gender_names);
 			foreach ($config_gender_names_array as $gendername) {
-				$propertyGenderValue = $this->propertyHelper->getProperty($variation, $gendername);
+				$propertyGenderValue = $this->propertyHelper->getPropertyValue($variation, $gendername);
 				if(strlen($propertyGenderValue)) {
 				    $gender_result = $propertyGenderValue;
 					break;
@@ -429,7 +429,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 		} elseif ($config_drivingstyle_aom == 1 && strlen($config_drivingstyle_names)) {
 			$config_drivingstyle_names_array = explode('|', $config_drivingstyle_names);
 			foreach ($config_drivingstyle_names_array as $drivingstylename) {
-				$propertyDrivingStyleValue = $this->propertyHelper->getProperty($variation, $drivingstylename);
+				$propertyDrivingStyleValue = $this->propertyHelper->getPropertyValue($variation, $drivingstylename);
 				if(strlen($propertyDrivingStyleValue)) {
 				    $drivingstyle_result = $propertyDrivingStyleValue;
 					break;
@@ -461,7 +461,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 		} elseif ($config_color_aom == 1 && strlen($config_color_names)) {
 			$config_color_names_array = explode('|', $config_color_names);
 			foreach ($config_color_names_array as $colorname) {
-				$propertyColorValue = $this->propertyHelper->getProperty($variation, $colorname);
+				$propertyColorValue = $this->propertyHelper->getPropertyValue($variation, $colorname);
 				if(strlen($propertyColorValue)) {
 				    $color_result = $propertyColorValue;
 					break;
@@ -493,7 +493,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 		} elseif ($config_size_aom == 1 && strlen($config_size_names)) {
 			$config_size_names_array = explode('|', $config_size_names);
 			foreach ($config_size_names_array as $sizename) {
-				$propertySizeValue = $this->propertyHelper->getProperty($variation, $sizename);
+				$propertySizeValue = $this->propertyHelper->getPropertyValue($variation, $sizename);
 				if(strlen($propertySizeValue)) {
 				    $size_result = $propertySizeValue;
 					break;
@@ -525,7 +525,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 		} elseif ($config_material_aom == 1 && strlen($config_material_names)) {
 			$config_material_names_array = explode('|', $config_material_names);
 			foreach ($config_material_names_array as $materialname) {
-				$propertyMaterialValue = $this->propertyHelper->getProperty($variation, $materialname);
+				$propertyMaterialValue = $this->propertyHelper->getPropertyValue($variation, $materialname);
 				if(strlen($propertyMaterialValue)) {
 				    $material_result = $propertyMaterialValue;
 					break;
