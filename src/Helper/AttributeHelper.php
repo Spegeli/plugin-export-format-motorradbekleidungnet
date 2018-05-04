@@ -60,21 +60,9 @@ class AttributeHelper
      * @return array
      */
     private function getItemAttributeList($variation):array
-    {
-		
-		$this->getLogger(__METHOD__)->notice('ElasticExportMotorradbekleidungNET::log.test1', [
-		'ItemId'        => $variation['data']['item']['id'],
-		'VariationId'   => $variation['id']
-		]);
-					
+    {		
         if(!array_key_exists($variation['id'], $this->itemAttributesCache))
-        {
-			
-		$this->getLogger(__METHOD__)->notice('ElasticExportMotorradbekleidungNET::log.test2', [
-		'ItemId'        => $variation['data']['item']['id'],
-		'VariationId'   => $variation['id']
-		]);
-		
+        {		
             $list = array();
 
             foreach($variation['data']['attributes'] as $attribute)
@@ -87,10 +75,10 @@ class AttributeHelper
 		'AttributeOutput' => $attribute
 		]);				
 				
-                if(!is_null($attribute['attributes']['id']))
+                if(!is_null($attribute['attributeId']))
                 {
 					//{"propertyId":"5288","lang":"de","name":"Modellname - model_name","description":""}
-                    $attributeInfo = $this->attributeValueNameRepositoryContract->findOne($attribute['attributes']['id'], 'de');				
+                    $attributeInfo = $this->attributeValueNameRepositoryContract->findOne($attribute['valueId'], 'de');				
 
                     // Skip properties which do not have the External Component set up
                     if(!($attributeInfo instanceof AttributeValueName) ||
