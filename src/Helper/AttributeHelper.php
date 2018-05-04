@@ -62,7 +62,7 @@ class AttributeHelper
     private function getItemAttributeList($variation):array
     {
 		
-		$this->getLogger(__METHOD__)->info('Item Attribute Start', [
+		$this->getLogger(__METHOD__)->notice('Item Attribute Start', [
 		'ItemId'        => $variation['data']['item']['id'],
 		'VariationId'   => $variation['id']
 		]);
@@ -70,7 +70,7 @@ class AttributeHelper
         if(!array_key_exists($variation['id'], $this->itemAttributesCache))
         {
 			
-		$this->getLogger(__METHOD__)->info('Item Attribute Nicht in Cache', [
+		$this->getLogger(__METHOD__)->notice('Item Attribute Nicht in Cache', [
 		'ItemId'        => $variation['data']['item']['id'],
 		'VariationId'   => $variation['id']
 		]);
@@ -91,7 +91,10 @@ class AttributeHelper
                         continue;
                     }
 
-					$this->getLogger(__METHOD__)->info('Item Attribute Info', [
+					//$list[''.$propertyName['propertyId'].''] = $propertyName['name'];
+					
+					
+					$this->getLogger(__METHOD__)->notice('Item Attribute Info', [
 					'ItemId'        => $variation['data']['item']['id'],
 					'VariationId'   => $variation['id'],
 					'AttributeList'  => $attributeInfo
