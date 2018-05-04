@@ -79,6 +79,14 @@ class AttributeHelper
 
             foreach($variation['data']['attributes'] as $attribute)
             {
+				
+
+		$this->getLogger(__METHOD__)->notice('ElasticExportMotorradbekleidungNET::log.test4', [
+		'ItemId'        => $variation['data']['item']['id'],
+		'VariationId'   => $variation['id'],
+		'AttributeOutput' => $attribute
+		]);				
+				
                 if(!is_null($attribute['attributes']['id']))
                 {
 					//{"propertyId":"5288","lang":"de","name":"Modellname - model_name","description":""}
