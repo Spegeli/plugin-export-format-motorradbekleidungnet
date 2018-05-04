@@ -183,7 +183,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 						//Skip variations without barcode
 						$barcode_only = (bool)$this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.barcode_only');
 						$barcode = $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode'));
-                        if($barcode_only && empty($barcode))
+                        if($barcode_only == true && empty($barcode))
                         {
                             continue;
                         }						
