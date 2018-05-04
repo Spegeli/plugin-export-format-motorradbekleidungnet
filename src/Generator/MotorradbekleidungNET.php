@@ -172,14 +172,6 @@ class MotorradbekleidungNET extends CSVPluginGenerator
                         {
                             continue;
                         }
-
-						//Skip variations without barcode
-						$barcode_only = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.barcode_only') == "0";
-						$barcode = $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode'));
-                        if($barcode_only && strlen($barcode) <= 0)
-                        {
-                            continue;
-                        }						
 						
                         // Skip non-main variations that do not have attributes
                         $attributes = $this->getAttributeNameValueCombination($variation, $settings);
@@ -187,7 +179,15 @@ class MotorradbekleidungNET extends CSVPluginGenerator
                         {
                             continue;
                         }
-
+						
+						//Skip variations without barcode
+						$barcode_only = (bool)$this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.barcode_only');
+						$barcode = $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode'));
+                        if($barcode_only && empty($barcode))
+                        {
+                            continue;
+                        }						
+						
                         $attributesvaluecombi = $this->getAttributeValueCombination($variation, $settings);
 												
 						$drivingstylevalue = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.drivingstyle_active') == true ? $this->getDrivingStyleValue($variation, $settings) : '';
@@ -303,7 +303,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
             'description'     => $this->elasticExportHelper->getMutatedDescription($variation, $settings),			
             'image_url'       => $imageList,			
 			'category'        => $this->elasticExportHelper->getCategory((int)$variation['data']['defaultCategories'][0]['id'], $settings->get('lang'), $settings->get('plentyId')),
-			'gender'          => strlen($gendervalue) ? $gendervalue : $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.gender_standard'),
+			'gender'          => !empty($gendervalue) ? $gendervalue : $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.gender_standard'),
 			'price'           => $priceList['price'],
 			'shipping'        => $this->getShippingCost($variation),
 			'availability'    => $this->elasticExportHelper->getAvailability($variation, $settings, false), //Evl. andere Bezeichung

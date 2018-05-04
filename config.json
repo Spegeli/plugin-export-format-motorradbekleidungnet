@@ -11,8 +11,8 @@
         "label"     : "Nur Varianten mit Barcode Exportieren?",
         "type"      : "dropdown",
         "possibleValues": {
-            "0" : "Ja",
-            "1" : "Nein"
+            "true" : "Ja",
+            "false" : "Nein"
         },
         "default"   : "0"
     },	
