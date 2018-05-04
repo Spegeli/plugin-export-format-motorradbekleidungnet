@@ -77,15 +77,8 @@ class AttributeHelper
                     {
                         continue;
                     }
-
-					$list[''.$attributeInfo['valueId'].''] = $attributeInfo['name'];
 					
-					$this->getLogger(__METHOD__)->notice('ElasticExportMotorradbekleidungNET::log.test3', [
-					'ItemId'        => $variation['data']['item']['id'],
-					'VariationId'   => $variation['id'],
-					'AttributeList'  => $attributeInfo
-					]);
-			
+					$list[''.$attribute['attributeId'].''] = $attributeInfo['name'];			
                 }
             }
 
