@@ -455,25 +455,16 @@ class MotorradbekleidungNET extends CSVPluginGenerator
      * @return string
      */
     private function getColorValue($variation, KeyValue $settings):string
-    {
-		$testValue = $this->attributeHelper->getAttributeValue($variation, '16');
-		
+    {		
 		$config_color_aom = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.color_aom');
-        $config_color_names = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.color_names');
+        $config_color_ids = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.color_names');
         $color_result = '';		
-		if ($config_color_aom == 0 && strlen($config_color_names)) {
-			$attributeColorName = $this->elasticExportHelper->getAttributeName($variation, $settings);
-			$attributeColorValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
-			if(strlen($attributeColorName) && preg_match("/\b(".$config_color_names.")\b/i", $attributeColorName))
-			{
-				$color_result = $attributeColorValue;
-			}
-		} elseif ($config_color_aom == 1 && strlen($config_color_names)) {
-			$config_color_names_array = explode('|', $config_color_names);
-			foreach ($config_color_names_array as $colorname) {
-				$propertyColorValue = $this->propertyHelper->getPropertyValue($variation, $colorname);
-				if(strlen($propertyColorValue)) {
-				    $color_result = $propertyColorValue;
+		if (strlen($config_color_ids)) {
+			$colorIds_array = explode('|', $config_color_ids);
+			foreach ($colorIds_array as $colorId) {		
+				$colorValue = $config_color_aom == "0" ? $this->attributeHelper->getAttributeValue($variation, $colorId) : $this->propertyHelper->getPropertyValue($variation, $colorId);
+				if(strlen($colorValue)) {
+				    $color_result = $colorValue;
 					break;
 			    }
 			}
@@ -491,21 +482,14 @@ class MotorradbekleidungNET extends CSVPluginGenerator
     private function getSizeValue($variation, KeyValue $settings):string
     {
 		$config_size_aom = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.size_aom');	
-		$config_size_names = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.size_names');	
+		$config_size_ids = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.size_names');	
         $size_result = '';		
-		if ($config_size_aom == 0 && strlen($config_size_names)) {
-			$attributeSizeName = $this->elasticExportHelper->getAttributeName($variation, $settings);
-			$attributeSizeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');		
-			if(strlen($attributeSizeName) && preg_match("/\b(".$config_size_names.")\b/i", $attributeSizeName))
-			{
-				$size_result = $attributeSizeValue;
-			}
-		} elseif ($config_size_aom == 1 && strlen($config_size_names)) {
-			$config_size_names_array = explode('|', $config_size_names);
-			foreach ($config_size_names_array as $sizename) {
-				$propertySizeValue = $this->propertyHelper->getPropertyValue($variation, $sizename);
-				if(strlen($propertySizeValue)) {
-				    $size_result = $propertySizeValue;
+		if (strlen($config_size_ids)) {
+			$sizeIds_array = explode('|', $config_size_ids);
+			foreach ($sizeIds_array as $sizeId) {		
+				$sizeValue = $config_size_aom == "0" ? $this->attributeHelper->getAttributeValue($variation, $sizeId) : $this->propertyHelper->getPropertyValue($variation, $sizeId);
+				if(strlen($sizeValue)) {
+				    $size_result = $sizeValue;
 					break;
 			    }
 			}
