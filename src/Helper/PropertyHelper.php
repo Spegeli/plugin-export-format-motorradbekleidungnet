@@ -124,6 +124,12 @@ class PropertyHelper
         {
             $list = array();
 
+            $this->getLogger(__METHOD__)->addReference('itemId', ''.$variation['data']['item']['id'].'')->debug('ElasticExportMotorradbekleidungNET::log.debug', [
+                'ItemId'        => $variation['data']['item']['id'],
+                'VariationId'   => $variation['id'],
+                'PropertyList'  => $variation['data']['properties']
+            ]);					
+			
             foreach($variation['data']['properties'] as $property)
             {
                 if(!is_null($property['property']['id']) &&
