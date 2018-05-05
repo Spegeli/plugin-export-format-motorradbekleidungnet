@@ -182,7 +182,7 @@ class PropertyHelper
 
             $this->itemPropertyCache[$variation['data']['item']['id']] = $list;
 
-            $this->getLogger(__METHOD__)->debug('ElasticExportMotorradbekleidungNET::log.variationPropertyList', [
+            $this->getLogger(__METHOD__)->addReference('itemId', $variation['data']['item']['id'])->debug('ElasticExportMotorradbekleidungNET::log.variationPropertyList', [
                 'ItemId'        => $variation['data']['item']['id'],
                 'VariationId'   => $variation['id'],
                 'PropertyList'  => count($list) > 0 ? $list : 'no properties'
