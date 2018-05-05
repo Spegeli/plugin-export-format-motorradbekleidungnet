@@ -1,58 +1,58 @@
 {
     "formatVersion": 1,
     "menu": {
-        "Config.EinstellungenTab": {
-            "label": "Config.EinstellungenTab",
+        "Einstellungen": {
+            "label": "Einstellungen",
             "formFields": {
                 "settings.set_marketid": {
                     "type": "inputText",
                     "required": false,
-                    "label": "Config.settingsSetMarketidLabel",
+                    "label": "Herkunft-ID (benötigt für SKU Generierung)",
                     "options": {}
                 },
                 "settings.barcode_only": {
                     "type": "selectBox",
                     "required": false,
-                    "label": "Config.settingsBarcodeOnlyLabel",
+                    "label": "Nur Varianten mit Barcode Exportieren?",
                     "options": {
                         "defaultValue": "true",
                         "selectBoxValues": [
                             {
                                 "value": "true",
-                                "caption": "Config.settingsBarcodeOnlyPossibleValue-true"
+                                "caption": "Ja"
                             },
                             {
                                 "value": "false",
-                                "caption": "Config.settingsBarcodeOnlyPossibleValue-false"
+                                "caption": "Nein"
                             }
                         ]
                     }
                 }
             }
         },
-        "Config.EinstellungenGeschlechtTab": {
-            "label": "Config.EinstellungenGeschlechtTab",
+        "Einstellungen - Geschlecht": {
+            "label": "Einstellungen - Geschlecht",
             "formFields": {
                 "settings.gender_active": {
                     "type": "checkBox",
                     "required": false,
-                    "label": "Config.settingsGenderActiveLabel",
+                    "label": "Aktiv",
                     "options": {}
                 },
                 "settings.gender_aom": {
                     "type": "selectBox",
                     "required": false,
-                    "label": "Config.settingsGenderAomLabel",
+                    "label": "Geschlecht - Attribute oder Merkmale benutzen?",
                     "options": {
                         "defaultValue": "0",
                         "selectBoxValues": [
                             {
                                 "value": "0",
-                                "caption": "Config.settingsGenderAomPossibleValue-0"
+                                "caption": "Attribute"
                             },
                             {
                                 "value": "1",
-                                "caption": "Config.settingsGenderAomPossibleValue-1"
+                                "caption": "Merkmale"
                             }
                         ]
                     }
@@ -60,60 +60,60 @@
                 "settings.gender_ids": {
                     "type": "inputText",
                     "required": false,
-                    "label": "Config.settingsGenderIdsLabel",
+                    "label": "Geschlecht - Attribut bzw. Merkmal IDs (mehrfach eingabe durch | trennung möglich)",
                     "options": {}
                 },
                 "settings.gender_standard": {
                     "type": "selectBox",
                     "required": false,
-                    "label": "Config.settingsGenderStandardLabel",
+                    "label": "Geschlecht - Standard wenn kein Geschlecht Gefunden?",
                     "options": {
                         "defaultValue": "",
                         "selectBoxValues": [
                             {
                                 "value": "",
-                                "caption": "Config.settingsGenderStandardPossibleValue-"
+                                "caption": "--- Keine Standard Angaben ---"
                             },
                             {
                                 "value": "male",
-                                "caption": "Config.settingsGenderStandardPossibleValue-male"
+                                "caption": "Male"
                             },
                             {
                                 "value": "female",
-                                "caption": "Config.settingsGenderStandardPossibleValue-female"
+                                "caption": "Female"
                             },
                             {
                                 "value": "unisex",
-                                "caption": "Config.settingsGenderStandardPossibleValue-unisex"
+                                "caption": "Unisex"
                             }
                         ]
                     }
                 }
             }
         },
-        "Config.EinstellungenFahrstilTab": {
-            "label": "Config.EinstellungenFahrstilTab",
+        "Einstellungen - Fahrstil": {
+            "label": "Einstellungen - Fahrstil",
             "formFields": {
                 "settings.drivingstyle_active": {
                     "type": "checkBox",
                     "required": false,
-                    "label": "Config.settingsDrivingstyleActiveLabel",
+                    "label": "Aktiv",
                     "options": {}
                 },
                 "settings.drivingstyle_aom": {
                     "type": "selectBox",
                     "required": false,
-                    "label": "Config.settingsDrivingstyleAomLabel",
+                    "label": "Fahrstil - Attribute oder Merkmale benutzen?",
                     "options": {
                         "defaultValue": "0",
                         "selectBoxValues": [
                             {
                                 "value": "0",
-                                "caption": "Config.settingsDrivingstyleAomPossibleValue-0"
+                                "caption": "Attribute"
                             },
                             {
                                 "value": "1",
-                                "caption": "Config.settingsDrivingstyleAomPossibleValue-1"
+                                "caption": "Merkmale"
                             }
                         ]
                     }
@@ -121,34 +121,34 @@
                 "settings.drivingstyle_ids": {
                     "type": "inputText",
                     "required": false,
-                    "label": "Config.settingsDrivingstyleIdsLabel",
+                    "label": "Fahrstil - Attribut bzw. Merkmal IDs (mehrfach eingabe durch | trennung möglich)",
                     "options": {}
                 }
             }
         },
-        "Config.EinstellungenGreTab": {
-            "label": "Config.EinstellungenGreTab",
+        "Einstellungen - Größe": {
+            "label": "Einstellungen - Größe",
             "formFields": {
                 "settings.size_active": {
                     "type": "checkBox",
                     "required": false,
-                    "label": "Config.settingsSizeActiveLabel",
+                    "label": "Aktiv",
                     "options": {}
                 },
                 "settings.size_aom": {
                     "type": "selectBox",
                     "required": false,
-                    "label": "Config.settingsSizeAomLabel",
+                    "label": "Größe - Attribute oder Merkmale benutzen?",
                     "options": {
                         "defaultValue": "0",
                         "selectBoxValues": [
                             {
                                 "value": "0",
-                                "caption": "Config.settingsSizeAomPossibleValue-0"
+                                "caption": "Attribute"
                             },
                             {
                                 "value": "1",
-                                "caption": "Config.settingsSizeAomPossibleValue-1"
+                                "caption": "Merkmale"
                             }
                         ]
                     }
@@ -156,34 +156,34 @@
                 "settings.size_ids": {
                     "type": "inputText",
                     "required": false,
-                    "label": "Config.settingsSizeIdsLabel",
+                    "label": "Größe - Attribut bzw. Merkmal IDs (mehrfach eingabe durch | trennung möglich)",
                     "options": {}
                 }
             }
         },
-        "Config.EinstellungenFarbeTab": {
-            "label": "Config.EinstellungenFarbeTab",
+        "Einstellungen - Farbe": {
+            "label": "Einstellungen - Farbe",
             "formFields": {
                 "settings.color_active": {
                     "type": "checkBox",
                     "required": false,
-                    "label": "Config.settingsColorActiveLabel",
+                    "label": "Aktiv",
                     "options": {}
                 },
                 "settings.color_aom": {
                     "type": "selectBox",
                     "required": false,
-                    "label": "Config.settingsColorAomLabel",
+                    "label": "Farbe - Attribute oder Merkmale benutzen?",
                     "options": {
                         "defaultValue": "0",
                         "selectBoxValues": [
                             {
                                 "value": "0",
-                                "caption": "Config.settingsColorAomPossibleValue-0"
+                                "caption": "Attribute"
                             },
                             {
                                 "value": "1",
-                                "caption": "Config.settingsColorAomPossibleValue-1"
+                                "caption": "Merkmale"
                             }
                         ]
                     }
@@ -191,34 +191,34 @@
                 "settings.color_ids": {
                     "type": "inputText",
                     "required": false,
-                    "label": "Config.settingsColorIdsLabel",
+                    "label": "Farbe - Attribut bzw. Merkmal IDs (mehrfach eingabe durch | trennung möglich)",
                     "options": {}
                 }
             }
         },
-        "Config.EinstellungenMaterialTab": {
-            "label": "Config.EinstellungenMaterialTab",
+        "Einstellungen - Material": {
+            "label": "Einstellungen - Material",
             "formFields": {
                 "settings.material_active": {
                     "type": "checkBox",
                     "required": false,
-                    "label": "Config.settingsMaterialActiveLabel",
+                    "label": "Aktiv",
                     "options": {}
                 },
                 "settings.material_aom": {
                     "type": "selectBox",
                     "required": false,
-                    "label": "Config.settingsMaterialAomLabel",
+                    "label": "Material - Attribute oder Merkmale benutzen?",
                     "options": {
                         "defaultValue": "0",
                         "selectBoxValues": [
                             {
                                 "value": "0",
-                                "caption": "Config.settingsMaterialAomPossibleValue-0"
+                                "caption": "Attribute"
                             },
                             {
                                 "value": "1",
-                                "caption": "Config.settingsMaterialAomPossibleValue-1"
+                                "caption": "Merkmale"
                             }
                         ]
                     }
@@ -226,7 +226,7 @@
                 "settings.material_ids": {
                     "type": "inputText",
                     "required": false,
-                    "label": "Config.settingsMaterialIdsLabel",
+                    "label": "Material - Attribut bzw. Merkmal IDs (mehrfach eingabe durch | trennung möglich)",
                     "options": {}
                 }
             }
