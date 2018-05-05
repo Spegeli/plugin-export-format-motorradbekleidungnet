@@ -10,6 +10,7 @@
                     "label": "Herkunft-ID (benötigt für SKU Generierung)",
                     "options": {
 					    "tooltip": "Test",
+						"defaultValue": ""
 					}
                 },
                 "settings.barcode_only": {
