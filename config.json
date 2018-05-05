@@ -1,147 +1,112 @@
-[
-    {
-        "tab"       : "Einstellungen",
-        "key"       : "settings.set_marketid",
-        "label"     : "Herkunft-ID (benötigt für SKU Generierung)",
-        "type"      : "text"
-    }, 
-    {
-        "tab"       : "Einstellungen",
-        "key"       : "settings.barcode_only",
-        "label"     : "Nur Varianten mit Barcode Exportieren?",
-        "type"      : "dropdown",
-        "possibleValues": {
-            "true" : "Ja",
-            "false" : "Nein"
-        },
-        "default"   : "true"
-    },	
-    {
-        "tab"       : "Einstellungen - Geschlecht",
-        "key"       : "settings.gender_active",
-        "label"     : "Aktiv",
-        "type"      : "checkbox"
-    },	
-    {
-        "tab"       : "Einstellungen - Geschlecht",
-        "key"       : "settings.gender_aom",
-        "label"     : "Geschlecht - Attribute oder Merkmale benutzen?",
-        "type"      : "dropdown",
-        "possibleValues": {
-            "0" : "Attribute",
-            "1" : "Merkmale"
-        },
-        "default"   : "0"
-    },
-    {
-        "tab"       : "Einstellungen - Geschlecht",
-        "key"       : "settings.gender_ids",
-        "label"     : "Geschlecht - Attribut bzw. Merkmal IDs (mehrfach eingabe durch | trennung möglich)",
-        "type"      : "text"
-    },
-    {
-        "tab"       : "Einstellungen - Geschlecht",
-        "key"       : "settings.gender_standard",
-        "label"     : "Geschlecht - Standard wenn kein Geschlecht Gefunden?",
-        "type"      : "dropdown",
-        "possibleValues": {
-            "" : "--- Keine Standard Angaben ---",
-            "male" : "Male",
-			"female" : "Female",
-			"unisex" : "Unisex"
-        },
-        "default"   : ""
-    },	
-    {
-        "tab"       : "Einstellungen - Fahrstil",
-        "key"       : "settings.drivingstyle_active",
-        "label"     : "Aktiv",
-        "type"      : "checkbox"
-    },	
-    {
-        "tab"       : "Einstellungen - Fahrstil",
-        "key"       : "settings.drivingstyle_aom",
-        "label"     : "Fahrstil - Attribute oder Merkmale benutzen?",
-        "type"      : "dropdown",
-        "possibleValues": {
-            "0" : "Attribute",
-            "1" : "Merkmale"
-        },
-        "default"   : "0"
-    },
-    {
-        "tab"       : "Einstellungen - Fahrstil",
-        "key"       : "settings.drivingstyle_ids",
-        "label"     : "Fahrstil - Attribut bzw. Merkmal IDs (mehrfach eingabe durch | trennung möglich)",
-        "type"      : "text"
-    },
-    {
-        "tab"       : "Einstellungen - Größe",
-        "key"       : "settings.size_active",
-        "label"     : "Aktiv",
-        "type"      : "checkbox"
-    },		
-    {
-        "tab"       : "Einstellungen - Größe",
-        "key"       : "settings.size_aom",
-        "label"     : "Größe - Attribute oder Merkmale benutzen?",
-        "type"      : "dropdown",
-        "possibleValues": {
-            "0" : "Attribute",
-            "1" : "Merkmale"
-        },
-        "default"   : "0"
-    },
-    {
-        "tab"       : "Einstellungen - Größe",
-        "key"       : "settings.size_ids",
-        "label"     : "Größe - Attribut bzw. Merkmal IDs (mehrfach eingabe durch | trennung möglich)",
-        "type"      : "text"
-    },
-    {
-        "tab"       : "Einstellungen - Farbe",
-        "key"       : "settings.color_active",
-        "label"     : "Aktiv",
-        "type"      : "checkbox"
-    },		
-    {
-        "tab"       : "Einstellungen - Farbe",
-        "key"       : "settings.color_aom",
-        "label"     : "Farbe - Attribute oder Merkmale benutzen?",
-        "type"      : "dropdown",
-        "possibleValues": {
-            "0" : "Attribute",
-            "1" : "Merkmale"
-        },
-        "default"   : "0"
-    },
-    {
-        "tab"       : "Einstellungen - Farbe",
-        "key"       : "settings.color_ids",
-        "label"     : "Farbe - Attribut bzw. Merkmal IDs (mehrfach eingabe durch | trennung möglich)",
-        "type"      : "text"
-    },
-    {
-        "tab"       : "Einstellungen - Material",
-        "key"       : "settings.material_active",
-        "label"     : "Aktiv",
-        "type"      : "checkbox"
-    },		
-    {
-        "tab"       : "Einstellungen - Material",
-        "key"       : "settings.material_aom",
-        "label"     : "Material - Attribute oder Merkmale benutzen?",
-        "type"      : "dropdown",
-        "possibleValues": {
-            "0" : "Attribute",
-            "1" : "Merkmale"
-        },
-        "default"   : "0"
-    },
-    {
-        "tab"       : "Einstellungen - Material",
-        "key"       : "settings.material_ids",
-        "label"     : "Material - Attribut bzw. Merkmal IDs (mehrfach eingabe durch | trennung möglich)",
-        "type"      : "text"
-    }	
-]
+{
+  "formatVersion": 1.0,
+  "menu": {
+     "global": {
+        "label": "Config.global",
+        "fullWidth": true,
+        "formFields": {
+           "global.headerLogo": {
+              "type": "inputFile",
+              "required": true,
+              "label": "Config.globalHeaderLogoLabel",
+              "options": {
+                 "tooltip": "Config.globalHeaderLogoTooltip",
+                 "defaultValue": ""
+              }
+           },
+           "global.category": {
+              "type": "categoryPicker",
+              "required": true,
+              "label": "Config.globalCategoryLabel",
+              "options": {
+                 "tooltip": "Config.globalCategoryTooltip",
+                 "defaultValue": ""
+              }
+           },
+           "global.container": {
+              "type": "verticalContainer",
+              "label": "Config.globalContainerLabel",
+              "options": {
+                 "containerEntries":
+                 {
+                    "global.container.apiKey": {
+                       "type": "inputText",
+                       "label": "Config.globalContainerApiKeyLabel",
+                       "required": false
+                    }
+                 }
+              }
+           }
+        }
+     },
+     "additional": {
+        "label": "Config.additionalSettings",
+        "menu": {
+           "languages": {
+              "label": "Config.additionalSettingsLanguagesLabel",
+              "formFields": {
+                 "additional.languages.supportedLanguages": {
+                    "type": "multiCheckBox",
+                    "required": false,
+                    "label": "Config.additionalSettingsSupportedLanguagesLabel",
+                    "options": {
+                       "tooltip": "Config.additionalSettingsSupportedLanguagesTooltip",
+                       "defaultValue": "de, en",
+                       "checkBoxValues": [
+                          {
+                             "value": "de",
+                             "caption":"Config.languageGerman"
+                          },
+                          {
+                             "value": "en",
+                             "caption": "Config.languageEnglish"
+                          },
+                          {
+                             "value": "fr",
+                             "caption": "Config.languageFrench"
+                          },
+                          {
+                             "value": "es",
+                             "caption": "Config.languageSpanish"
+                          }
+                       ]
+                    }
+                 }
+              }
+           },
+           "moreSettings": {
+              "label": "Config.additionalSettingsMoreLabel",
+              "formFields": {
+                 "additional.more.fulfillmentClient": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.additionalSettingsMoreFulfillmentClientLabel",
+                    "options": {
+                       "tooltip": "Config.additionalSettingsMoreFulfillmentClientTooltip",
+                       "defaultValue": "dhl",
+                       "selectBoxValues": [
+                          {
+                             "value": "dhl",
+                             "caption": "Config.fulfillmentDHL"
+                          },
+                          {
+                             "value": "ups",
+                             "caption": "Config.fulfillmentUPS"
+                          },
+                          {
+                             "value": "hermes",
+                             "caption": "Config.fulfillmentHermes"
+                          },
+                          {
+                             "value": "dpd",
+                             "caption": "Config.fulfillmentDPD"
+                          }
+                       ]
+                    }
+                 }
+              }
+           }
+        }
+     }
+  }
+}

@@ -5,7 +5,7 @@
     "type"              : "export",
     "version"           : "1.0.7",
     "license"           : "GNU AFFERO GENERAL PUBLIC LICENSE Version 3, 19 November 2007",
-    "isClosedSource"    : "True",
+    "isClosedSource"    : "true",
     "pluginIcon"        : "icon_plugin_md.png",
     "price"             : 25.00,
     "description"       : "This plugin adds the format Motorradbekleidung.net to the Elastic Export.",
