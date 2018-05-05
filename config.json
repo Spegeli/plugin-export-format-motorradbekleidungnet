@@ -1,112 +1,235 @@
 {
-  "formatVersion": 1.0,
-  "menu": {
-     "global": {
-        "label": "Config.global",
-        "fullWidth": true,
-        "formFields": {
-           "global.headerLogo": {
-              "type": "inputFile",
-              "required": true,
-              "label": "Config.globalHeaderLogoLabel",
-              "options": {
-                 "tooltip": "Config.globalHeaderLogoTooltip",
-                 "defaultValue": ""
-              }
-           },
-           "global.category": {
-              "type": "categoryPicker",
-              "required": true,
-              "label": "Config.globalCategoryLabel",
-              "options": {
-                 "tooltip": "Config.globalCategoryTooltip",
-                 "defaultValue": ""
-              }
-           },
-           "global.container": {
-              "type": "verticalContainer",
-              "label": "Config.globalContainerLabel",
-              "options": {
-                 "containerEntries":
-                 {
-                    "global.container.apiKey": {
-                       "type": "inputText",
-                       "label": "Config.globalContainerApiKeyLabel",
-                       "required": false
-                    }
-                 }
-              }
-           }
-        }
-     },
-     "additional": {
-        "label": "Config.additionalSettings",
-        "menu": {
-           "languages": {
-              "label": "Config.additionalSettingsLanguagesLabel",
-              "formFields": {
-                 "additional.languages.supportedLanguages": {
-                    "type": "multiCheckBox",
+    "formatVersion": 1,
+    "menu": {
+        "Config.EinstellungenTab": {
+            "label": "Config.EinstellungenTab",
+            "formFields": {
+                "settings.set_marketid": {
+                    "type": "inputText",
                     "required": false,
-                    "label": "Config.additionalSettingsSupportedLanguagesLabel",
-                    "options": {
-                       "tooltip": "Config.additionalSettingsSupportedLanguagesTooltip",
-                       "defaultValue": "de, en",
-                       "checkBoxValues": [
-                          {
-                             "value": "de",
-                             "caption":"Config.languageGerman"
-                          },
-                          {
-                             "value": "en",
-                             "caption": "Config.languageEnglish"
-                          },
-                          {
-                             "value": "fr",
-                             "caption": "Config.languageFrench"
-                          },
-                          {
-                             "value": "es",
-                             "caption": "Config.languageSpanish"
-                          }
-                       ]
-                    }
-                 }
-              }
-           },
-           "moreSettings": {
-              "label": "Config.additionalSettingsMoreLabel",
-              "formFields": {
-                 "additional.more.fulfillmentClient": {
+                    "label": "Config.settingsSetMarketidLabel",
+                    "options": {}
+                },
+                "settings.barcode_only": {
                     "type": "selectBox",
                     "required": false,
-                    "label": "Config.additionalSettingsMoreFulfillmentClientLabel",
+                    "label": "Config.settingsBarcodeOnlyLabel",
                     "options": {
-                       "tooltip": "Config.additionalSettingsMoreFulfillmentClientTooltip",
-                       "defaultValue": "dhl",
-                       "selectBoxValues": [
-                          {
-                             "value": "dhl",
-                             "caption": "Config.fulfillmentDHL"
-                          },
-                          {
-                             "value": "ups",
-                             "caption": "Config.fulfillmentUPS"
-                          },
-                          {
-                             "value": "hermes",
-                             "caption": "Config.fulfillmentHermes"
-                          },
-                          {
-                             "value": "dpd",
-                             "caption": "Config.fulfillmentDPD"
-                          }
-                       ]
+                        "defaultValue": "true",
+                        "selectBoxValues": [
+                            {
+                                "value": "true",
+                                "caption": "Config.settingsBarcodeOnlyPossibleValue-true"
+                            },
+                            {
+                                "value": "false",
+                                "caption": "Config.settingsBarcodeOnlyPossibleValue-false"
+                            }
+                        ]
                     }
-                 }
-              }
-           }
+                }
+            }
+        },
+        "Config.EinstellungenGeschlechtTab": {
+            "label": "Config.EinstellungenGeschlechtTab",
+            "formFields": {
+                "settings.gender_active": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.settingsGenderActiveLabel",
+                    "options": {}
+                },
+                "settings.gender_aom": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.settingsGenderAomLabel",
+                    "options": {
+                        "defaultValue": "0",
+                        "selectBoxValues": [
+                            {
+                                "value": "0",
+                                "caption": "Config.settingsGenderAomPossibleValue-0"
+                            },
+                            {
+                                "value": "1",
+                                "caption": "Config.settingsGenderAomPossibleValue-1"
+                            }
+                        ]
+                    }
+                },
+                "settings.gender_ids": {
+                    "type": "inputText",
+                    "required": false,
+                    "label": "Config.settingsGenderIdsLabel",
+                    "options": {}
+                },
+                "settings.gender_standard": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.settingsGenderStandardLabel",
+                    "options": {
+                        "defaultValue": "",
+                        "selectBoxValues": [
+                            {
+                                "value": "",
+                                "caption": "Config.settingsGenderStandardPossibleValue-"
+                            },
+                            {
+                                "value": "male",
+                                "caption": "Config.settingsGenderStandardPossibleValue-male"
+                            },
+                            {
+                                "value": "female",
+                                "caption": "Config.settingsGenderStandardPossibleValue-female"
+                            },
+                            {
+                                "value": "unisex",
+                                "caption": "Config.settingsGenderStandardPossibleValue-unisex"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "Config.EinstellungenFahrstilTab": {
+            "label": "Config.EinstellungenFahrstilTab",
+            "formFields": {
+                "settings.drivingstyle_active": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.settingsDrivingstyleActiveLabel",
+                    "options": {}
+                },
+                "settings.drivingstyle_aom": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.settingsDrivingstyleAomLabel",
+                    "options": {
+                        "defaultValue": "0",
+                        "selectBoxValues": [
+                            {
+                                "value": "0",
+                                "caption": "Config.settingsDrivingstyleAomPossibleValue-0"
+                            },
+                            {
+                                "value": "1",
+                                "caption": "Config.settingsDrivingstyleAomPossibleValue-1"
+                            }
+                        ]
+                    }
+                },
+                "settings.drivingstyle_ids": {
+                    "type": "inputText",
+                    "required": false,
+                    "label": "Config.settingsDrivingstyleIdsLabel",
+                    "options": {}
+                }
+            }
+        },
+        "Config.EinstellungenGreTab": {
+            "label": "Config.EinstellungenGreTab",
+            "formFields": {
+                "settings.size_active": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.settingsSizeActiveLabel",
+                    "options": {}
+                },
+                "settings.size_aom": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.settingsSizeAomLabel",
+                    "options": {
+                        "defaultValue": "0",
+                        "selectBoxValues": [
+                            {
+                                "value": "0",
+                                "caption": "Config.settingsSizeAomPossibleValue-0"
+                            },
+                            {
+                                "value": "1",
+                                "caption": "Config.settingsSizeAomPossibleValue-1"
+                            }
+                        ]
+                    }
+                },
+                "settings.size_ids": {
+                    "type": "inputText",
+                    "required": false,
+                    "label": "Config.settingsSizeIdsLabel",
+                    "options": {}
+                }
+            }
+        },
+        "Config.EinstellungenFarbeTab": {
+            "label": "Config.EinstellungenFarbeTab",
+            "formFields": {
+                "settings.color_active": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.settingsColorActiveLabel",
+                    "options": {}
+                },
+                "settings.color_aom": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.settingsColorAomLabel",
+                    "options": {
+                        "defaultValue": "0",
+                        "selectBoxValues": [
+                            {
+                                "value": "0",
+                                "caption": "Config.settingsColorAomPossibleValue-0"
+                            },
+                            {
+                                "value": "1",
+                                "caption": "Config.settingsColorAomPossibleValue-1"
+                            }
+                        ]
+                    }
+                },
+                "settings.color_ids": {
+                    "type": "inputText",
+                    "required": false,
+                    "label": "Config.settingsColorIdsLabel",
+                    "options": {}
+                }
+            }
+        },
+        "Config.EinstellungenMaterialTab": {
+            "label": "Config.EinstellungenMaterialTab",
+            "formFields": {
+                "settings.material_active": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.settingsMaterialActiveLabel",
+                    "options": {}
+                },
+                "settings.material_aom": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.settingsMaterialAomLabel",
+                    "options": {
+                        "defaultValue": "0",
+                        "selectBoxValues": [
+                            {
+                                "value": "0",
+                                "caption": "Config.settingsMaterialAomPossibleValue-0"
+                            },
+                            {
+                                "value": "1",
+                                "caption": "Config.settingsMaterialAomPossibleValue-1"
+                            }
+                        ]
+                    }
+                },
+                "settings.material_ids": {
+                    "type": "inputText",
+                    "required": false,
+                    "label": "Config.settingsMaterialIdsLabel",
+                    "options": {}
+                }
+            }
         }
-     }
-  }
+    }
 }
