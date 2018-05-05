@@ -84,7 +84,7 @@ class AttributeHelper
 
             $this->itemAttributesCache[$variation['id']] = $list;
 
-            $this->getLogger(__METHOD__)->addReference('variationId', $variation['id'])->debug('ElasticExportMotorradbekleidungNET::log.variationAttributeList', [
+            $this->getLogger(__METHOD__)->addReference('variationId', ''.$variation['id'].'')->debug('ElasticExportMotorradbekleidungNET::log.variationAttributeList', [
                 'ItemId'        => $variation['data']['item']['id'],
                 'VariationId'   => $variation['id'],
                 'AttributeList'  => count($list) > 0 ? $list : 'no properties'
