@@ -9,7 +9,7 @@
                     "required": true,
                     "label": "Herkunft-ID (benötigt für SKU Generierung)",
                     "options": {
-					    "tooltip": "Test",
+					    "tooltip": "Tooltip Text",
 						"defaultValue": ""
 					}
                 },
@@ -18,6 +18,7 @@
                     "required": false,
                     "label": "Nur Varianten mit Barcode Exportieren?",
                     "options": {
+					    "tooltip": "Tooltip Text",
                         "defaultValue": "true",
                         "selectBoxValues": [
                             {
@@ -40,13 +41,17 @@
                     "type": "checkBox",
                     "required": false,
                     "label": "Aktiv",
-                    "options": {}
+                    "options": {
+					    "tooltip": "Tooltip Text",
+						"defaultValue": ""
+					}
                 },
                 "settings.gender_aom": {
                     "type": "selectBox",
                     "required": false,
                     "label": "Geschlecht - Attribute oder Merkmale benutzen?",
                     "options": {
+					    "tooltip": "Tooltip Text",					
                         "defaultValue": "0",
                         "selectBoxValues": [
                             {
@@ -64,13 +69,17 @@
                     "type": "inputText",
                     "required": false,
                     "label": "Geschlecht - Attribut bzw. Merkmal IDs (mehrfach eingabe durch | trennung möglich)",
-                    "options": {}
+                    "options": {
+					    "tooltip": "Tooltip Text",
+						"defaultValue": ""					
+					}
                 },
                 "settings.gender_standard": {
                     "type": "selectBox",
                     "required": false,
                     "label": "Geschlecht - Standard wenn kein Geschlecht Gefunden?",
                     "options": {
+					    "tooltip": "Tooltip Text",
                         "defaultValue": "",
                         "selectBoxValues": [
                             {
@@ -101,13 +110,17 @@
                     "type": "checkBox",
                     "required": false,
                     "label": "Aktiv",
-                    "options": {}
+                    "options": {
+					    "tooltip": "Tooltip Text",
+						"defaultValue": ""						
+					}
                 },
                 "settings.drivingstyle_aom": {
                     "type": "selectBox",
                     "required": false,
                     "label": "Fahrstil - Attribute oder Merkmale benutzen?",
                     "options": {
+						"tooltip": "Tooltip Text",	
                         "defaultValue": "0",
                         "selectBoxValues": [
                             {
@@ -125,7 +138,10 @@
                     "type": "inputText",
                     "required": false,
                     "label": "Fahrstil - Attribut bzw. Merkmal IDs (mehrfach eingabe durch | trennung möglich)",
-                    "options": {}
+                    "options": {
+					    "tooltip": "Tooltip Text",
+						"defaultValue": ""						
+					}
                 }
             }
         },
@@ -136,13 +152,17 @@
                     "type": "checkBox",
                     "required": false,
                     "label": "Aktiv",
-                    "options": {}
+                    "options": {
+					    "tooltip": "Tooltip Text",
+						"defaultValue": ""						
+					}
                 },
                 "settings.size_aom": {
                     "type": "selectBox",
                     "required": false,
                     "label": "Größe - Attribute oder Merkmale benutzen?",
                     "options": {
+						"tooltip": "Tooltip Text",	
                         "defaultValue": "0",
                         "selectBoxValues": [
                             {
@@ -160,7 +180,10 @@
                     "type": "inputText",
                     "required": false,
                     "label": "Größe - Attribut bzw. Merkmal IDs (mehrfach eingabe durch | trennung möglich)",
-                    "options": {}
+                    "options": {
+					    "tooltip": "Tooltip Text",
+						"defaultValue": ""						
+					}
                 }
             }
         },
@@ -171,13 +194,17 @@
                     "type": "checkBox",
                     "required": false,
                     "label": "Aktiv",
-                    "options": {}
+                    "options": {
+					    "tooltip": "Tooltip Text",
+						"defaultValue": ""						
+					}
                 },
                 "settings.color_aom": {
                     "type": "selectBox",
                     "required": false,
                     "label": "Farbe - Attribute oder Merkmale benutzen?",
                     "options": {
+						"tooltip": "Tooltip Text",	
                         "defaultValue": "0",
                         "selectBoxValues": [
                             {
@@ -195,7 +222,10 @@
                     "type": "inputText",
                     "required": false,
                     "label": "Farbe - Attribut bzw. Merkmal IDs (mehrfach eingabe durch | trennung möglich)",
-                    "options": {}
+                    "options": {
+					    "tooltip": "Tooltip Text",
+						"defaultValue": ""						
+					}
                 }
             }
         },
@@ -206,13 +236,17 @@
                     "type": "checkBox",
                     "required": false,
                     "label": "Aktiv",
-                    "options": {}
+                    "options": {
+					    "tooltip": "Tooltip Text",
+						"defaultValue": ""						
+					}
                 },
                 "settings.material_aom": {
                     "type": "selectBox",
                     "required": false,
                     "label": "Material - Attribute oder Merkmale benutzen?",
                     "options": {
+						"tooltip": "Tooltip Text",	
                         "defaultValue": "0",
                         "selectBoxValues": [
                             {
@@ -230,7 +264,10 @@
                     "type": "inputText",
                     "required": false,
                     "label": "Material - Attribut bzw. Merkmal IDs (mehrfach eingabe durch | trennung möglich)",
-                    "options": {}
+                    "options": {
+					    "tooltip": "Tooltip Text",
+						"defaultValue": ""						
+					}
                 }
             }
         }
