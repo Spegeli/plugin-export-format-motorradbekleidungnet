@@ -6,9 +6,11 @@
             "formFields": {
                 "settings.set_marketid": {
                     "type": "inputText",
-                    "required": false,
+                    "required": true,
                     "label": "Herkunft-ID (benötigt für SKU Generierung)",
-                    "options": {}
+                    "options": {
+					    "tooltip": "Test",
+					}
                 },
                 "settings.barcode_only": {
                     "type": "selectBox",
