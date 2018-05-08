@@ -245,37 +245,35 @@ class MotorradbekleidungNET extends CSVPluginGenerator
     private function head():array
     {
         return array(
-            // mandatory
             'sku',
             'master_sku',
             'gtin',
-            'name',
+			'oem_product_number',
+			'name',
+			'master_name',
+			'variant_name',           
             'manufacturer',
             'description',
+			//long_description,
             'image_url',
             'category',
-			'gender',
-            'price',
-            'shipping',
-			'availability',
-			'delivery_period',
-			'offered_amount',			
-
-            // optional
-            'oem_product_number',
-			'master_name',
-			'variant_name',
-			//long_description, //Nicht benötigt da	"description" schon die lange beschreibung ist	
-			'driving_style',
-			'srp',
-			'weight',
-			//'currency',      //Aktuell wird nur EUR angeboten
-			//'condition',     //Aktuell wird nur Neuware angeboten
-			
-			//partially
 			'size',
 			'colour',
-			'material',			
+			'material',
+			'gender',
+			'driving_style',
+            'price',
+            'shipping',			
+			'srp',
+			'date_changed',
+			'date_valid_from',
+			'date_valid_to',
+			'availability',
+			'delivery_period',
+			'offered_amount',
+			'weight',
+			//'currency',      //Aktuell wird nur EUR angeboten
+			//'condition',     //Aktuell wird nur Neuware angeboten		
         );
     }	
 	
@@ -302,39 +300,35 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 		$marketID = (float)$this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_marketid');
 		
         $data = [
-            // mandatory
-            'sku'             => $this->elasticExportHelper->generateSku($variation['id'], $marketID, 0, (string)$variation['data']['skus'][0]['sku']),
-			'master_sku'      => 'P_' . $variation['data']['item']['id'],
-            'gtin'            => $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode')),			
-			'name'            => $this->elasticExportHelper->getMutatedName($variation, $settings) . (strlen($attributes) ? ', ' . $attributes : ''),			
-            'manufacturer'    => $this->elasticExportHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
-            'description'     => $this->elasticExportHelper->getMutatedDescription($variation, $settings),			
-            'image_url'       => $imageList,			
-			'category'        => $this->elasticExportHelper->getCategory((int)$variation['data']['defaultCategories'][0]['id'], $settings->get('lang'), $settings->get('plentyId')),
-			'gender'          => !empty($gendervalue) ? $gendervalue : $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.gender_standard'),
-			'price'           => $priceList['price'],
-			'shipping'        => $this->getShippingCost($variation),
-			'availability'    => $this->elasticExportHelper->getAvailability($variation, $settings, false), //Evl. andere Bezeichung
-			'delivery_period' => $this->elasticExportHelper->getAvailability($variation, $settings, false),
-            'offered_amount'  => $this->elasticExportStockHelper->getStock($variation),			
-			 
-
-            // optional
+            'sku'                => $this->elasticExportHelper->generateSku($variation['id'], $marketID, 0, (string)$variation['data']['skus'][0]['sku']),
+			'master_sku'         => 'P_' . $variation['data']['item']['id'],
+            'gtin'               => $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode')),			
             'oem_product_number' => $variation['data']['variation']['model'],			
+			'name'               => $this->elasticExportHelper->getMutatedName($variation, $settings) . (strlen($attributes) ? ', ' . $attributes : ''),			
 			'master_name'        => strlen($attributes) ? $this->elasticExportHelper->getMutatedName($variation, $settings, 256) : '',
 			'variant_name'       => strlen($attributesvaluecombi) ? $attributesvaluecombi : '',
-			//long_description,  //Nicht benötigt da "description" schon die lange beschreibung ist	
-			'driving_style'      => strlen($drivingstylevalue) ? $drivingstylevalue : '',
-            'srp'                => $priceList['oldPrice'],		
-			'weight'             => number_format($variation['data']['variation']['weightG'] / 1000, 2),
-			//'currency',        //Aktuell wird nur EUR angeboten
-			//'condition',	     //Aktuell wird nur Neuware angeboten
-	
-			
-			//partially
+            'manufacturer'       => $this->elasticExportHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
+			'description'        => $this->elasticExportHelper->getMutatedDescription($variation, $settings),			
+            //long_description => ,
+            'image_url'          => $imageList,			
+			'category'           => $this->elasticExportHelper->getCategory((int)$variation['data']['defaultCategories'][0]['id'], $settings->get('lang'), $settings->get('plentyId')),
 			'size'               => strlen($sizevalue) ? $sizevalue : '',
 			'colour'             => strlen($colorvalue) ? $colorvalue : '',
 			'material'           => strlen($materialvalue) ? $materialvalue : '',
+			'gender'             => !empty($gendervalue) ? $gendervalue : $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.gender_standard'),
+			'driving_style'      => strlen($drivingstylevalue) ? $drivingstylevalue : '',
+			'price'              => $priceList['price'],
+			'shipping'           => $this->getShippingCost($variation),
+            'srp'                => $priceList['oldPrice'],		
+			'date_changed'       => $variation['updatedAt'],
+			'date_valid_from'    => $variation['releasedAt'],
+			'date_valid_to'      => $variation['availableUntil'],
+			'availability'       => $this->elasticExportHelper->getAvailability($variation, $settings, false), //Evl. andere Bezeichung
+			'delivery_period'    => $this->elasticExportHelper->getAvailability($variation, $settings, false),
+            'offered_amount'     => $this->elasticExportStockHelper->getStock($variation),			
+			'weight'             => number_format($variation['data']['variation']['weightG'] / 1000, 2),
+			//'currency',        //Aktuell wird nur EUR angeboten
+			//'condition',	     //Aktuell wird nur Neuware angeboten
         ];
 
         $this->addCSVContent(array_values($data));
