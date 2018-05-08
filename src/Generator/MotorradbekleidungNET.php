@@ -321,7 +321,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			'shipping'           => $this->getShippingCost($variation),
             'srp'                => $priceList['oldPrice'],		
 			'date_changed'       => $variation['updatedAt'],
-			'date_valid_from'    => $this->elasticExportHelper->getReleaseDate($variation),
+			'date_valid_from'    => DateTime::createFromFormat('Y-m-d\TH:i:s+', ''.$this->elasticExportHelper->getReleaseDate($variation).''),
 			'date_valid_to'      => $variation['availableUntil'],
 			'availability'       => $this->elasticExportHelper->getAvailability($variation, $settings, false), //Evl. andere Bezeichung
 			'delivery_period'    => $this->elasticExportHelper->getAvailability($variation, $settings, false),
