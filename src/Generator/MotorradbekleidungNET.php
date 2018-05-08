@@ -321,7 +321,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			'shipping'           => $this->getShippingCost($variation),
             'srp'                => $priceList['oldPrice'],		
 			'date_changed'       => $variation['data']['variation']['updatedAt'],
-			'date_valid_from'    => $this->elasticExportHelper->getReleaseDate($variation),
+			'date_valid_from'    => $variation['data']['variation']['releasedAt'],
 			'date_valid_to'      => $variation['data']['variation']['availableUntil'],
 			'availability'       => $this->elasticExportHelper->getAvailability($variation, $settings, false), //Evl. andere Bezeichung
 			'delivery_period'    => $this->elasticExportHelper->getAvailability($variation, $settings, false),
@@ -334,7 +334,9 @@ class MotorradbekleidungNET extends CSVPluginGenerator
             $this->getLogger(__METHOD__)->addReference('variationId', ''.$variation['id'].'')->debug('ElasticExportMotorradbekleidungNET::log.debug', [
                 'ItemId'         => $variation['data']['item']['id'],
                 'VariationId'    => $variation['id'],
-                'AttributeList'  => $variation['data']['variation']['updatedAt']
+                'updatedAt'      => $variation['data']['variation']['updatedAt'],
+				'releasedAt'     => $variation['data']['variation']['releasedAt'],
+				'availableUntil' => $variation['data']['variation']['availableUntil']
             ]);		
 
         $this->addCSVContent(array_values($data));
