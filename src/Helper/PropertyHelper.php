@@ -123,12 +123,6 @@ class PropertyHelper
         if(!array_key_exists($variation['data']['item']['id'], $this->itemPropertyCache))
         {
             $list = array();
-
-            $this->getLogger(__METHOD__)->addReference('itemId', ''.$variation['data']['item']['id'].'')->debug('ElasticExportMotorradbekleidungNET::log.debug', [
-                'ItemId'        => $variation['data']['item']['id'],
-                'VariationId'   => $variation['id'],
-                'PropertyList'  => $variation['data']['properties']
-            ]);					
 			
             foreach($variation['data']['properties'] as $property)
             {

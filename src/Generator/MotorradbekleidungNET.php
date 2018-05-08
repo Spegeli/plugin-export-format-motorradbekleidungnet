@@ -330,6 +330,12 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			//'currency',        //Aktuell wird nur EUR angeboten
 			//'condition',	     //Aktuell wird nur Neuware angeboten
         ];
+		
+            $this->getLogger(__METHOD__)->addReference('variationId', ''.$variation['id'].'')->debug('ElasticExportMotorradbekleidungNET::log.debug', [
+                'ItemId'         => $variation['data']['item']['id'],
+                'VariationId'    => $variation['id'],
+                'AttributeList'  => $variation['data']['variation']['updatedAt']
+            ]);		
 
         $this->addCSVContent(array_values($data));
     }
