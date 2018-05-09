@@ -160,6 +160,8 @@ class MotorradbekleidungNET extends ResultFields
             'variation.availability.id',
             'variation.model',
             'variation.isMain',
+			'variation.availableUntil',
+			'variation.variation.UpdatedAt',
 
             //unit
             'unit.content',
