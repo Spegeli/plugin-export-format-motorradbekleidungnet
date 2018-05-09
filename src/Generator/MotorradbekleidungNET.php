@@ -222,8 +222,8 @@ class MotorradbekleidungNET extends CSVPluginGenerator
                         catch(\Throwable $throwable)
                         {
                             $this->getLogger(__METHOD__)->error('ElasticExportMotorradbekleidungNET::logs.fillRowError', [
-                                'message ' => $throwable->getMessage(),
-                                'line'     => $throwable->getLine(),
+                                'message '       => $throwable->getMessage(),
+                                'line'           => $throwable->getLine(),
                                 'VariationId'    => $variation['id']
                             ]);
                         }
