@@ -228,7 +228,7 @@ class MotorradbekleidungNET extends ResultFields
                 $languageMutator,
                 $skuMutator,
                 $keyMutator,
-                $defaultCategoryMutator
+                $defaultCategoryMutator,
                 $barcodeMutator,
             ],
         ];
