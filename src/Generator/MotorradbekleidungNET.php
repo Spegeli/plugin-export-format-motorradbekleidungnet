@@ -215,7 +215,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
                             if($previousItemId === null || $previousItemId != $variation['data']['item']['id'])
                             {
                                 $previousItemId = $variation['data']['item']['id'];
-                                unset($this->shippingCostCache);
+                                unset($this->shipmentCache, $this->manufacturerCache);
 
                                 // Build the caches arrays
                                 $this->buildCaches($variation, $settings);
@@ -229,7 +229,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
                             $this->getLogger(__METHOD__)->error('ElasticExportMotorradbekleidungNET::logs.fillRowError', [
                                 'message '       => $throwable->getMessage(),
                                 'line'           => $throwable->getLine(),
-                                'VariationId'    => (string)$variation['id']
+                                'VariationId'    => $variation['id']
                             ]);
                         }
 
@@ -653,14 +653,6 @@ class MotorradbekleidungNET extends CSVPluginGenerator
         {
             $shippingCost = $this->elasticExportHelper->getShippingCost($variation['data']['item']['id'], $settings, 0);
 			$this->shippingCostCache[$variation['data']['item']['id']] = number_format((float)$shippingCost, 2, '.', '');
-            if(!is_null($shippingCost))
-            {
-                $this->shippingCostCache[$variation['data']['item']['id']] = number_format((float)$shippingCost, 2, '.', '');
-            }
-            else
-            {
-                $this->shippingCostCache[$variation['data']['item']['id']] = '';
-            }			
 				
             if(!is_null($variation['data']['item']['manufacturer']['id']))
             {

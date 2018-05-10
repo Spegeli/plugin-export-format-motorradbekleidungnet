@@ -159,10 +159,6 @@ class MotorradbekleidungNET extends ResultFields
                 'variation.releasedAt',				
                 'variation.availableUntil',
 				'variation.updatedAt',
-
-                //unit
-                'unit.content',
-                'unit.id',				
 				
                 //images
                 'images.all.urlMiddle',
@@ -185,7 +181,11 @@ class MotorradbekleidungNET extends ResultFields
                 'images.variation.url',
                 'images.variation.path',
                 'images.variation.position',
-
+				
+                //unit
+                'unit.content',
+                'unit.id',		
+				
                 //sku
                 'skus.sku',
 
@@ -223,9 +223,9 @@ class MotorradbekleidungNET extends ResultFields
             ],
             [
 			    //mutators
+                $keyMutator,
                 $languageMutator,
                 $skuMutator,
-                $keyMutator,
                 $defaultCategoryMutator,
                 $barcodeMutator,
             ],
@@ -261,7 +261,6 @@ class MotorradbekleidungNET extends ResultFields
             'item.manufacturer.id',					
 
             //variation
-			'id',
             'variation.availability.id',
             'variation.model',
             'variation.isMain',
