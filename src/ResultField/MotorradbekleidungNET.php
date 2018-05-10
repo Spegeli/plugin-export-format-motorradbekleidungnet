@@ -3,10 +3,10 @@
 namespace ElasticExportMotorradbekleidungNET\ResultField;
 
 use Plenty\Modules\Cloud\ElasticSearch\Lib\ElasticSearch;
+use Plenty\Modules\Cloud\ElasticSearch\Lib\Source\Mutator\BuiltIn\LanguageMutator;
 use Plenty\Modules\DataExchange\Contracts\ResultFields;
 use Plenty\Modules\DataExchange\Models\FormatSetting;
 use Plenty\Modules\Helper\Services\ArrayHelper;
-use Plenty\Modules\Cloud\ElasticSearch\Lib\Source\Mutator\BuiltIn\LanguageMutator;
 use Plenty\Modules\Item\Search\Mutators\SkuMutator;
 use Plenty\Modules\Item\Search\Mutators\KeyMutator;
 use Plenty\Modules\Item\Search\Mutators\DefaultCategoryMutator;
@@ -22,8 +22,6 @@ use Plenty\Plugin\Log\Loggable;
 class MotorradbekleidungNET extends ResultFields
 {
 	use Loggable;
-
-    const ALL_MARKET_REFERENCE = -1;
 	
     /**
      * @var ArrayHelper
@@ -98,10 +96,7 @@ class MotorradbekleidungNET extends ResultFields
         if($imageMutator instanceof ImageMutator)
         {
 			// add image reference for a specific market
-            $imageMutator->addMarket($reference);
-			
-            // add image reference -1 when the image is available for all markets
-            $imageMutator->addMarket(self::ALL_MARKET_REFERENCE);			
+            $imageMutator->addMarket($reference);		
         }
 
         /**
@@ -117,7 +112,7 @@ class MotorradbekleidungNET extends ResultFields
         /**
          * @var LanguageMutator $languageMutator
          */
-        $languageMutator = pluginApp(LanguageMutator::class, [[$settings->get('lang')]]);
+        $languageMutator = pluginApp(LanguageMutator::class, ['languages' => [$settings->get('lang')]]);
 		
         /**
          * @var SkuMutator $skuMutator
@@ -146,11 +141,15 @@ class MotorradbekleidungNET extends ResultFields
             $barcodeMutator->addMarket($reference);
         }
 
+		// Fields
         $fields = [
             [
                 //item
                 'item.id',
                 'item.manufacturer.id',
+				'item.manufacturer.name',
+				'item.manufacturer.externalName',
+                'item.conditionApi',				
 
                 //variation
                 'id',
@@ -158,6 +157,7 @@ class MotorradbekleidungNET extends ResultFields
                 'variation.model',
                 'variation.isMain',
 				'variation.weightG',
+                'variation.releasedAt',				
                 'variation.availableUntil',
 				'variation.updatedAt',
 
@@ -223,8 +223,8 @@ class MotorradbekleidungNET extends ResultFields
 				'properties.valueInt',
 				'properties.valueFloat',
             ],
-
             [
+			    //mutators
                 $languageMutator,
                 $skuMutator,
                 $keyMutator,
@@ -239,10 +239,12 @@ class MotorradbekleidungNET extends ResultFields
             $fields[1][] = $imageMutator;
         }
 
-        foreach($itemDescriptionFields as $itemDescriptionField)
+		if (is_array($itemDescriptionFields) && count($itemDescriptionFields) > 0)
         {
-            //texts
-            $fields[0][] = $itemDescriptionField;
+            foreach($itemDescriptionFields as $itemDescriptionField)
+            {
+                $fields[0][] = $itemDescriptionField;
+            }
         }
 
         return $fields;
@@ -259,12 +261,15 @@ class MotorradbekleidungNET extends ResultFields
             //item
             'item.id',
             'item.manufacturer.id',
+			'item.conditionApi',			
 
             //variation
+			'id',
             'variation.availability.id',
             'variation.model',
             'variation.isMain',
 			'variation.weightG',
+			'variation.releasedAt',			
 			'variation.availableUntil',
 			'variation.updatedAt',
 
