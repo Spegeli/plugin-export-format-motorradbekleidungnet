@@ -6,6 +6,7 @@ use Plenty\Modules\Cloud\ElasticSearch\Lib\ElasticSearch;
 use Plenty\Modules\Cloud\ElasticSearch\Lib\Source\Mutator\BuiltIn\LanguageMutator;
 use Plenty\Modules\DataExchange\Contracts\ResultFields;
 use Plenty\Modules\DataExchange\Models\FormatSetting;
+use ElasticExport\DataProvider\ResultFieldDataProvider;
 use Plenty\Modules\Helper\Services\ArrayHelper;
 use Plenty\Modules\Item\Search\Mutators\SkuMutator;
 use Plenty\Modules\Item\Search\Mutators\KeyMutator;
@@ -61,32 +62,7 @@ class MotorradbekleidungNET extends ResultFields
         $reference = $settings->get('referrerId') ? $settings->get('referrerId') : $marketID;		
 		
 		$this->setOrderByList(['path' => 'variation.itemId', 'order' => ElasticSearch::SORTING_ORDER_ASC]);
-		
-        $itemDescriptionFields = ['texts.urlPath', 'texts.lang'];
-		
-        $itemDescriptionFields[] = ($settings->get('nameId')) ? 'texts.name' . $settings->get('nameId') : 'texts.name1';
 
-        if($settings->get('descriptionType') == 'itemShortDescription' || $settings->get('previewTextType') == 'itemShortDescription')
-        {
-            $itemDescriptionFields[] = 'texts.shortDescription';
-        }
-
-        if($settings->get('descriptionType') == 'itemDescription'
-            || $settings->get('descriptionType') == 'itemDescriptionAndTechnicalData'
-            || $settings->get('previewTextType') == 'itemDescription'
-            || $settings->get('previewTextType') == 'itemDescriptionAndTechnicalData')
-        {
-            $itemDescriptionFields[] = 'texts.description';
-        }
-		
-        if($settings->get('descriptionType') == 'technicalData'
-            || $settings->get('descriptionType') == 'itemDescriptionAndTechnicalData'
-            || $settings->get('previewTextType') == 'technicalData'
-            || $settings->get('previewTextType') == 'itemDescriptionAndTechnicalData')
-        {
-            $itemDescriptionFields[] = 'texts.technicalData';
-        }	
-		
         //Mutator
         /**
          * @var ImageMutator $imageMutator
@@ -140,110 +116,33 @@ class MotorradbekleidungNET extends ResultFields
             $barcodeMutator->addMarket($reference);
         }
 
-		// Fields
-        $fields = [
-            [
-                //item
-                'item.id',
-                'item.manufacturer.id',			
+		$resultFieldHelper = pluginApp(ResultFieldDataProvider::class);
+		if($resultFieldHelper instanceof ResultFieldDataProvider)
+		{
+			$resultFields = $resultFieldHelper->getResultFields($settings);
+		}
 
-                //variation
-                'id',
-                'variation.availability.id',
-                'variation.model',
-                'variation.isMain',
-				'variation.weightG',
-                'variation.releasedAt',				
-                'variation.availableUntil',
-				'variation.updatedAt',
-				
-                //images
-                'images.all.urlMiddle',
-                'images.all.urlPreview',
-                'images.all.urlSecondPreview',
-                'images.all.url',
-                'images.all.path',
-                'images.all.position',
+		if(isset($resultFields) && is_array($resultFields) && count($resultFields))
+		{
+			$fields[0] = $resultFields;
+			$fields[1] = [
+				$languageMutator,
+				$skuMutator,
+				$defaultCategoryMutator,
+				$barcodeMutator,
+				$keyMutator,
+			];
 
-                'images.item.urlMiddle',
-                'images.item.urlPreview',
-                'images.item.urlSecondPreview',
-                'images.item.url',
-                'images.item.path',
-                'images.item.position',
-
-                'images.variation.urlMiddle',
-                'images.variation.urlPreview',
-                'images.variation.urlSecondPreview',
-                'images.variation.url',
-                'images.variation.path',
-                'images.variation.position',
-				
-                //unit
-                'unit.content',
-                'unit.id',		
-				
-                //sku
-                'skus.sku',
-
-                //texts
-                'texts.urlPath',
-				'texts.lang',
-				'texts.name'.$settings->get('nameId'),
-				'texts.shortDescription',
-				'texts.description',	
-				'texts.technicalData',					
-				
-                //defaultCategories
-                'defaultCategories.id',
-
-                //allCategories
-                'ids.categories.all',				
-				
-                //barcodes
-                'barcodes.code',
-                'barcodes.type',	
-
-                //attributes
-                'attributes.attributeValueSetId',
-                'attributes.attributeId',
-                'attributes.valueId',
-				'attributes.names.name',
-				'attributes.names.lang',
-				
-                //proprieties
-                'properties.property.id',
-                'properties.property.valueType',
-                'properties.selection.name',
-				'properties.selection.lang',
-				'properties.texts.value',
-				'properties.texts.lang',
-				'properties.valueInt',
-				'properties.valueFloat',
-            ],
-            [
-			    //mutators
-                $keyMutator,
-                $languageMutator,
-                $skuMutator,
-                $defaultCategoryMutator,
-                $barcodeMutator,
-            ],
-        ];
-
-        // Get the associated images if reference is selected
-        if($reference != -1)
-        {
-            $fields[1][] = $imageMutator;
-        }
-
-		if (is_array($itemDescriptionFields) && count($itemDescriptionFields) > 0)
-        {
-            foreach($itemDescriptionFields as $itemDescriptionField)
-            {
-                $fields[0][] = $itemDescriptionField;
-            }
-        }
+			if($reference != -1)
+			{
+				$fields[1][] = $imageMutator;
+			}
+		}
+		else
+		{
+			$this->getLogger(__METHOD__)->critical('ElasticExportMotorradbekleidungNET::log.resultFieldError');
+			exit();
+		}
 
         return $fields;
     }
@@ -255,26 +154,24 @@ class MotorradbekleidungNET extends ResultFields
      */
     private function getKeyList()
     {
-		return [
+        $keyList = [
             //item
             'item.id',
-            'item.manufacturer.id',					
+            'item.manufacturer.id',
 
             //variation
             'variation.availability.id',
             'variation.model',
             'variation.isMain',
-			'variation.weightG',
-			'variation.releasedAt',			
 			'variation.availableUntil',
 			'variation.updatedAt',
 
             //unit
             'unit.content',
             'unit.id',
-			
-			'ids.categories.all',
-		];		
+        ];
+
+        return $keyList;
     }
 
     /**
@@ -284,95 +181,110 @@ class MotorradbekleidungNET extends ResultFields
      */
     private function getNestedKeyList()
     {
-		return [
-			'keys' => [
-				// Attributes
-				'attributes',
-				// Barcodes
-				'barcodes',
-				// Default categories
-				'defaultCategories',
-				// Images
-				'images.all',
-				'images.item',
-				'images.variation',
-				// Sku
-				'skus',
-				// Texts
-				'texts',
-				// Properties
-				'properties',				
-			],
-			'nestedKeys' => [
-				// Attributes
-				'attributes' => [
-					'attributeValueSetId',
-					'attributeId',
-					'valueId',
-					'names.name',
-					'names.lang'
-				],
-				// Barcodes
-				'barcodes' => [
-					'code',
-					'type'
-				],
-				// Default categories
-				'defaultCategories' => [
-					'id'
-				],
-				// Images
-				'images.all' => [
-					'urlMiddle',
-					'urlPreview',
-					'urlSecondPreview',
-					'url',
-					'path',
-					'position',
-				],
-				'images.item' => [
-					'urlMiddle',
-					'urlPreview',
-					'urlSecondPreview',
-					'url',
-					'path',
-					'position',
-				],
-				'images.variation' => [
-					'urlMiddle',
-					'urlPreview',
-					'urlSecondPreview',
-					'url',
-					'path',
-					'position',
-				],
-				// sku
-				'skus' => [
-					'sku'
-				],				
-				// texts
-				'texts' => [
-					'urlPath',
-					'name1',
-					'name2',
-					'name3',
-					'shortDescription',
-					'description',
-					'technicalData',
-					'lang'
-				],
-				// properties
-				'properties' => [
-					'property.id',
-					'property.valueType',
-					'selection.name',
-					'selection.lang',
-					'texts.value',
-					'texts.lang',
-					'valueInt',
-					'valueFloat'
-				],				
-			]
-		];	
+        $nestedKeyList['keys'] = [
+            //images
+            'images.all',
+            'images.item',
+            'images.variation',
+
+            //sku
+            'skus',
+
+            //texts
+            'texts',
+
+            //defaultCategories
+            'defaultCategories',
+
+            //barcodes
+            'barcodes',
+
+            //attributes
+            'attributes',
+
+            //properties
+            'properties',
+        ];
+
+        $nestedKeyList['nestedKeys'] = [
+            //images
+            'images.all' => [
+                'urlMiddle',
+                'urlPreview',
+                'urlSecondPreview',
+                'url',
+                'path',
+                'position',
+            ],
+
+            'images.item' => [
+                'urlMiddle',
+                'urlPreview',
+                'urlSecondPreview',
+                'url',
+                'path',
+                'position',
+            ],
+
+            'images.variation' => [
+                'urlMiddle',
+                'urlPreview',
+                'urlSecondPreview',
+                'url',
+                'path',
+                'position',
+            ],
+
+            //sku
+            'skus' => [
+                'sku',
+            ],
+
+            //texts
+            'texts' => [
+                'urlPath',
+                'lang',
+                'name1',
+                'name2',
+                'name3',
+                'shortDescription',
+                'description',
+                'technicalData',
+            ],
+
+            //defaultCategories
+            'defaultCategories' => [
+                'id',
+            ],
+
+            //barcodes
+            'barcodes' => [
+                'code',
+                'type',
+            ],
+
+            //attributes
+            'attributes' => [
+                'attributeValueSetId',
+                'attributeId',
+                'valueId',
+                'names.name',
+                'names.lang',
+            ],
+
+            //proprieties
+            'properties' => [
+                'property.id',
+                'property.valueType',
+                'selection.name',
+                'selection.lang',
+                'texts.value',
+                'texts.lang',
+                'valueInt',
+                'valueFloat',
+            ],
+        ];
+
+        return $nestedKeyList;
     }
 }
