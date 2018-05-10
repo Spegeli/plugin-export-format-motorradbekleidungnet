@@ -56,14 +56,16 @@ class MotorradbekleidungNET extends ResultFields
     public function generateResultFields(array $formatSettings = []):array
     {
         $settings = $this->arrayHelper->buildMapFromObjectList($formatSettings, 'key', 'value');
+
+		$marketID = (float)$this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_marketid');
+        $reference = $settings->get('referrerId') ? $settings->get('referrerId') : $marketID;		
+		
 		$this->setOrderByList([
-			'path' => 'item.id',
+			'path'  => 'item.id',
 			'order' => ElasticSearch::SORTING_ORDER_ASC]);
 		
-		$marketID = (float)$this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_marketid');
-        $reference = $settings->get('referrerId') ? $settings->get('referrerId') : $marketID;
-
         $itemDescriptionFields = ['texts.urlPath', 'texts.lang'];
+		
         $itemDescriptionFields[] = ($settings->get('nameId')) ? 'texts.name' . $settings->get('nameId') : 'texts.name1';
 
         if($settings->get('descriptionType') == 'itemShortDescription'
@@ -146,10 +148,7 @@ class MotorradbekleidungNET extends ResultFields
             [
                 //item
                 'item.id',
-                'item.manufacturer.id',
-				'item.manufacturer.name',
-				'item.manufacturer.externalName',
-                'item.conditionApi',				
+                'item.manufacturer.id',			
 
                 //variation
                 'id',
@@ -218,7 +217,6 @@ class MotorradbekleidungNET extends ResultFields
                 'properties.selection.name',
 				'properties.selection.lang',
 				'properties.texts.value',
-				'properties.texts.value',
 				'properties.texts.lang',
 				'properties.valueInt',
 				'properties.valueFloat',
@@ -260,8 +258,7 @@ class MotorradbekleidungNET extends ResultFields
         $keyList = [
             //item
             'item.id',
-            'item.manufacturer.id',
-			'item.conditionApi',			
+            'item.manufacturer.id',					
 
             //variation
 			'id',
