@@ -60,16 +60,13 @@ class MotorradbekleidungNET extends ResultFields
 		$marketID = (float)$this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.set_marketid');
         $reference = $settings->get('referrerId') ? $settings->get('referrerId') : $marketID;		
 		
-		$this->setOrderByList([
-			'path'  => 'item.id',
-			'order' => ElasticSearch::SORTING_ORDER_ASC]);
+		$this->setOrderByList(['path' => 'variation.itemId', 'order' => ElasticSearch::SORTING_ORDER_ASC]);
 		
         $itemDescriptionFields = ['texts.urlPath', 'texts.lang'];
 		
         $itemDescriptionFields[] = ($settings->get('nameId')) ? 'texts.name' . $settings->get('nameId') : 'texts.name1';
 
-        if($settings->get('descriptionType') == 'itemShortDescription'
-            || $settings->get('previewTextType') == 'itemShortDescription')
+        if($settings->get('descriptionType') == 'itemShortDescription' || $settings->get('previewTextType') == 'itemShortDescription')
         {
             $itemDescriptionFields[] = 'texts.shortDescription';
         }
@@ -200,6 +197,9 @@ class MotorradbekleidungNET extends ResultFields
                 //defaultCategories
                 'defaultCategories.id',
 
+                //allCategories
+                'ids.categories.all',				
+				
                 //barcodes
                 'barcodes.code',
                 'barcodes.type',	
@@ -255,7 +255,7 @@ class MotorradbekleidungNET extends ResultFields
      */
     private function getKeyList()
     {
-        $keyList = [
+		return [
             //item
             'item.id',
             'item.manufacturer.id',					
@@ -272,9 +272,9 @@ class MotorradbekleidungNET extends ResultFields
             //unit
             'unit.content',
             'unit.id',
-        ];
-
-        return $keyList;
+			
+			'ids.categories.all',
+		];		
     }
 
     /**
@@ -284,110 +284,95 @@ class MotorradbekleidungNET extends ResultFields
      */
     private function getNestedKeyList()
     {
-        $nestedKeyList['keys'] = [
-            //images
-            'images.all',
-            'images.item',
-            'images.variation',
-
-            //sku
-            'skus',
-
-            //texts
-            'texts',
-
-            //defaultCategories
-            'defaultCategories',
-
-            //barcodes
-            'barcodes',
-
-            //attributes
-            'attributes',
-
-            //properties
-            'properties',
-        ];
-
-        $nestedKeyList['nestedKeys'] = [
-            //images
-            'images.all' => [
-                'urlMiddle',
-                'urlPreview',
-                'urlSecondPreview',
-                'url',
-                'path',
-                'position',
-            ],
-
-            'images.item' => [
-                'urlMiddle',
-                'urlPreview',
-                'urlSecondPreview',
-                'url',
-                'path',
-                'position',
-            ],
-
-            'images.variation' => [
-                'urlMiddle',
-                'urlPreview',
-                'urlSecondPreview',
-                'url',
-                'path',
-                'position',
-            ],
-
-            //sku
-            'skus' => [
-                'sku',
-            ],
-
-            //texts
-            'texts' => [
-                'urlPath',
-                'lang',
-                'name1',
-                'name2',
-                'name3',
-                'shortDescription',
-                'description',
-                'technicalData',
-            ],
-
-            //defaultCategories
-            'defaultCategories' => [
-                'id',
-            ],
-
-            //barcodes
-            'barcodes' => [
-                'code',
-                'type',
-            ],
-
-            //attributes
-            'attributes' => [
-                'attributeValueSetId',
-                'attributeId',
-                'valueId',
-                'names.name',
-                'names.lang',
-            ],
-
-            //proprieties
-            'properties' => [
-                'property.id',
-                'property.valueType',
-                'selection.name',
-                'selection.lang',
-                'texts.value',
-                'texts.lang',
-                'valueInt',
-                'valueFloat',
-            ],
-        ];
-
-        return $nestedKeyList;
+		return [
+			'keys' => [
+				// Attributes
+				'attributes',
+				// Barcodes
+				'barcodes',
+				// Default categories
+				'defaultCategories',
+				// Images
+				'images.all',
+				'images.item',
+				'images.variation',
+				// Sku
+				'skus',
+				// Texts
+				'texts',
+				// Properties
+				'properties',				
+			],
+			'nestedKeys' => [
+				// Attributes
+				'attributes' => [
+					'attributeValueSetId',
+					'attributeId',
+					'valueId',
+					'names.name',
+					'names.lang'
+				],
+				// Barcodes
+				'barcodes' => [
+					'code',
+					'type'
+				],
+				// Default categories
+				'defaultCategories' => [
+					'id'
+				],
+				// Images
+				'images.all' => [
+					'urlMiddle',
+					'urlPreview',
+					'urlSecondPreview',
+					'url',
+					'path',
+					'position',
+				],
+				'images.item' => [
+					'urlMiddle',
+					'urlPreview',
+					'urlSecondPreview',
+					'url',
+					'path',
+					'position',
+				],
+				'images.variation' => [
+					'urlMiddle',
+					'urlPreview',
+					'urlSecondPreview',
+					'url',
+					'path',
+					'position',
+				],
+				// sku
+				'skus' => [
+					'sku'
+				],				
+				// texts
+				'texts' => [
+					'urlPath',
+					'name1',
+					'name2',
+					'name3',
+					'shortDescription',
+					'description',
+					'technicalData',
+					'lang'
+				],
+				// properties
+				'properties' => [
+					'property.id',
+					'property.valueType',
+					'selection.name',
+					'selection.lang',
+					'texts.value',
+					'texts.lang',
+					'valueInt',
+					'valueFloat'
+				],				
+			]
+		];	
     }
 }
