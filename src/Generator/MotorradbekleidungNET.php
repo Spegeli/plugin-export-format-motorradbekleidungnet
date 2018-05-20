@@ -3,6 +3,7 @@
 namespace ElasticExportMotorradbekleidungNET\Generator;
 
 use ElasticExport\Helper\ElasticExportCoreHelper;
+use ElasticExport\Helper\ElasticExportItemHelper;
 use ElasticExport\Helper\ElasticExportPriceHelper;
 use ElasticExport\Helper\ElasticExportStockHelper;
 use ElasticExport\Helper\ElasticExportPropertyHelper;
@@ -43,6 +44,16 @@ class MotorradbekleidungNET extends CSVPluginGenerator
      */
     private $elasticExportPriceHelper;
 
+	/**
+	 * @var ElasticExportItemHelper $elasticExportItemHelper
+	 */
+	private $elasticExportItemHelper;
+	
+    /**
+     * @var ElasticExportPropertyHelper
+     */
+    private $elasticExportPropertyHelper;	
+	
     /**
      * @var ArrayHelper
      */
@@ -58,11 +69,6 @@ class MotorradbekleidungNET extends CSVPluginGenerator
      */
     private $attributeHelper;
 	
-    /**
-     * @var ElasticExportPropertyHelper
-     */
-    private $elasticExportPropertyHelper;
-
     /**
      * @var array
      */
@@ -116,10 +122,11 @@ class MotorradbekleidungNET extends CSVPluginGenerator
     protected function generatePluginContent($elasticSearch, array $formatSettings = [], array $filter = [])
     {
         $this->elasticExportHelper = pluginApp(ElasticExportCoreHelper::class);
+		$this->elasticExportItemHelper = pluginApp(ElasticExportItemHelper::class);
         $this->elasticExportStockHelper = pluginApp(ElasticExportStockHelper::class);
         $this->elasticExportPriceHelper = pluginApp(ElasticExportPriceHelper::class);
         $this->elasticExportPropertyHelper = pluginApp(ElasticExportPropertyHelper::class);
-        
+		
         $settings = $this->arrayHelper->buildMapFromObjectList($formatSettings, 'key', 'value');
         $this->filtrationService = pluginApp(FiltrationService::class, ['settings' => $settings, 'filterSettings' => $filter]);
         
