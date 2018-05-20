@@ -276,26 +276,26 @@
             "formFields": {
                 "settings.availability.1": {
                     "type": "selectBox",
-                    "required": true,
+                    "required": false,
                     "label": "Verfügbarkeit 1",
                     "options": {
 						"tooltip": "Tooltip Text",	
-                        "defaultValue": "",
+                        "defaultValue": "0",
                         "selectBoxValues": [
                             {
-                                "value": "",
+                                "value": "0",
                                 "caption": "--- Bitte Auswählen ---"
                             },						
                             {
-                                "value": "0",
+                                "value": "auf Lager",
                                 "caption": "auf Lager"
                             },
                             {
-                                "value": "1",
+                                "value": "nachbestellt",
                                 "caption": "nachbestellt"
                             },
                             {
-                                "value": "2",
+                                "value": "nicht lieferbar",
                                 "caption": "nicht lieferbar"
                             }							
                         ]
@@ -303,26 +303,26 @@
                 },
                 "settings.availability.2": {
                     "type": "selectBox",
-                    "required": true,
+                    "required": false,
                     "label": "Verfügbarkeit 2",
                     "options": {
 						"tooltip": "Tooltip Text",	
-                        "defaultValue": "",
+                        "defaultValue": "0",
                         "selectBoxValues": [
                             {
-                                "value": "",
+                                "value": "0",
                                 "caption": "--- Bitte Auswählen ---"
                             },						
                             {
-                                "value": "0",
+                                "value": "auf Lager",
                                 "caption": "auf Lager"
                             },
                             {
-                                "value": "1",
+                                "value": "nachbestellt",
                                 "caption": "nachbestellt"
                             },
                             {
-                                "value": "2",
+                                "value": "nicht lieferbar",
                                 "caption": "nicht lieferbar"
                             }							
                         ]
@@ -330,26 +330,26 @@
                 },	
                 "settings.availability.3": {
                     "type": "selectBox",
-                    "required": true,
+                    "required": false,
                     "label": "Verfügbarkeit 3",
                     "options": {
 						"tooltip": "Tooltip Text",	
-                        "defaultValue": "",
+                        "defaultValue": "0",
                         "selectBoxValues": [
                             {
-                                "value": "",
+                                "value": "0",
                                 "caption": "--- Bitte Auswählen ---"
                             },						
                             {
-                                "value": "0",
+                                "value": "auf Lager",
                                 "caption": "auf Lager"
                             },
                             {
-                                "value": "1",
+                                "value": "nachbestellt",
                                 "caption": "nachbestellt"
                             },
                             {
-                                "value": "2",
+                                "value": "nicht lieferbar",
                                 "caption": "nicht lieferbar"
                             }							
                         ]
@@ -357,26 +357,26 @@
                 },	
                 "settings.availability.4": {
                     "type": "selectBox",
-                    "required": true,
+                    "required": false,
                     "label": "Verfügbarkeit 4",
                     "options": {
 						"tooltip": "Tooltip Text",	
-                        "defaultValue": "",
+                        "defaultValue": "0",
                         "selectBoxValues": [
                             {
-                                "value": "",
+                                "value": "0",
                                 "caption": "--- Bitte Auswählen ---"
                             },						
                             {
-                                "value": "0",
+                                "value": "auf Lager",
                                 "caption": "auf Lager"
                             },
                             {
-                                "value": "1",
+                                "value": "nachbestellt",
                                 "caption": "nachbestellt"
                             },
                             {
-                                "value": "2",
+                                "value": "nicht lieferbar",
                                 "caption": "nicht lieferbar"
                             }							
                         ]
@@ -384,26 +384,26 @@
                 },	
                 "settings.availability.5": {
                     "type": "selectBox",
-                    "required": true,
+                    "required": false,
                     "label": "Verfügbarkeit 5",
                     "options": {
 						"tooltip": "Tooltip Text",	
-                        "defaultValue": "",
+                        "defaultValue": "0",
                         "selectBoxValues": [
                             {
-                                "value": "",
+                                "value": "0",
                                 "caption": "--- Bitte Auswählen ---"
                             },						
                             {
-                                "value": "0",
+                                "value": "auf Lager",
                                 "caption": "auf Lager"
                             },
                             {
-                                "value": "1",
+                                "value": "nachbestellt",
                                 "caption": "nachbestellt"
                             },
                             {
-                                "value": "2",
+                                "value": "nicht lieferbar",
                                 "caption": "nicht lieferbar"
                             }							
                         ]
@@ -411,26 +411,26 @@
                 },
                 "settings.availability.6": {
                     "type": "selectBox",
-                    "required": true,
+                    "required": false,
                     "label": "Verfügbarkeit 6",
                     "options": {
 						"tooltip": "Tooltip Text",	
-                        "defaultValue": "",
+                        "defaultValue": "0",
                         "selectBoxValues": [
                             {
-                                "value": "",
+                                "value": "0",
                                 "caption": "--- Bitte Auswählen ---"
                             },						
                             {
-                                "value": "0",
+                                "value": "auf Lager",
                                 "caption": "auf Lager"
                             },
                             {
-                                "value": "1",
+                                "value": "nachbestellt",
                                 "caption": "nachbestellt"
                             },
                             {
-                                "value": "2",
+                                "value": "nicht lieferbar",
                                 "caption": "nicht lieferbar"
                             }							
                         ]
@@ -438,26 +438,26 @@
                 },	
                 "settings.availability.7": {
                     "type": "selectBox",
-                    "required": true,
+                    "required": false,
                     "label": "Verfügbarkeit 7",
                     "options": {
 						"tooltip": "Tooltip Text",	
-                        "defaultValue": "",
+                        "defaultValue": "0",
                         "selectBoxValues": [
                             {
-                                "value": "",
+                                "value": "0",
                                 "caption": "--- Bitte Auswählen ---"
                             },						
                             {
-                                "value": "0",
+                                "value": "auf Lager",
                                 "caption": "auf Lager"
                             },
                             {
-                                "value": "1",
+                                "value": "nachbestellt",
                                 "caption": "nachbestellt"
                             },
                             {
-                                "value": "2",
+                                "value": "nicht lieferbar",
                                 "caption": "nicht lieferbar"
                             }							
                         ]
@@ -465,26 +465,26 @@
                 },
                 "settings.availability.8": {
                     "type": "selectBox",
-                    "required": true,
+                    "required": false,
                     "label": "Verfügbarkeit 8",
                     "options": {
 						"tooltip": "Tooltip Text",	
-                        "defaultValue": "",
+                        "defaultValue": "0",
                         "selectBoxValues": [
                             {
-                                "value": "",
+                                "value": "0",
                                 "caption": "--- Bitte Auswählen ---"
                             },						
                             {
-                                "value": "0",
+                                "value": "auf Lager",
                                 "caption": "auf Lager"
                             },
                             {
-                                "value": "1",
+                                "value": "nachbestellt",
                                 "caption": "nachbestellt"
                             },
                             {
-                                "value": "2",
+                                "value": "nicht lieferbar",
                                 "caption": "nicht lieferbar"
                             }							
                         ]
@@ -492,26 +492,26 @@
                 },
                 "settings.availability.9": {
                     "type": "selectBox",
-                    "required": true,
+                    "required": false,
                     "label": "Verfügbarkeit 9",
                     "options": {
 						"tooltip": "Tooltip Text",	
-                        "defaultValue": "",
+                        "defaultValue": "0",
                         "selectBoxValues": [
                             {
-                                "value": "",
+                                "value": "0",
                                 "caption": "--- Bitte Auswählen ---"
                             },						
                             {
-                                "value": "0",
+                                "value": "auf Lager",
                                 "caption": "auf Lager"
                             },
                             {
-                                "value": "1",
+                                "value": "nachbestellt",
                                 "caption": "nachbestellt"
                             },
                             {
-                                "value": "2",
+                                "value": "nicht lieferbar",
                                 "caption": "nicht lieferbar"
                             }							
                         ]
@@ -519,26 +519,26 @@
                 },
                 "settings.availability.10": {
                     "type": "selectBox",
-                    "required": true,
+                    "required": false,
                     "label": "Verfügbarkeit 10",
                     "options": {
 						"tooltip": "Tooltip Text",	
-                        "defaultValue": "",
+                        "defaultValue": "0",
                         "selectBoxValues": [
                             {
-                                "value": "",
+                                "value": "0",
                                 "caption": "--- Bitte Auswählen ---"
                             },						
                             {
-                                "value": "0",
+                                "value": "auf Lager",
                                 "caption": "auf Lager"
                             },
                             {
-                                "value": "1",
+                                "value": "nachbestellt",
                                 "caption": "nachbestellt"
                             },
                             {
-                                "value": "2",
+                                "value": "nicht lieferbar",
                                 "caption": "nicht lieferbar"
                             }							
                         ]
