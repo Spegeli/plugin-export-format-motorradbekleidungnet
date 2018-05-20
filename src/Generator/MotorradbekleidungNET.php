@@ -85,6 +85,11 @@ class MotorradbekleidungNET extends CSVPluginGenerator
     private $imageCache;
 
     /**
+     * @var array
+     */
+    private $availabilityCache;		
+	
+    /**
      * @var FiltrationService
      */
     private $filtrationService;
@@ -137,6 +142,8 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 
         // Add the header of the CSV file
         $this->addCSVContent($this->head());
+		
+		$this->createAvailabilityCache();
 
         if($elasticSearch instanceof VariationElasticSearchScrollRepositoryContract)
         {
@@ -343,7 +350,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 			    'date_changed'       => $variation['data']['variation']['updatedAt'],
 			    'date_valid_from'    => $variation['data']['variation']['releasedAt'],
 		    	'date_valid_to'      => $variation['data']['variation']['availableUntil'],
-		    	'availability'       => $this->elasticExportHelper->getAvailability($variation, $settings, false), //Evl. andere Bezeichung
+		    	'availability'       => $this->getAvailability($variation),
 		    	'delivery_period'    => $this->elasticExportHelper->getAvailability($variation, $settings, false),
                 'offered_amount'     => $this->elasticExportStockHelper->getStock($variation),			
 		    	'weight'             => number_format($variation['data']['variation']['weightG'] / 1000, 2),
@@ -632,7 +639,7 @@ class MotorradbekleidungNET extends CSVPluginGenerator
 
         return '';
     }
-
+	
     /**
      * Get the manufacturer name.
      *
@@ -647,6 +654,37 @@ class MotorradbekleidungNET extends CSVPluginGenerator
         }
         return '';
     }	
+	
+    /**
+     * Get the availability.
+     *
+     * @param $variation
+     * @return string
+     */
+    private function getAvailability($variation):string
+    {
+		if(!isset($this->availabilityCache) || (isset($this->availabilityCache) && !array_key_exists($variation['data']['variation']['availability']['id'], $this->availabilityCache)))
+		{
+			$this->createAvailabilityCache();
+		}
+        if(isset($this->availabilityCache) && array_key_exists($variation['data']['variation']['availability']['id'], $this->availabilityCache))
+        {
+            return $this->availabilityCache[$variation['data']['variation']['availability']['id']];
+        }
+        return '';		
+    }		
+
+    /**
+     * Build the cache arrays for the custome availability.
+     *
+     * @param $variation
+     */
+    private function createAvailabilityCache()
+    {	
+		for ($i = 1; $i <= 10; $i++) {
+			$this->availabilityCache[$i] = $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.availability.'.$i) != "0" ? $this->configRepository->get('ElasticExportMotorradbekleidungNET.settings.availability.'.$i) : '';
+		}
+	}
 	
     /**
      * Build the cache arrays for the item variation.
@@ -672,4 +710,3 @@ class MotorradbekleidungNET extends CSVPluginGenerator
         }
     }
 }
-
